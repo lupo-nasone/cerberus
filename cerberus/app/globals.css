@@ -36,6 +36,7 @@ body{
 .nav{display:flex;gap:18px;align-items:center}
 .nav a{color:var(--muted);text-decoration:none}
 .nav .cta{padding:8px 12px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);color:var(--fg)}
+.nav .cta{padding:8px 12px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);color:var(--fg)}
 
 /* Hero */
 .hero{padding:64px 0;display:flex;align-items:center;gap:40px}
@@ -48,7 +49,7 @@ body{
 .btn-primary:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(17,96,166,0.14)}
 .btn-ghost{background:transparent;border:1px solid var(--card-border);color:var(--fg)}
 
-.hero .right{width:420px;max-width:40%}
+.hero .right{width:100%;max-width:420px}
 .card{background:white;border:1px solid var(--card-border);border-radius:12px;padding:20px;box-shadow:0 6px 18px rgba(16,24,40,0.04);transition:transform .18s,box-shadow .18s}
 .card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(16,24,40,0.08)}
 
@@ -59,6 +60,25 @@ body{
 .service-card .icon{width:48px;height:48px;border-radius:10px;background:#f3f6fb;display:flex;align-items:center;justify-content:center;color:var(--brand-700);font-weight:700}
 .service-card h4{margin:8px 0 6px}
 .service-card p{color:var(--muted);margin:0}
+
+/* Make images / svgs / media scale to their container to avoid overflow */
+img, picture, video, svg {
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+
+/* Ensure cards and textual content wrap instead of forcing horizontal scroll */
+.card, .service-card, .quote {
+  max-width:100%;
+  overflow-wrap:break-word;
+}
+
+/* Small improvement: container should never exceed 100% width */
+.container {
+  width:100%;
+  max-width:1200px;
+}
 
 /* Testimonials */
 .testimonials{padding:40px 0}
@@ -79,6 +99,21 @@ body{
   .hero{flex-direction:column}
   .hero .right{max-width:100%;width:100%}
   .site-header .wrap{height:56px}
+}
+
+
+/* Improved responsive behaviour for header/nav and hero on small screens: keep all buttons visible in header */
+@media (max-width:640px){
+  .site-header .wrap{height:56px;padding-left:12px;padding-right:12px;display:flex;flex-wrap:wrap;align-items:center}
+  .nav{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+
+  .hero h1{font-size:22px}
+  .hero p{font-size:15px}
+  .hero{padding:36px 0;gap:18px}
+  .hero .ctas{flex-direction:column;align-items:flex-start}
+  .hero .ctas .btn{width:100%}
+
+  .site-footer .foot-wrap{flex-direction:column;align-items:flex-start}
 }
 
 /* Extra safety: ensure a minimum side padding on very small screens (phones)
