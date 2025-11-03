@@ -29,8 +29,8 @@ body{
 .grid.cols-2{grid-template-columns:repeat(2,1fr)}
 
 /* Header */
-.site-header{position:sticky;top:0;background:rgba(255,255,255,0.82);backdrop-filter:blur(6px);border-bottom:1px solid rgba(0,0,0,0.04);z-index:40}
-.site-header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.site-header{position:sticky;top:0;margin-top:0;background:rgba(255,255,255,0.82);backdrop-filter:blur(6px);border-bottom:1px solid rgba(0,0,0,0.04);z-index:40;padding:8px 12px}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;min-height:64px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--fg)}
 .brand .logo{width:40px;height:40px;border-radius:50%;background:var(--brand-700);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
 .nav{display:flex;gap:18px;align-items:center}
@@ -83,6 +83,12 @@ img, picture, video, svg {
   padding-right:calc(20px + env(safe-area-inset-right));
 }
 
+/* Base vertical spacing for main content so it doesn't touch the header/top edge */
+main {
+  padding-top: calc(20px + env(safe-area-inset-top));
+  padding-bottom: 20px;
+}
+
 /* Testimonials */
 .testimonials{padding:40px 0}
 .test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
@@ -107,8 +113,30 @@ img, picture, video, svg {
 
 /* Improved responsive behaviour for header/nav and hero on small screens: keep all buttons visible in header */
 @media (max-width:640px){
-  .site-header .wrap{height:56px;padding-left:12px;padding-right:12px;display:flex;flex-wrap:wrap;align-items:center}
-  .nav{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+  /* Stack header items on small screens to avoid nav overflow */
+  .site-header .wrap{
+    height:auto;
+    padding-left:12px;
+    padding-right:12px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+  }
+
+  .brand{width:100%;display:flex;align-items:center;justify-content:flex-start;gap:10px}
+
+  .nav{
+    display:flex;
+    width:100%;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:flex-start;
+  }
+
+  .nav a{padding:6px 8px;font-size:15px}
+  .nav .cta{padding:6px 10px}
 
   .hero h1{font-size:22px}
   .hero p{font-size:15px}
@@ -124,5 +152,26 @@ img, picture, video, svg {
 @media (max-width:480px) {
   .container{padding-left:calc(18px + env(safe-area-inset-left));padding-right:calc(18px + env(safe-area-inset-right));}
   .hero{padding-left:8px;padding-right:8px}
+}
+
+@media (max-width:640px) {
+  main { padding-top: calc(14px + env(safe-area-inset-top)); padding-bottom: 14px; }
+}
+
+/* Contact page layout */
+.contact-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
+.contact-form{display:grid;gap:12px}
+.form-field{display:block}
+.form-field label{display:block;font-weight:600;margin-bottom:6px}
+.form-control{width:100%;padding:10px;border-radius:8px;border:1px solid var(--card-border);background:white}
+.form-control:focus{outline:2px solid rgba(17,96,166,0.12);box-shadow:0 6px 18px rgba(17,96,166,0.06)}
+
+.contact-aside .card{padding:16px}
+
+@media (max-width:900px){
+  .contact-grid{grid-template-columns:1fr}
+  .contact-aside{order:2}
+  .contact-form{order:1}
+  .btn{width:100%}
 }
 
