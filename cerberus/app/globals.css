@@ -19,6 +19,36 @@
   --gradient-soft: linear-gradient(180deg, rgba(30,144,255,0.06), rgba(17,96,166,0.02));
   --gradient-cta: linear-gradient(90deg,var(--brand-700),#2db0ff 60%);
 }
+/* surface colors and header/footer backgrounds (light theme) */
+:root {
+  --surface: #ffffff;
+  --header-bg: rgba(255,255,255,0.82);
+  --footer-bg: linear-gradient(180deg, #fbfbfd, #f7f9fc);
+}
+
+/* Dark theme variables (apply with [data-theme="dark"]) */
+[data-theme="dark"]{
+  --bg: #07111a;
+  --fg: #e6f0fa;
+  --muted: #9aa6b2;
+  --muted-2: #7f8b98;
+  --brand-900: #071832;
+  --brand-700: #0d4b7a;
+  --brand-500: #1e90ff;
+  --brand-300: #2b6ea8;
+  --accent: #f59e0b;
+  --accent-600: #f3a712;
+  --card-border: rgba(255,255,255,0.04);
+  /* dark theme surfaces */
+  --surface: #071923;
+  --header-bg: rgba(7,25,35,0.6);
+  --footer-bg: linear-gradient(180deg, rgba(9,34,58,0.35), rgba(7,17,26,0.5));
+}
+
+/* General elements adapt to theme */
+body{background:var(--bg);color:var(--fg)}
+.site-header{background:color-mix(in srgb, var(--bg) 60%, rgba(255,255,255,0.04))}
+.card{background:color-mix(in srgb, var(--bg) 90%, white)}
 
 *{box-sizing:border-box}
 html,body,#__next{height:100%}
@@ -38,7 +68,7 @@ body{
 .grid.cols-2{grid-template-columns:repeat(2,1fr)}
 
 /* Header */
-.site-header{position:sticky;top:0;margin-top:0;background:rgba(255,255,255,0.82);backdrop-filter:blur(6px);border-bottom:1px solid rgba(0,0,0,0.04);z-index:40;padding:8px 12px}
+.site-header{position:sticky;top:0;margin-top:0;background:var(--header-bg);backdrop-filter:blur(6px);border-bottom:1px solid var(--card-border);z-index:40;padding:8px 12px}
 .site-header .wrap{display:flex;align-items:center;justify-content:space-between;min-height:64px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--fg)}
 .brand .logo{width:44px;height:44px;border-radius:10px;background:var(--brand-700);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;box-shadow:0 6px 18px rgba(15,96,166,0.12)}
@@ -61,7 +91,7 @@ body{
 .btn-ghost{background:transparent;border:1px solid var(--brand-300);color:var(--brand-700)}
 
 .hero .right{width:100%;max-width:420px}
-.card{background:white;border:1px solid var(--card-border);border-radius:12px;padding:20px;box-shadow:0 6px 18px rgba(16,24,40,0.04);transition:transform .18s,box-shadow .18s;position:relative}
+.card{background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:20px;box-shadow:0 6px 18px rgba(16,24,40,0.04);transition:transform .18s,box-shadow .18s;position:relative}
 .card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(16,24,40,0.08)}
 /* subtle left accent for cards */
 .card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:6px;border-top-left-radius:12px;border-bottom-left-radius:12px;background:linear-gradient(180deg,var(--brand-500),var(--brand-700));}
@@ -70,7 +100,7 @@ body{
 .hero-visual{position:relative;border-radius:12px}
 .hero-visual .visual-bg{height:220px;border-radius:12px;background:linear-gradient(180deg,rgba(30,144,255,0.06),rgba(17,96,166,0.03));background-size:cover;background-position:center;filter:contrast(.98) saturate(.9)}
 .hero-visual .card{position:relative;margin-top:-60px}
-.hero-visual .visual-bg::after{content:'';position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,0.9));border-bottom-left-radius:12px;border-bottom-right-radius:12px}
+.hero-visual .visual-bg::after{content:'';position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(180deg,rgba(0,0,0,0),var(--bg));border-bottom-left-radius:12px;border-bottom-right-radius:12px}
 
 /* service card media */
 .service-media{height:120px;border-radius:8px;margin:-6px -6px 12px -6px;background-size:cover;background-position:center}
@@ -78,7 +108,7 @@ body{
 /* Services */
 .services{padding:48px 0}
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
-.service-card{background:white;border:1px solid var(--card-border);padding:20px;border-radius:10px}
+.service-card{background:var(--surface);border:1px solid var(--card-border);padding:20px;border-radius:10px}
 .service-card .icon{width:48px;height:48px;border-radius:10px;background:var(--brand-300);display:flex;align-items:center;justify-content:center;color:var(--brand-700);font-weight:700}
 .service-card h4{margin:8px 0 6px}
 .service-card p{color:var(--muted);margin:0}
@@ -114,11 +144,11 @@ main {
 /* Testimonials */
 .testimonials{padding:40px 0}
 .test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
-.quote{background:white;padding:18px;border-radius:10px;border:1px solid var(--card-border)}
+.quote{background:var(--surface);padding:18px;border-radius:10px;border:1px solid var(--card-border)}
 .quote cite{display:block;margin-top:12px;font-weight:600}
 
 /* Footer */
-.site-footer{background:linear-gradient(180deg, rgba(30,144,255,0.03), rgba(17,96,166,0.02));padding:40px 0;margin-top:40px}
+.site-footer{background:var(--footer-bg);padding:40px 0;margin-top:40px}
 .site-footer .foot-wrap{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
 .site-footer p{color:var(--muted);margin:6px 0}
 .site-footer h4, .site-footer h5 { color: var(--brand-700); }
@@ -186,7 +216,7 @@ main {
 .contact-form{display:grid;gap:12px}
 .form-field{display:block}
 .form-field label{display:block;font-weight:600;margin-bottom:6px}
-.form-control{width:100%;padding:10px;border-radius:8px;border:1px solid var(--card-border);background:white}
+.form-control{width:100%;padding:10px;border-radius:8px;border:1px solid var(--card-border);background:var(--surface);color:var(--fg)}
 .form-control:focus{outline:2px solid rgba(17,96,166,0.12);box-shadow:0 6px 18px rgba(17,96,166,0.06)}
 
 .contact-aside .card{padding:16px}
