@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1">
+      <stop offset="0%" stop-color="#0f5ea0" />
+      <stop offset="100%" stop-color="#1e90ff" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="640" fill="url(#g1)" />
+  <g fill="rgba(255,255,255,0.12)">
+    <circle cx="220" cy="120" r="80" />
+    <circle cx="420" cy="320" r="120" />
+    <circle cx="920" cy="220" r="100" />
+  </g>
+  <text x="60" y="520" font-family="Inter, Arial" font-size="48" fill="rgba(255,255,255,0.9)">Immagine decorativa — Hero</text>
+</svg>

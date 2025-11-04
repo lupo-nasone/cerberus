@@ -27,26 +27,31 @@ export default function ServiziPage() {
             <ServiceCard
               title="Scadenziario e verifiche"
               desc="Pianificazione completa delle verifiche periodiche, promemoria e gestione scadenze per referenti aziendali."
+              image="https://source.unsplash.com/600x360/?calendar,planning"
             />
 
             <ServiceCard
               title="Assistenza ispettiva"
               desc="Supporto operativo durante le ispezioni, preparazione documentale e gestione comunicazioni con gli enti."
+              image="https://source.unsplash.com/600x360/?inspection,inspection-team"
             />
 
             <ServiceCard
               title="Consulenza normativa"
               desc="Analisi tecnica e suggerimenti per adeguamento alla normativa vigente, con report e piani di intervento."
+              image="https://source.unsplash.com/600x360/?consulting,documents"
             />
 
             <ServiceCard
               title="Formazione e aggiornamenti"
               desc="Corsi personalizzati per il personale e aggiornamenti periodici su cambi normativi rilevanti."
+              image="https://source.unsplash.com/600x360/?training,classroom"
             />
 
             <ServiceCard
               title="Supporto pratiche INAIL/ISP"
               desc="Gestione pratiche e comunicazioni verso gli enti competenti per semplificare gli adempimenti."
+              image="https://source.unsplash.com/600x360/?documents,office"
             />
           </div>
         </section>

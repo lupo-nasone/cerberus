@@ -18,11 +18,23 @@ export default function Hero() {
       </div>
 
       <div className="right">
-        <div className="card">
-          <h3>Garanzia Scudo Cerberus</h3>
-          <p>Include: scadenziario, assistenza INAIL, supporto pratiche e consulenza dedicata.</p>
-          <div style={{marginTop:12}}>
-            <Link href="/landing/zero-rischi" className="btn" style={{background:'var(--accent)',color:'#fff',borderRadius:8,padding:'8px 12px',display:'inline-block'}}>Richiedi info</Link>
+        {/* Visual slot: decorative background or image. Using the example placeholder in public/images/hero.svg */}
+        <div className="hero-visual">
+          {/* Use a real photo from Unsplash (dynamically returned image) */}
+          <div
+            className="visual-bg"
+            style={{
+              backgroundImage:
+                "url('https://source.unsplash.com/1200x640/?office,team,meeting')",
+            }}
+          />
+
+          <div className="card">
+            <h3>Garanzia Scudo Cerberus</h3>
+            <p>Include: scadenziario, assistenza INAIL, supporto pratiche e consulenza dedicata.</p>
+            <div style={{marginTop:12}}>
+              <Link href="/landing/zero-rischi" className="btn" style={{background:'var(--accent)',color:'#fff',borderRadius:8,padding:'8px 12px',display:'inline-block'}}>Richiedi info</Link>
+            </div>
           </div>
         </div>
       </div>
