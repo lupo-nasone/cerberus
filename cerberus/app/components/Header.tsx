@@ -6,6 +6,11 @@ import { useEffect, useState } from "react";
 export default function Header() {
   const [theme, setTheme] = useState<string | null>(null);
 
+  // Note: removed runtime color-extraction to keep the theme strictly
+  // controlled by the CSS variables defined in `globals.css`. This avoids
+  // accidental overrides of the dark theme. If you want dynamic extraction
+  // later, we can reintroduce it but it will only set secondary variables.
+
   useEffect(() => {
     try {
       const t = localStorage.getItem("theme") || document.documentElement.getAttribute("data-theme") || "dark";
@@ -28,7 +33,9 @@ export default function Header() {
     <header className="site-header">
       <div className="wrap container">
         <Link href="/" className="brand">
-          <div className="logo">C</div>
+          <div className="logo">
+            <img src="/images/logo.jpg" alt="Cerberus" width={44} height={44} />
+          </div>
           <span className="brand-name">Cerberus</span>
         </Link>
 

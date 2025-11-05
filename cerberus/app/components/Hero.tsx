@@ -33,7 +33,7 @@ export default function Hero() {
             <h3>Garanzia Scudo Cerberus</h3>
             <p>Include: scadenziario, assistenza INAIL, supporto pratiche e consulenza dedicata.</p>
             <div style={{marginTop:12}}>
-              <Link href="/landing/zero-rischi" className="btn" style={{background:'var(--accent)',color:'#fff',borderRadius:8,padding:'8px 12px',display:'inline-block'}}>Richiedi info</Link>
+              <Link href="/landing/zero-rischi" className="btn" style={{background:'var(--accent)',color:'var(--btn-text)',borderRadius:8,padding:'8px 12px',display:'inline-block'}}>Richiedi info</Link>
             </div>
           </div>
         </div>
