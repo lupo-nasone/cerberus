@@ -33,9 +33,7 @@ export default function Header() {
     <header className="site-header">
       <div className="wrap container">
         <Link href="/" className="brand">
-          <div className="logo">
-            <img src="/images/logo.jpg" alt="Cerberus" width={44} height={44} />
-          </div>
+          <img className="brand-logo" src="/images/logo.png" alt="Cerberus" width={64} height={64} />
           <span className="brand-name">Cerberus</span>
         </Link>
 

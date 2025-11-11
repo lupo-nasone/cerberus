@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Mappa sede Cerberus</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-sA+e2GQp3k6k9gXk2g0u4gk0uG6gkK4m1G6Y9g8gXgI="
+      crossorigin=""
+    />
+    <style>
+      html,body,#map { height:100%; margin:0; padding:0; }
+      #map { position: absolute; inset:0; }
+      .leaflet-control-attribution { font-size:11px }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      (function(){
+  // Coordinates for Via Alcide De Gasperi, 77/B - Prato (43°52'13.4"N 11°07'05.2"E)
+  const LAT = 43.8703889;
+  const LNG = 11.1181111;
+
+        // Tile providers
+        const LIGHT = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        const DARK = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png';
+
+        const map = L.map('map', { zoomControl: true, attributionControl: true }).setView([LAT, LNG], 15);
+
+        let currentLayer;
+        function setLayerForTheme(theme){
+          const url = theme === 'dark' ? DARK : LIGHT;
+          if(currentLayer) map.removeLayer(currentLayer);
+          currentLayer = L.tileLayer(url, { maxZoom: 19 }).addTo(map);
+        }
+
+        // initial theme detection (try parent document if same-origin)
+        let theme = 'light';
+        try{
+          const p = window.parent && window.parent.document && window.parent.document.documentElement;
+          if(p){ theme = p.getAttribute('data-theme') || 'light'; }
+        }catch(e){
+          // cross-origin or not available
+          if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) theme = 'dark';
+        }
+
+        setLayerForTheme(theme);
+
+        // Marker
+        const marker = L.marker([LAT, LNG]).addTo(map).bindPopup('Cerberus - Sede');
+
+        // Poll parent theme for changes (same-origin expected). If parent sends postMessage on theme change it will pick up too.
+        let lastTheme = theme;
+        setInterval(()=>{
+          try{
+            const p = window.parent && window.parent.document && window.parent.document.documentElement;
+            const t = p ? (p.getAttribute('data-theme') || 'light') : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if(t !== lastTheme){ lastTheme = t; setLayerForTheme(t); }
+          }catch(e){ /* ignore */ }
+        }, 1000);
+
+      })();
+    </script>
+  </body>
+</html>
