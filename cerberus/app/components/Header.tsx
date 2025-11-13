@@ -1,59 +1,38 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useLocale } from "../lib/LanguageProvider";
 
 export default function Header() {
-  const [theme, setTheme] = useState<string | null>(null);
-
-  // Note: removed runtime color-extraction to keep the theme strictly
-  // controlled by the CSS variables defined in `globals.css`. This avoids
-  // accidental overrides of the dark theme. If you want dynamic extraction
-  // later, we can reintroduce it but it will only set secondary variables.
-
-  useEffect(() => {
-    try {
-      const t = localStorage.getItem("theme") || document.documentElement.getAttribute("data-theme") || "dark";
-      setTheme(t);
-    } catch (e) {
-      setTheme("dark");
-    }
-  }, []);
-
-  function toggleTheme() {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    try {
-      localStorage.setItem("theme", next);
-      document.documentElement.setAttribute("data-theme", next);
-    } catch (e) {}
+  const { lang, setLang, t } = useLocale();
+  function toggleLang(){
+    setLang(lang === 'it' ? 'en' : 'it');
   }
 
+  // small translation map for header labels
+  // Use translation helper from context
+  // const t = useTranslation();
   return (
     <header className="site-header">
       <div className="wrap container">
+        <button aria-label="Toggle language" className="lang-toggle" onClick={toggleLang}>
+          {lang === 'it' ? 'EN' : 'IT'}
+        </button>
+
         <Link href="/" className="brand">
           <img className="brand-logo" src="/images/logo.png" alt="Cerberus" width={64} height={64} />
-          <span className="brand-name">Cerberus</span>
+          <span className="brand-name">{t('header.brand')}</span>
         </Link>
 
         <nav className="nav">
-          <Link href="/servizi">Servizi</Link>
-          <Link href="/blog">Blog</Link>
-          <Link href="/about">Chi siamo</Link>
-          <Link href="/contatti" className="cta">Contatti</Link>
+          <Link href="/servizi">{t('header.servizi')}</Link>
+          <Link href="/blog">{t('header.blog')}</Link>
+          <Link href="/about">{t('header.about')}</Link>
+          <Link href="/contatti" className="cta">{t('header.contatti')}</Link>
         </nav>
 
         <div style={{display:'flex',alignItems:'center',gap:8}}>
-          <button
-            aria-label={theme === 'dark' ? 'Passa a tema chiaro' : 'Passa a tema scuro'}
-            className="theme-toggle"
-            onClick={toggleTheme}
-            title={theme === 'dark' ? 'Tema chiaro' : 'Tema scuro'}
-            style={{background:'transparent',border:'1px solid var(--card-border)',padding:8,borderRadius:8,cursor:'pointer'}}
-          >
-            {theme === 'dark' ? '☀️' : '🌙'}
-          </button>
+          {/* theme toggle removed to enforce dark-only mode */}
         </div>
       </div>
     </header>

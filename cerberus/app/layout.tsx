@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ChatWidget from './components/ChatWidget';
+import { LanguageProvider } from './lib/LanguageProvider';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,22 +25,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="it">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* inline script to set theme early to avoid flash-of-incorrect-theme */}
+        {/* force dark theme early to avoid flash-of-incorrect-theme */}
         <script dangerouslySetInnerHTML={{ __html: `
           (function(){
             try{
-              var t = localStorage.getItem('theme');
-              if(t) document.documentElement.setAttribute('data-theme', t);
-              else document.documentElement.setAttribute('data-theme', 'dark');
+              document.documentElement.setAttribute('data-theme', 'dark');
+              // initialize language from localStorage (default: it)
+              var lang = (function(){
+                try{ return localStorage.getItem('site-lang') || 'it' }catch(e){ return 'it' }
+              })();
+              document.documentElement.setAttribute('data-lang', lang);
+              document.documentElement.lang = lang;
             }catch(e){}
           })();
         `}} />
-        {children}
-        <ChatWidget />
+        {/* LanguageProvider wraps the app so client components can access translations */}
+        <LanguageProvider>
+          {children}
+          <ChatWidget />
+        </LanguageProvider>
       </body>
     </html>
   );

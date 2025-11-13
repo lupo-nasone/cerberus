@@ -88,6 +88,10 @@ body{
 /* Header */
 .site-header{position:sticky;top:0;margin-top:0;background:var(--header-bg);backdrop-filter:blur(6px);border-bottom:1px solid var(--card-border);z-index:40;padding:8px 12px}
 .site-header .wrap{display:flex;align-items:center;justify-content:space-between;min-height:64px}
+
+/* language toggle positioned in the top-right */
+.lang-toggle{position:absolute;right:12px;top:10px;padding:8px 10px;border-radius:8px;border:1px solid var(--card-border);background:transparent;color:var(--fg);cursor:pointer;font-weight:600}
+.site-header .wrap{position:relative}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--fg)}
 .brand .brand-logo{width:64px;height:64px;border-radius:12px;display:inline-block;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.08);border:1px solid var(--card-border);background:var(--surface);padding:8px;object-fit:contain}
 .brand .brand-logo, .brand .brand-logo[src] { display:inline-block }
@@ -308,9 +312,9 @@ main {
 }
 
 /* Chat widget styles */
-.chat-widget{position:fixed;right:18px;bottom:18px;z-index:100}
+.chat-widget{position:fixed;right:18px;bottom:18px;left:auto;width:auto;z-index:100}
 .chat-toggle{width:56px;height:56px;border-radius:999px;border:0;background:linear-gradient(90deg,var(--brand-700),var(--brand-500));color:var(--btn-text);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 36px rgba(0,0,0,0.18);cursor:pointer}
-.chat-window{width:320px;height:420px;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,0.22);transform:translateY(12px);opacity:0;pointer-events:none;transition:all .22s}
+.chat-window{width:320px;height:420px;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,0.22);transform:translateY(12px);opacity:0;pointer-events:none;transition:all .22s;background:var(--surface);border:1px solid var(--card-border)}
 .chat-window.open{transform:translateY(0);opacity:1;pointer-events:auto}
 .chat-header{background:var(--brand-700);color:var(--btn-text);padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
 .chat-sub{font-size:12px;opacity:.95}
@@ -329,6 +333,23 @@ main {
 @media (max-width:640px){
   .chat-window{width:92vw;height:56vh;right:4vw}
   .chat-toggle{width:48px;height:48px}
+}
+
+/* Ensure on wider screens the chat toggle stays at the right edge (not centered) */
+@media (min-width:641px){
+  .chat-widget{right:18px;left:auto;bottom:18px;width:auto;pointer-events:auto}
+  .chat-toggle{position:relative}
+}
+
+/* Mobile-specific: make chat full-screen on very small devices and keep input sticky above keyboard */
+@media (max-width:420px){
+  /* Keep chat compact on small screens (not fullscreen) */
+  .chat-window{width:92vw;right:4vw;left:auto;bottom:12px;height:62vh;border-radius:12px}
+  .chat-window.open{transform:none}
+  /* hide the floating toggle only when the chat is open (so user can open it on mobile) */
+  .chat-window.open + .chat-toggle{display:none}
+  .chat-messages{padding-bottom:12px}
+  .chat-input-row{position:sticky;bottom:0;z-index:6;border-top:1px solid var(--card-border);background:var(--surface);padding:10px}
 }
 
 /* Brand gradient text utility */

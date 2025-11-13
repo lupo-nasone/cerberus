@@ -1,6 +1,9 @@
+"use client";
 import Link from "next/link";
+import { useLocale } from "../lib/LanguageProvider";
 
 export default function Hero() {
+  const { t } = useLocale();
   return (
     <section className="hero-full">
       <div className="hero-bg">
@@ -27,16 +30,15 @@ export default function Hero() {
         {/* Center content column */}
         <div className="hero-center">
           <div className="hero-center-card">
-            <p className="eyebrow">Sei un imprenditore?</p>
+            <p className="eyebrow">{t('hero.eyebrow')}</p>
             <h1 className="hero-title">
-              <span className="hero-title-accent">NON</span> PRENDERTI LA <br />
-              COLPA DEGLI ALTRI
+              <span className="hero-title-accent">{t('hero.title').split(' ')[0]}</span> {t('hero.title').replace(t('hero.title').split(' ')[0],'')}
             </h1>
-            <p className="hero-sub">Come specialisti della conformità CE per macchine e impianti, ti aiutiamo con documentazione, installazione e adeguamenti.</p>
+            <p className="hero-sub">{t('hero.sub')}</p>
 
             <div style={{ marginTop: 18, display: 'flex', gap: 12, justifyContent: 'center' }}>
-              <Link href="/contatti" className="btn btn-primary">COSA POSSIAMO FARE?</Link>
-              <Link href="/servizi" className="btn btn-ghost">I nostri servizi</Link>
+              <Link href="/contatti" className="btn btn-primary">{t('hero.ctaPrimary')}</Link>
+              <Link href="/servizi" className="btn btn-ghost">{t('hero.ctaSecondary')}</Link>
             </div>
           </div>
         </div>

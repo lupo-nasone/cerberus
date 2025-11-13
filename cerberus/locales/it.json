@@ -1,0 +1,106 @@
+{
+  "header":{
+    "servizi":"Servizi",
+    "blog":"Blog",
+    "about":"Chi siamo",
+    "contatti":"Contatti",
+    "brand":"Cerberus"
+  },
+  "hero":{
+    "eyebrow":"Sei un imprenditore?",
+    "title":"NON PRENDERTI LA COLPA DEGLI ALTRI",
+    "sub":"Come specialisti della conformità CE per macchine e impianti, ti aiutiamo con documentazione, installazione e adeguamenti.",
+    "ctaPrimary":"COSA POSSIAMO FARE?",
+    "ctaSecondary":"I nostri servizi"
+  },
+  "ctaBanner":{
+    "title":"Vuoi mettere al sicuro la tua attività?",
+    "desc":"Richiedi una consulenza personalizzata e scopri il pacchetto su misura per te.",
+    "button":"Contattaci"
+  },
+  "footer":{
+    "rights":"© Cerberus S.r.l. Tutti i diritti riservati."
+  },
+  "chat":{
+    "greeting":"Ciao! Sono l'assistente di Cerberus — piacere di conoscerti! Come ti chiami?",
+    "askEmail":"Posso avere la tua email così possiamo ricontattarti?",
+    "askProblem":"Puoi descrivere brevemente il problema o la richiesta?",
+    "confirmSend":"Vuoi che invii la richiesta adesso in modo che ti rispondiamo via email?",
+    "sent":"Perfetto — ho inviato la richiesta. Ti risponderemo via email il prima possibile.",
+    "invalidEmail":"Non sembra una email valida — puoi ricontrollarla e reinserirla, per favore?",
+    "yes":"Sì, invia",
+    "no":"No, modifica",
+    "editPrompt":"Va bene — dimmi pure cosa vuoi modificare."
+  }
+
+  ,"home":{
+    "introTitle":"Servizi dedicati per la tua conformità",
+    "introText":"Offriamo un pacchetto completo per la gestione della conformità: scadenziario, assistenza durante le visite ispettive, consulenza tecnica e formazione.",
+    "metric1":"120 aziende seguite",
+    "metric2":"Tempo medio di risposta 24h",
+    "metric3":"500 documenti gestiti",
+    "clientsTitle":"Chi si affida a noi",
+    "clientsList":["Azienda A","Azienda B","Azienda C","Azienda D"]
+  },
+
+  "services":{
+    "title":"I nostri servizi",
+    "items":{
+      "scadenziario":{
+        "title":"Scadenziario e verifiche",
+        "desc":"Pianificazione completa delle verifiche periodiche, promemoria e gestione scadenze per referenti aziendali."
+      },
+      "assistenza":{
+        "title":"Assistenza ispettiva",
+        "desc":"Supporto operativo durante le ispezioni, preparazione documentale e gestione comunicazioni con gli enti."
+      },
+      "consulenza":{
+        "title":"Consulenza normativa",
+        "desc":"Analisi tecnica e suggerimenti per adeguamento alla normativa vigente, con report e piani di intervento."
+      },
+      "formazione":{
+        "title":"Formazione e aggiornamenti",
+        "desc":"Corsi personalizzati per il personale e aggiornamenti periodici su cambi normativi rilevanti."
+      }
+    }
+  },
+
+  "chiSiamo":{
+    "title":"Chi siamo",
+    "lead":"Non una semplice storia, ma un viaggio insieme a te.",
+    "para1":"Ogni grande progetto nasce da un’idea, un’intuizione, una scintilla che accende la passione. Il nostro è iniziato con la voglia di offrire qualcosa di diverso: non solo servizi di qualità, ma un’esperienza che lasci il segno.",
+    "para2":"Siamo il giusto mix di esperienza e freschezza, ma ciò che ci distingue davvero è il nostro approccio. Crediamo nel valore delle persone, nella cura del dettaglio e nella capacità di trasformare le esigenze dei nostri clienti in soluzioni concrete e innovative.",
+    "uniqueTitle":"Cosa ci rende unici?",
+    "uniqueList":["Passione autentica – Ogni giorno mettiamo il cuore in quello che facciamo.","Innovazione costante – Non seguiamo le tendenze, le creiamo.","Rapporto umano – Il cliente per noi non è un numero, ma un partner di crescita.","Qualità senza compromessi – Perché il dettaglio fa la differenza."],
+    "missionTitle":"La nostra missione",
+    "missionText":"Vogliamo creare un legame con chi sceglie di affidarsi a noi, offrendo non solo un servizio, ma una vera e propria esperienza. Siamo qui per ascoltarti, consigliarti e accompagnarti verso il successo.",
+    "contactCTAText":"Vuoi scoprire di più su di noi? Contattaci o vieni a trovarci, sarà un piacere conoscerti!",
+    "foundersTitle":"I Fondatori",
+    "foundersLead":"Cerberus, il tuo guardiano!"
+  },
+
+  "contact":{
+    "title":"Contatti",
+    "intro":"Per informazioni sui nostri servizi o per richiedere un preventivo contattaci tramite il form qui sotto o usando i recapiti indicati.",
+    "form":{
+      "name":"Nome",
+      "email":"Email",
+      "message":"Messaggio",
+      "submit":"Invia richiesta"
+    },
+    "contactsTitle":"Recapiti",
+    "emailLabel":"Email:",
+    "phoneLabel":"Telefono:",
+    "office":"Sede",
+    "follow":"Seguici",
+    "where":"Dove siamo"
+  },
+
+  "testimonials":{
+    "title":"Cosa dicono i clienti",
+    "items":[
+      {"name":"Azienda Alfa","quote":"Supporto rapido e competente, procedure chiare."},
+      {"name":"Beta Srl","quote":"Abbiamo ridotto i rischi e migliorato la conformità."}
+    ]
+  }
+}

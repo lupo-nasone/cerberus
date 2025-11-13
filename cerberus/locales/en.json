@@ -1,0 +1,106 @@
+{
+  "header":{
+    "servizi":"Services",
+    "blog":"Blog",
+    "about":"About",
+    "contatti":"Contact",
+    "brand":"Cerberus"
+  },
+  "hero":{
+    "eyebrow":"Are you a business owner?",
+    "title":"DON'T BLAME OTHERS",
+    "sub":"As CE compliance specialists for machinery and plants, we help you with documentation, installation and upgrades.",
+    "ctaPrimary":"WHAT WE CAN DO?",
+    "ctaSecondary":"Our services"
+  },
+  "ctaBanner":{
+    "title":"Want to secure your business?",
+    "desc":"Request a personalized consultation and discover the package tailored for you.",
+    "button":"Contact us"
+  },
+  "footer":{
+    "rights":"© Cerberus S.r.l. All rights reserved."
+  },
+  "chat":{
+    "greeting":"Hi! I'm Cerberus assistant — nice to meet you! What's your name?",
+    "askEmail":"Can I have your email so we can contact you back?",
+    "askProblem":"Can you briefly describe the issue or request?",
+    "confirmSend":"Do you want me to send the request now so we reply by email?",
+    "sent":"Perfect — I've sent the request. We'll reply by email as soon as possible.",
+    "invalidEmail":"That doesn't look like a valid email — can you double check and re-enter it?",
+    "yes":"Yes, send",
+    "no":"No, edit",
+    "editPrompt":"Okay — tell me what you'd like to change."
+  }
+
+  ,"home":{
+    "introTitle":"Dedicated services for your compliance",
+    "introText":"We offer a complete package for managing compliance: scheduling, assistance during inspections, technical consulting and training.",
+    "metric1":"120 companies supported",
+    "metric2":"Average response time 24h",
+    "metric3":"500 documents handled",
+    "clientsTitle":"Who trusts us",
+    "clientsList":["Company A","Company B","Company C","Company D"]
+  },
+
+  "services":{
+    "title":"Our services",
+    "items":{
+      "scadenziario":{
+        "title":"Scheduling & checks",
+        "desc":"Complete planning of periodic checks, reminders and deadline management for company contacts."
+      },
+      "assistenza":{
+        "title":"Inspection assistance",
+        "desc":"Operational support during inspections, document preparation and communications with authorities."
+      },
+      "consulenza":{
+        "title":"Regulatory consultancy",
+        "desc":"Technical analysis and recommendations for compliance, with reports and action plans."
+      },
+      "formazione":{
+        "title":"Training and updates",
+        "desc":"Customized courses for staff and periodic updates on relevant regulatory changes."
+      }
+    }
+  },
+
+  "chiSiamo":{
+    "title":"About us",
+    "lead":"Not just a story, but a journey together with you.",
+    "para1":"Every great project starts from an idea, an intuition, a spark that ignites passion. Ours began with the desire to offer something different: not just quality services, but an experience that leaves a mark.",
+    "para2":"We are the right mix of experience and freshness, but what really sets us apart is our approach. We believe in the value of people, attention to detail and the ability to turn our clients' needs into concrete and innovative solutions.",
+    "uniqueTitle":"What makes us unique?",
+    "uniqueList":["Authentic passion – We put our heart into what we do every day.","Constant innovation – We don't follow trends, we create them.","Human relationships – The client is a growth partner, not a number.","Uncompromising quality – Because detail matters."],
+    "missionTitle":"Our mission",
+    "missionText":"We want to create a bond with those who choose to entrust us, offering not only a service, but a true experience. We are here to listen, advise and accompany you to success.",
+    "contactCTAText":"Want to know more about us? Contact us or visit us, we'd love to meet you!",
+    "foundersTitle":"The Founders",
+    "foundersLead":"Cerberus, your guardian!"
+  },
+
+  "contact":{
+    "title":"Contact",
+    "intro":"For information about our services or to request a quote contact us via the form below or using the details provided.",
+    "form":{
+      "name":"Name",
+      "email":"Email",
+      "message":"Message",
+      "submit":"Send request"
+    },
+    "contactsTitle":"Contacts",
+    "emailLabel":"Email:",
+    "phoneLabel":"Phone:",
+    "office":"Office",
+    "follow":"Follow us",
+    "where":"Where we are"
+  },
+
+  "testimonials":{
+    "title":"What clients say",
+    "items":[
+      {"name":"Company Alpha","quote":"Fast and competent support, clear procedures."},
+      {"name":"Beta Ltd","quote":"We reduced risks and improved compliance."}
+    ]
+  }
+}

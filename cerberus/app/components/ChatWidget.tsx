@@ -1,21 +1,54 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "../lib/LanguageProvider";
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<Array<{ from: 'bot'|'user', text: string }>>([
-    { from: 'bot', text: "Ciao! Sono l'assistente di Cerberus — piacere di conoscerti! Come ti chiami?" },
-  ]);
+  const { t, lang } = useLocale();
+  const [messages, setMessages] = useState<Array<{ from: 'bot'|'user', text: string, key?: string, repl?: Record<string,string> }>>([]);
   const [userName, setUserName] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [input, setInput] = useState('');
   const [step, setStep] = useState(0); // 0:name,1:email,2:problem,3:done
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if(open) scrollToBottom();
   }, [messages, open]);
+
+  // keep chat scrolled when virtual viewport (keyboard) appears on mobile
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const vv = (window as any).visualViewport;
+    if (!vv) return;
+    const onResize = () => {
+      // small delay to let viewport settle
+      setTimeout(() => scrollToBottom(), 50);
+    };
+    vv.addEventListener('resize', onResize);
+    return () => vv.removeEventListener('resize', onResize);
+  }, []);
+
+  // push initial greeting when component mounts
+  useEffect(() => {
+    if(messages.length === 0){
+      pushBotKey('chat.greeting');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // when language changes, re-translate bot messages that were stored with a key
+  useEffect(() => {
+    setMessages(prev => prev.map(m => {
+      if(m.from === 'bot' && m.key){
+        return { ...m, text: `${m.repl?.name ? m.repl.name + (m.repl?.suffix ?? ', ') : ''}${String(t(m.key))}` };
+      }
+      return m;
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang]);
 
   function scrollToBottom(){
     try{ messagesEndRef.current?.scrollIntoView({behavior:'smooth'}); }catch(e){}
@@ -25,10 +58,16 @@ export default function ChatWidget() {
     setMessages(m => [...m, { from: 'user', text }]);
   }
 
-  function pushBot(text: string){
+  function pushBotText(text: string){
     // slight delay to simulate thinking/typing
     const botDelay = 700; // milliseconds
     setTimeout(()=> setMessages(m => [...m, { from: 'bot', text }]), botDelay);
+  }
+
+  function pushBotKey(key: string, repl?: Record<string,string>){
+    const botDelay = 700;
+    const text = `${repl?.name ? repl.name + (repl.suffix ?? ', ') : ''}${String(t(key))}`;
+    setTimeout(()=> setMessages(m => [...m, { from: 'bot', text, key, repl }]), botDelay);
   }
 
   function isValidEmail(email: string){
@@ -50,24 +89,26 @@ export default function ChatWidget() {
     if(step === 0){
       // received name
       setUserName(value);
-      pushBot(`Ottimo, ${value}! Posso avere la tua email così possiamo ricontattarti?`);
+      // greet by name then ask for email (store key so it re-translates)
+      pushBotText(`${value}!`);
+      pushBotKey('chat.askEmail');
       setStep(1);
     } else if(step === 1){
       // validate email
       if(!isValidEmail(value)){
-        pushBot('Non sembra una email valida — puoi ricontrollarla e reinserirla, per favore?');
+        pushBotKey('chat.invalidEmail');
         // stay on same step
         return;
       }
       setUserEmail(value);
-      pushBot(`${userName ? userName + ',' : ''} grazie! Puoi descrivere brevemente il problema o la richiesta?`);
+      pushBotKey('chat.askProblem', { name: userName ?? '' });
       setStep(2);
     } else if(step === 2){
       // problem description received
-      pushBot(`${userName ? userName + ',' : ''} ho preso nota. Vuoi che invii la richiesta adesso in modo che ti rispondiamo via email?`);
+      pushBotKey('chat.confirmSend', { name: userName ?? '' });
       setStep(3);
     } else if(step === 3){
-      pushBot(`${userName ? userName + '! ' : ''}Perfetto — ho inviato la richiesta. Ti risponderemo via email il prima possibile.`);
+      pushBotKey('chat.sent', { name: userName ?? '' });
       setStep(4);
       // longer delay before auto-close to let user read confirmation
       setTimeout(()=> setOpen(false), 3500);
@@ -100,32 +141,34 @@ export default function ChatWidget() {
               className="chat-send"
               onClick={() => {
                 // user confirms sending
-                pushUser('Sì');
-                pushBot(`${userName ? userName + '! ' : ''}Perfetto — ho inviato la richiesta. Ti risponderemo via email il prima possibile.`);
+                pushUser(t('chat.yes'));
+                pushBotKey('chat.sent', { name: userName ?? '' });
                 setStep(4);
                 setTimeout(()=> setOpen(false), 3500);
               }}
               style={{flex:1,background:'var(--brand-700)',color:'var(--btn-text)',borderRadius:8,border:0,padding:'10px'}}
-            >Sì, invia</button>
+              >{t('chat.yes')}</button>
 
             <button
               type="button"
               className="chat-send"
               onClick={() => {
                 // user wants to edit
-                pushUser('No');
-                pushBot('Va bene — dimmi pure cosa vuoi modificare.');
+                pushUser(t('chat.no'));
+                pushBotKey('chat.editPrompt');
                 setStep(2); // go back to problem description
               }}
               style={{flex:1,background:'transparent',color:'var(--fg)',borderRadius:8,border:'1px solid var(--card-border)',padding:'10px'}}
-            >No, modifica</button>
+            >{t('chat.no')}</button>
           </div>
         ) : (
           <form className="chat-input-row" onSubmit={handleSend}>
             <input
+              ref={inputRef}
               aria-label="Messaggio"
               value={input}
               onChange={e=> setInput(e.target.value)}
+              onFocus={() => setTimeout(() => scrollToBottom(), 120)}
               placeholder={ step < 3 ? (step === 0 ? 'Inserisci il tuo nome...' : step === 1 ? 'Inserisci la tua email...' : 'Descrivi il tuo problema...') : 'Invia per confermare' }
             />
             <button type="submit" className="chat-send">➤</button>
