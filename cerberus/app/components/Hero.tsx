@@ -2,38 +2,41 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="hero container">
-      <div className="left">
-        <h1>Verifica zero rischi — Check up tecnico per la conformità normativa</h1>
-        <p>
-          Abbonamento "Zero Rischi": scadenziario verifiche, pianificazione con referenti aziendali,
-          supporto pratiche e assistenza durante le visite ispettive. Garanzia Scudo Cerberus per la
-          tua tranquillità.
-        </p>
+    <section className="hero-full">
+      <div className="hero-bg">
+        {/* Soft blurred industrial background */}
+        <div
+          className="hero-bg-image"
+          style={{
+            backgroundImage: "url('https://source.unsplash.com/1600x900/?factory,warehouse,industry')",
+          }}
+        />
 
-        <div className="ctas">
-          <Link href="/landing/zero-rischi" className="btn btn-primary">Scopri l'abbonamento</Link>
-          <Link href="/contatti" className="btn btn-ghost">Contattaci</Link>
-        </div>
-      </div>
+        {/* Left and right flank images (people in hi-vis) */}
+        <img
+          className="hero-flank hero-flank-left"
+          src="https://source.unsplash.com/300x500/?man,worker,helmet"
+          alt=""
+        />
+        <img
+          className="hero-flank hero-flank-right"
+          src="https://source.unsplash.com/300x500/?man,engineer,vest"
+          alt=""
+        />
 
-      <div className="right">
-        {/* Visual slot: decorative background or image. Using the example placeholder in public/images/hero.svg */}
-        <div className="hero-visual">
-          {/* Use a real photo from Unsplash (dynamically returned image) */}
-          <div
-            className="visual-bg"
-            style={{
-              backgroundImage:
-                "url('https://source.unsplash.com/1200x640/?office,team,meeting')",
-            }}
-          />
+        {/* Center content column */}
+        <div className="hero-center">
+          <div className="hero-center-card">
+            <p className="eyebrow">Sei un imprenditore?</p>
+            <h1 className="hero-title">
+              <span className="hero-title-accent">NON</span> PRENDERTI LA <br />
+              COLPA DEGLI ALTRI
+            </h1>
+            <p className="hero-sub">Come specialisti della conformità CE per macchine e impianti, ti aiutiamo con documentazione, installazione e adeguamenti.</p>
 
-          <div className="card">
-            <h3>Garanzia Scudo Cerberus</h3>
-            <p>Include: scadenziario, assistenza INAIL, supporto pratiche e consulenza dedicata.</p>
-            <div style={{marginTop:12}}>
-              <Link href="/landing/zero-rischi" className="btn" style={{background:'var(--accent)',color:'var(--btn-text)',borderRadius:8,padding:'8px 12px',display:'inline-block'}}>Richiedi info</Link>
+            <div style={{ marginTop: 18, display: 'flex', gap: 12, justifyContent: 'center' }}>
+              <Link href="/contatti" className="btn btn-primary">COSA POSSIAMO FARE?</Link>
+              <Link href="/servizi" className="btn btn-ghost">I nostri servizi</Link>
             </div>
           </div>
         </div>
