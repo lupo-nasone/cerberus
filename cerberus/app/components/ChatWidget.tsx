@@ -116,10 +116,8 @@ export default function ChatWidget() {
   }
 
   return (
-    <div className="chat-widget" aria-live="polite">
-      {/* small prompt bubble above the toggle */}
-      <div className="chat-prompt">Che problemi stai riscontrando? <br/><strong>Raccontami!</strong></div>
-      <div className={`chat-window ${open ? 'open' : ''}`} role="dialog" aria-label="Chat di supporto Cerberus">
+    <div className={`chat-widget ${open ? 'open' : ''}`} aria-live="polite">
+  <div className={`chat-window ${open ? 'open' : ''}`} role="dialog" aria-label="Chat di supporto Cerberus">
         <div className="chat-header">
           <div>
             <strong>Cerberus Chat</strong>

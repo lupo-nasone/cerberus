@@ -193,8 +193,8 @@ body{
 .hero-flanks .hero-flank{position:absolute;bottom:0;margin:0}
 .hero-flanks .hero-flank-left{left:4%;transform:translateX(8%);}
 .hero-flanks .hero-flank-right{right:4%;transform:translateX(-8%);}
-.hero-center{position:relative;display:flex;justify-content:center}
-.hero-center-card{width:720px;max-width:92%;background:var(--surface);border-radius:12px;padding:56px 48px;text-align:center;border:0;box-shadow:0 30px 60px rgba(16,24,40,0.12);z-index:2;position:relative;margin-bottom:120px}
+.hero-center{position:relative;display:flex;justify-content:center;align-items:flex-end}
+.hero-center-card{width:720px;max-width:92%;background:var(--surface);border-radius:12px;padding:56px 48px;text-align:center;border:0;box-shadow:0 30px 60px rgba(16,24,40,0.12);z-index:2;position:relative;margin-bottom:0}
 .hero-title{font-family:'Poppins', sans-serif;font-size:72px;line-height:0.95;letter-spacing:-2px;margin:8px 0 8px;text-transform:uppercase}
 .hero-title-accent{display:inline-block;margin-right:8px;background:var(--brand-700);padding:6px 10px;border-radius:6px;color:#fff;font-weight:800}
 .hero-sub{color:var(--muted);max-width:46ch;margin:0 auto}
@@ -209,9 +209,6 @@ body{
 .service-card .overlay h4{margin:0;font-size:20px;letter-spacing:1px;text-transform:uppercase;font-weight:800}
 .service-card .overlay p{margin-top:6px;color:rgba(255,255,255,0.9);font-size:13px}
 
-/* small chat prompt above toggle (white speech bubble) */
-.chat-prompt{position:fixed;right:96px;bottom:80px;background:var(--surface);color:var(--fg);padding:12px 16px;border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,0.12);z-index:110;font-size:14px;max-width:220px}
-.chat-prompt:after{content:'';position:absolute;right:18px;bottom:-8px;width:16px;height:16px;background:var(--surface);transform:rotate(45deg);box-shadow:0 14px 40px rgba(0,0,0,0.06);}
 
 @media (max-width:900px){
   .hero-bg-image{filter:blur(1px) brightness(.95)}
@@ -461,11 +458,23 @@ main {
 }
 
 /* Chat widget styles */
-.chat-widget{position:fixed;right:18px;bottom:18px;left:auto;width:auto;z-index:100}
-.chat-toggle{width:52px;height:52px;border-radius:999px;border:0;background:var(--brand-700);color:var(--btn-text);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 36px rgba(0,0,0,0.18);cursor:pointer}
+.chat-widget{position:fixed;right:calc(12px + env(safe-area-inset-right, 0px));bottom:18px;left:auto;width:auto;z-index:100}
+.chat-toggle{width:52px;height:52px;border-radius:999px;border:0;background:var(--brand-700);color:var(--btn-text);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 36px rgba(0,0,0,0.18);cursor:pointer;transition:transform .18s,opacity .18s}
 .chat-toggle img{width:44px;height:44px;border-radius:999px;object-fit:cover}
-.chat-window{width:320px;height:420px;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,0.22);transform:translateY(12px);opacity:0;pointer-events:none;transition:all .22s;background:var(--surface);border:1px solid var(--card-border)}
-.chat-window.open{transform:translateY(0);opacity:1;pointer-events:auto}
+.chat-window{
+  /* closed state: small circular bubble matching the toggle */
+  position:absolute;right:0;bottom:0;
+  width:52px;height:52px;border-radius:999px;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 6px 18px rgba(0,0,0,0.12);background:linear-gradient(90deg,var(--brand-700),var(--brand-500));
+  transform:translateY(0) scale(1);opacity:1;pointer-events:none;
+  transition:width .30s cubic-bezier(.2,.9,.18,1),height .30s cubic-bezier(.2,.9,.18,1),border-radius .22s,box-shadow .24s,background .22s,transform .28s;
+  transform-origin:bottom right;z-index:110;
+}
+
+.chat-widget.open .chat-window{
+  /* expanded state: full panel */
+  width:320px;height:420px;border-radius:18px;background:var(--surface);box-shadow:0 24px 60px rgba(0,0,0,0.22);pointer-events:auto;overflow:visible;
+}
 .chat-header{background:var(--brand-700);color:var(--btn-text);padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
 .chat-sub{font-size:12px;opacity:.95}
 .chat-close{background:transparent;border:0;color:inherit;font-size:16px;cursor:pointer}
@@ -481,23 +490,36 @@ main {
 .chat-send{background:var(--brand-700);color:var(--btn-text);border:0;padding:8px 12px;border-radius:8px;cursor:pointer}
 
 @media (max-width:640px){
-  .chat-window{width:92vw;height:56vh;right:4vw}
+  /* Only expand the chat to fullscreen on small screens when it is opened */
+  .chat-widget.open .chat-window{width:92vw;height:56vh;right:4vw}
   .chat-toggle{width:48px;height:48px}
 }
 
 /* Ensure on wider screens the chat toggle stays at the right edge (not centered) */
 @media (min-width:641px){
-  .chat-widget{right:18px;left:auto;bottom:18px;width:auto;pointer-events:auto}
+  .chat-widget{right:calc(12px + env(safe-area-inset-right, 0px));left:auto;bottom:18px;width:auto;pointer-events:auto}
   .chat-toggle{position:relative}
 }
 
+/* subtle transform so the chat visually 'grows' from the button */
+.chat-widget .chat-toggle { transform-origin: center; z-index:120; }
+.chat-widget.open .chat-toggle { transform: scale(.85); opacity: 0; pointer-events:none; }
+
+/* hide internal content while closed so it doesn't overflow the small bubble */
+.chat-widget:not(.open) .chat-window .chat-header,
+.chat-widget:not(.open) .chat-window .chat-messages,
+.chat-widget:not(.open) .chat-window .chat-input-row {
+  display:none;
+}
+
+/* prompt removed: chat now expands from the toggle with animation */
+
 /* Mobile-specific: make chat full-screen on very small devices and keep input sticky above keyboard */
 @media (max-width:420px){
-  /* Keep chat compact on small screens (not fullscreen) */
-  .chat-window{width:92vw;right:4vw;left:auto;bottom:12px;height:62vh;border-radius:12px}
-  .chat-window.open{transform:none}
-  /* hide the floating toggle only when the chat is open (so user can open it on mobile) */
-  .chat-window.open + .chat-toggle{display:none}
+  /* Expand the chat to a large panel only when open on very small devices */
+  .chat-widget.open .chat-window{width:92vw;right:4vw;left:auto;bottom:12px;height:62vh;border-radius:12px;transform:none}
+  /* hide the floating toggle when the chat is open (so user can open it on mobile) */
+  .chat-widget.open .chat-toggle{display:none}
   .chat-messages{padding-bottom:12px}
   .chat-input-row{position:sticky;bottom:0;z-index:6;border-top:1px solid var(--card-border);background:var(--surface);padding:10px}
 }
