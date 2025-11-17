@@ -117,6 +117,8 @@ export default function ChatWidget() {
 
   return (
     <div className="chat-widget" aria-live="polite">
+      {/* small prompt bubble above the toggle */}
+      <div className="chat-prompt">Che problemi stai riscontrando? <br/><strong>Raccontami!</strong></div>
       <div className={`chat-window ${open ? 'open' : ''}`} role="dialog" aria-label="Chat di supporto Cerberus">
         <div className="chat-header">
           <div>
@@ -177,7 +179,8 @@ export default function ChatWidget() {
       </div>
 
       <button className="chat-toggle" onClick={()=> setOpen(o=>!o)} aria-label="Apri chat">
-        <span className="chat-toggle-icon">💬</span>
+        {/* use small avatar image if available */}
+        <img src="/images/claudio4.png" alt="avatar" />
       </button>
     </div>
   );

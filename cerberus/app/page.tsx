@@ -17,6 +17,8 @@ export default function Home() {
       <main>
         <Hero />
 
+        {/* Overlap CTA removed per request */}
+
         {/* Quick intro/features section (inspired layout) */}
         <section className="container intro-section" style={{ padding: '40px 0' }}>
           <div className="intro-grid">

@@ -13,18 +13,19 @@
 
   /* brand colors (magenta -> blue gradient) */
   --brand-magenta: #B0369C; /* Primary Gradient Start */
-  --brand-700: #B0369C; /* Primary (start) */
-  --brand-500: #2E77B3; /* Primary (end) */
-  --brand-300: #7FB8FF;
-  --accent: #5A3CBA; /* Accent hover */
-  --accent-600: #4f33a8;
+  --brand-700: #ff3b30; /* Primary (start) - orange/red */
+  --brand-500: #ff6b3c; /* Primary (end) */
+  --brand-300: #ff9478;
+  --accent: #ff482f; /* Accent hover */
+  --accent-600: #e03b22;
   --card-border: #E0E0E0; /* Bordi leggeri / linee */
   --muted-2: #9AA3AD;
 
   /* gradients */
-  --gradient-primary: linear-gradient(90deg,#B0369C,#2E77B3);
+  --gradient-primary: linear-gradient(90deg,var(--brand-700),var(--brand-500));
   --gradient-soft: linear-gradient(180deg, rgba(var(--logo-rgb),0.06), rgba(var(--logo-rgb),0.02));
-  --gradient-cta: linear-gradient(90deg,#B0369C,#2E77B3 60%);
+  --gradient-cta: linear-gradient(90deg,var(--brand-700),var(--brand-500) 60%);
+  --cta-green: linear-gradient(90deg,#2f9b4f,#2b8a47);
 }
 /* surface colors and header/footer backgrounds (light theme) */
 :root {
@@ -42,11 +43,11 @@
   --muted-2: #8F8F98;
 
   --brand-magenta: #C34BB4; /* Primary Gradient Start (dark) */
-  --brand-700: #C34BB4; /* start */
-  --brand-500: #3F89C9; /* end */
-  --brand-300: #5AA0E6;
-  --accent: #7856D2; /* Accent hover/glow */
-  --accent-600: #6b4ed0;
+  --brand-700: #ff6b3c; /* start (dark adjusted) */
+  --brand-500: #ff4b2e; /* end */
+  --brand-300: #ff9478;
+  --accent: #ff5a3c; /* Accent hover/glow */
+  --accent-600: #e64b2d;
   --card-border: #2E2E3B; /* Bordi leggeri / linee */
 
   /* dark theme surfaces */
@@ -89,6 +90,29 @@ body{
 .site-header{position:sticky;top:0;margin-top:0;background:var(--header-bg);backdrop-filter:blur(6px);border-bottom:1px solid var(--card-border);z-index:40;padding:8px 12px}
 .site-header .wrap{display:flex;align-items:center;justify-content:space-between;min-height:64px}
 
+/* Top dark bar (compact) like the reference site */
+.topbar{background: #0f1113;color: #fff;border-bottom:1px solid rgba(255,255,255,0.03);position:relative}
+.topbar .container{max-width:1200px;margin:0 auto;padding:10px 18px}
+.topbar-row{display:flex;align-items:center;justify-content:space-between}
+.nav-left{display:flex;gap:20px;align-items:center}
+.topbar .top-link{color:rgba(255,255,255,0.95);margin:0;font-weight:700;font-size:clamp(13px,1.2vw,16px)}
+.topbar .top-link:hover{color:var(--brand-300);text-decoration:none}
+.top-cta{background:transparent;border:1px solid rgba(255,255,255,0.08);padding:8px 12px;border-radius:8px;color:#fff;font-weight:700}
+.top-cta:hover{background:rgba(255,255,255,0.03)}
+.brand-row{display:none}
+
+/* topbar inline logo style - more visible */
+.top-logo-link{display:inline-flex;align-items:center;justify-content:center;margin-right:14px;margin-left:0}
+.top-logo{height:56px;width:auto;display:block;background:#ffffff;padding:8px 10px;border-radius:8px;border:0;box-shadow:0 10px 28px rgba(0,0,0,0.28)}
+.top-logo:focus{outline:3px solid rgba(255,255,255,0.06)}
+
+/* Hamburger toggle (hidden on wide screens) */
+.hamburger-toggle{display:none;background:transparent;border:0;color:inherit;font-size:20px;padding:8px;border-radius:8px;cursor:pointer}
+.hamburger-icon{font-size:20px;line-height:1}
+
+/* ensure header sticks to top */
+.site-header{position:sticky;top:0;z-index:60}
+
 /* language toggle positioned in the top-right */
 .lang-toggle{position:absolute;right:12px;top:10px;padding:8px 10px;border-radius:8px;border:1px solid var(--card-border);background:transparent;color:var(--fg);cursor:pointer;font-weight:600}
 .site-header .wrap{position:relative}
@@ -110,8 +134,26 @@ body{
   .intro-grid aside{margin-top:16px}
 }
 
+/* Make the topbar links wrap under the logo on medium/smaller screens so they don't overlap the hero
+   — instead of hiding them, they will flow beneath the logo (like the reference mobile screenshot). */
+@media (max-width:900px){
+  .topbar-row{flex-direction:row;align-items:center;justify-content:space-between}
+  /* hide the inline primary links on smaller screens and show hamburger */
+  .primary-links{display:none}
+  .hamburger-toggle{display:inline-flex}
+  .top-logo{height:48px;padding:6px}
+  .top-right{align-self:center}
+}
+
+/* Mobile nav dropdown (appears when hamburger toggled) */
+.mobile-nav{display:none;background:var(--header-bg);border-top:1px solid var(--card-border);box-shadow:0 10px 30px rgba(0,0,0,0.06);position:relative}
+.mobile-nav.open{display:block}
+.mobile-nav .mobile-links{display:flex;flex-direction:column;gap:6px;padding:12px 0}
+.mobile-nav .mobile-link{display:block;padding:10px 12px;color:var(--fg);font-weight:700}
+.mobile-nav .mobile-link.mobile-cta{background:transparent;border:1px solid rgba(0,0,0,0.06);border-radius:8px;margin-top:6px;padding:10px 12px}
+
 /* CTA banner responsive */
-.cta-banner{border-radius:12px;padding:24px;background-image:var(--gradient-primary);color:var(--btn-text);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.cta-banner{border-radius:12px;padding:24px;background-image:var(--cta-green);color:var(--btn-text);display:flex;align-items:center;justify-content:space-between;gap:16px}
 @media (max-width:640px){
   .cta-banner{flex-direction:column;align-items:stretch}
   .cta-banner .btn{width:100%}
@@ -140,31 +182,66 @@ body{
 
 /* New full-bleed hero inspired layout */
 .hero-full{position:relative;overflow:hidden}
-.hero-bg{position:relative;padding:48px 0 80px}
-.hero-bg-image{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(2px) saturate(.9);opacity:.95}
-.hero-flank{position:absolute;top:60px;width:260px;border-radius:8px;object-fit:cover;box-shadow:0 12px 30px rgba(0,0,0,0.16)}
-.hero-flank-left{left:8%;transform:translateX(-20%)}
-.hero-flank-right{right:8%;transform:translateX(20%)}
+.hero-bg{position:relative;padding:8px 0 80px}
+.hero-bg-image{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(6px) saturate(.9) brightness(.9);opacity:.98}
+.hero-flank{position:absolute;bottom:0;width:520px;/* attach to bottom of decorative background */object-fit:contain;border-radius:0;box-shadow:none;filter:none;z-index:6}
+.hero-flank-left{left:4%;transform:translateX(8%);} 
+.hero-flank-right{right:4%;transform:translateX(-8%);} 
+
+/* default desktop: hero-flanks container positions the two images anchored to the bottom of the hero background */
+.hero-flanks{position:absolute;left:0;right:0;bottom:0;height:auto;pointer-events:none;z-index:6}
+.hero-flanks .hero-flank{position:absolute;bottom:0;margin:0}
+.hero-flanks .hero-flank-left{left:4%;transform:translateX(8%);}
+.hero-flanks .hero-flank-right{right:4%;transform:translateX(-8%);}
 .hero-center{position:relative;display:flex;justify-content:center}
-.hero-center-card{width:680px;max-width:92%;background:var(--surface);border-radius:12px;padding:42px 36px;text-align:center;border:1px solid var(--card-border);box-shadow:0 20px 50px rgba(16,24,40,0.06)}
-.hero-title{font-family:'Poppins', sans-serif;font-size:46px;line-height:1;letter-spacing:-1px;margin:8px 0 8px}
-.hero-title-accent{color:var(--brand-700);display:inline-block;margin-right:8px}
+.hero-center-card{width:720px;max-width:92%;background:var(--surface);border-radius:12px;padding:56px 48px;text-align:center;border:0;box-shadow:0 30px 60px rgba(16,24,40,0.12);z-index:2;position:relative;margin-bottom:120px}
+.hero-title{font-family:'Poppins', sans-serif;font-size:72px;line-height:0.95;letter-spacing:-2px;margin:8px 0 8px;text-transform:uppercase}
+.hero-title-accent{display:inline-block;margin-right:8px;background:var(--brand-700);padding:6px 10px;border-radius:6px;color:#fff;font-weight:800}
 .hero-sub{color:var(--muted);max-width:46ch;margin:0 auto}
 .eyebrow{font-weight:600;color:var(--muted);margin-bottom:8px}
 
+/* big red CTA used in hero */
+.btn-hero{background:var(--brand-700);color:var(--btn-text);padding:12px 26px;border-radius:28px;font-weight:700;box-shadow:0 12px 30px rgba(0,0,0,0.18);border:0}
+.btn-hero:hover{transform:translateY(-2px);opacity:.96}
+
+/* service-card overlay: large uppercase title centered like screenshot */
+.service-card .overlay{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;color:#fff;z-index:2;text-align:center}
+.service-card .overlay h4{margin:0;font-size:20px;letter-spacing:1px;text-transform:uppercase;font-weight:800}
+.service-card .overlay p{margin-top:6px;color:rgba(255,255,255,0.9);font-size:13px}
+
+/* small chat prompt above toggle (white speech bubble) */
+.chat-prompt{position:fixed;right:96px;bottom:80px;background:var(--surface);color:var(--fg);padding:12px 16px;border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,0.12);z-index:110;font-size:14px;max-width:220px}
+.chat-prompt:after{content:'';position:absolute;right:18px;bottom:-8px;width:16px;height:16px;background:var(--surface);transform:rotate(45deg);box-shadow:0 14px 40px rgba(0,0,0,0.06);}
+
 @media (max-width:900px){
   .hero-bg-image{filter:blur(1px) brightness(.95)}
-  .hero-flank{display:none}
-  .hero-center-card{padding:28px 20px}
+
+  /* On smaller screens: keep center card first, then show the two flank images side-by-side */
+  .hero-bg{display:flex;flex-direction:column;align-items:center}
+  .hero-center{order:1;width:100%}
+  .hero-center-card{order:1;padding:28px 20px;width:100%;max-width:720px;margin-bottom:28px;padding-left:24px;padding-right:24px}
+
+  /* flanks container becomes a flex row to place images next to each other */
+  .hero-flanks{order:2;display:flex;gap:6px;justify-content:center;align-items:flex-start;width:100%;max-width:760px;padding:8px 6px}
+  .hero-flank{position:relative;display:block;bottom:auto;left:auto;right:auto;transform:none;z-index:2;width:48%;max-width:360px;margin:0}
+  .hero-flank-left,.hero-flank-right{width:48%}
+
   .hero-title{font-size:28px}
 }
 
 /* sticky contact bar removed (UI preference) */
 /* service card media */
-.service-media{height:120px;border-radius:8px;margin:-6px -6px 12px -6px;background-size:cover;background-position:center}
+.service-media{height:180px;border-radius:12px 12px 0 0;margin:0;background-size:cover;background-position:center;position:relative;overflow:hidden}
+.service-media::after{content:'';position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.6));}
+
+.service-card{background:transparent;border:0;padding:0;border-radius:12px;overflow:hidden}
+.service-card .content{padding:16px;background:var(--surface);border-top:1px solid var(--card-border)}
+.service-card .overlay{position:absolute;left:0;right:0;bottom:0;padding:14px;color:#fff;z-index:2}
+.service-card .overlay h4{margin:0 0 6px;color:#fff}
+.service-card .overlay p{margin:0;color:rgba(255,255,255,0.9);font-size:14px}
 
 /* Services */
-.services{padding:48px 0}
+.services{padding:48px 0;margin-top:-80px}
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
 .service-card{background:var(--surface);border:1px solid var(--card-border);padding:20px;border-radius:10px}
 .service-card .icon{width:48px;height:48px;border-radius:10px;background:var(--brand-300);display:flex;align-items:center;justify-content:center;color:var(--brand-700);font-weight:700}
@@ -195,7 +272,7 @@ img, picture, video, svg {
 
 /* Base vertical spacing for main content so it doesn't touch the header/top edge */
 main {
-  padding-top: calc(20px + env(safe-area-inset-top));
+  padding-top: 0;
   padding-bottom: 20px;
 }
 
@@ -271,11 +348,83 @@ main {
   .hero-sub{font-size:14px}
 }
 
+/* Extra-small phones (iPhone-like) styling to match reference screenshot */
+@media (max-width:430px) {
+  /* tighten header */
+  .topbar{padding:8px 0}
+  .topbar .container{padding-left:12px;padding-right:12px}
+
+  /* logo as white rounded card on the left, slightly overlapping content */
+  .top-logo-link{background:#fff;border-radius:12px;padding:8px 10px;display:inline-flex;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,0.18);margin-left:0}
+  .top-logo{height:44px;padding:4px;width:auto}
+
+  /* hamburger to the right, visually centered in topbar */
+  .hamburger-toggle{display:inline-flex;position:relative;right:0;top:0;background:transparent;border:0;color:#fff;padding:10px;margin-left:0;font-size:22px}
+
+  /* show language toggle on very small screens */
+  .lang-toggle{display:inline-flex;position:relative;right:auto;top:auto;padding:6px 8px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:#fff;cursor:pointer;font-weight:600}
+
+  /* make header visually separated from hero with a small overlap */
+  .site-header{padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+
+  /* Hero title larger and condensed to match screenshot */
+  .hero-title{font-size:44px;line-height:0.95;letter-spacing:-1px;margin-top:6px;margin-bottom:6px}
+  .hero-title-accent{padding:4px 8px;font-size:24px}
+  .hero-sub{font-size:15px;padding:0 12px}
+
+  /* make center card background transparent-ish and full width feel */
+  .hero-center-card{background:transparent;border-radius:0;padding:12px 16px;box-shadow:none;margin-bottom:20px}
+
+  /* flank images: keep them side-by-side, larger, and centered under the title */
+  .hero-flanks{max-width:96%;padding:0;margin:0;gap:4px}
+  .hero-flank{width:48%;max-width:220px;border-radius:0}
+  .hero-flank img{display:block}
+
+  /* fixed CTA at bottom similar to screenshot */
+  .fixed-cta-mobile{position:fixed;left:12px;right:12px;bottom:12px;background:var(--brand-700);color:var(--btn-text);padding:14px 18px;border-radius:10px;display:flex;align-items:center;justify-content:center;z-index:200}
+  .fixed-cta-mobile .avatar{position:absolute;right:14px;bottom:8px;width:44px;height:44px;border-radius:999px;border:4px solid rgba(255,255,255,0.12)}
+}
+
 @media (max-width:640px) {
   main { padding-top: calc(14px + env(safe-area-inset-top)); padding-bottom: 14px; }
 }
 
 /* Contact page layout */
+
+/* On small phones ensure the flank images are rendered below the hero card and do not overlap text */
+@media (max-width:640px) {
+  /* On small screens attach the person images to the bottom of the hero background
+     and render the hero card transparent so the images sit visually against the scene.
+     The card is kept on a higher z-index so its text stays readable on top of images. */
+  .hero-center-card{
+    padding-left:20px;padding-right:20px;margin-bottom:28px;box-sizing:border-box;
+    background:transparent;box-shadow:none;z-index:3;color:#fff;text-shadow:0 6px 18px rgba(0,0,0,0.6)
+  }
+
+  /* Place the flank images absolutely at the bottom of the hero so they "stick" to the background */
+  .hero-flanks{position:absolute;left:0;right:0;bottom:0;display:flex;gap:8px;justify-content:center;align-items:flex-end;padding:0;margin:0;pointer-events:none;z-index:2}
+  .hero-flanks .hero-flank{position:relative;bottom:0;left:auto;right:auto;transform:none;width:60%;max-width:360px;margin:0}
+}
+
+/* stronger blur and contrast for small screens to improve text readability */
+@media (max-width:640px) {
+  .hero-bg-image{filter:blur(10px) saturate(.85) brightness(.75)}
+
+  /* make the hero text more readable on top of the image */
+  .hero-center-card{background:rgba(0,0,0,0.45);color:var(--btn-text);padding-top:24px;padding-bottom:24px}
+  .hero-title{color:#fff;text-shadow:0 6px 18px rgba(0,0,0,0.6)}
+  .hero-title-accent{background:#ff6b3c;color:#fff}
+  .hero-sub{color:rgba(255,255,255,0.9)}
+  .btn-primary{box-shadow:0 12px 30px rgba(0,0,0,0.3)}
+}
+
+/* extra-small phones: slightly larger images and slightly stronger blur */
+@media (max-width:430px) {
+  /* even stronger attachment and slightly larger images on very small phones */
+  .hero-flanks .hero-flank{width:72%;max-width:420px}
+  .hero-bg-image{filter:blur(12px) saturate(.8) brightness(.7)}
+  .hero-center-card{padding-left:18px;padding-right:18px}
+}
 .contact-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
 .contact-form{display:grid;gap:12px}
 .form-field{display:block}
@@ -313,7 +462,8 @@ main {
 
 /* Chat widget styles */
 .chat-widget{position:fixed;right:18px;bottom:18px;left:auto;width:auto;z-index:100}
-.chat-toggle{width:56px;height:56px;border-radius:999px;border:0;background:linear-gradient(90deg,var(--brand-700),var(--brand-500));color:var(--btn-text);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 36px rgba(0,0,0,0.18);cursor:pointer}
+.chat-toggle{width:52px;height:52px;border-radius:999px;border:0;background:var(--brand-700);color:var(--btn-text);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 36px rgba(0,0,0,0.18);cursor:pointer}
+.chat-toggle img{width:44px;height:44px;border-radius:999px;object-fit:cover}
 .chat-window{width:320px;height:420px;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,0.22);transform:translateY(12px);opacity:0;pointer-events:none;transition:all .22s;background:var(--surface);border:1px solid var(--card-border)}
 .chat-window.open{transform:translateY(0);opacity:1;pointer-events:auto}
 .chat-header{background:var(--brand-700);color:var(--btn-text);padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
@@ -351,6 +501,10 @@ main {
   .chat-messages{padding-bottom:12px}
   .chat-input-row{position:sticky;bottom:0;z-index:6;border-top:1px solid var(--card-border);background:var(--surface);padding:10px}
 }
+
+/* overlap CTA placed under hero */
+.overlap-cta{position:relative;margin-top:-60px;pointer-events:auto}
+.cta-banner.overlap{max-width:880px;margin:0 auto;padding:18px 28px;box-shadow:0 14px 40px rgba(23,23,23,0.18);border-radius:12px}
 
 /* Brand gradient text utility */
 .brand-grad-text{background-image:var(--gradient-primary);-webkit-background-clip:text;background-clip:text;color:transparent}
