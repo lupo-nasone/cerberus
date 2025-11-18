@@ -184,9 +184,9 @@ body{
 .hero-full{position:relative;overflow:hidden}
 .hero-bg{position:relative;padding:8px 0 80px}
 .hero-bg-image{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(6px) saturate(.9) brightness(.9);opacity:.98}
-.hero-flank{position:absolute;bottom:0;width:520px;/* attach to bottom of decorative background */object-fit:contain;border-radius:0;box-shadow:none;filter:none;z-index:6}
-.hero-flank-left{left:4%;transform:translateX(8%);} 
-.hero-flank-right{right:4%;transform:translateX(-8%);} 
+.hero-flank{position:absolute;bottom:0;width:580px;/* attach to bottom of decorative background */object-fit:contain;border-radius:0;box-shadow:none;filter:none;z-index:6}
+.hero-flank-left{left:8%;transform:translateX(4%);} 
+.hero-flank-right{right:8%;transform:translateX(-4%);} 
 
 /* default desktop: hero-flanks container positions the two images anchored to the bottom of the hero background */
 .hero-flanks{position:absolute;left:0;right:0;bottom:0;height:auto;pointer-events:none;z-index:6}
@@ -220,8 +220,10 @@ body{
 
   /* flanks container becomes a flex row to place images next to each other */
   .hero-flanks{order:2;display:flex;gap:6px;justify-content:center;align-items:flex-start;width:100%;max-width:760px;padding:8px 6px}
-  .hero-flank{position:relative;display:block;bottom:auto;left:auto;right:auto;transform:none;z-index:2;width:48%;max-width:360px;margin:0}
-  .hero-flank-left,.hero-flank-right{width:48%}
+  /* slightly larger on small screens and closer together */
+  .hero-flanks{order:2;display:flex;gap:4px;justify-content:center;align-items:flex-start;width:100%;max-width:760px;padding:8px 6px}
+  .hero-flank{position:relative;display:block;bottom:auto;left:auto;right:auto;transform:none;z-index:2;width:50%;max-width:360px;margin:0}
+  .hero-flank-left,.hero-flank-right{width:50%}
 
   .hero-title{font-size:28px}
 }
@@ -373,8 +375,9 @@ main {
   .hero-center-card{background:transparent;border-radius:0;padding:12px 16px;box-shadow:none;margin-bottom:20px}
 
   /* flank images: keep them side-by-side, larger, and centered under the title */
-  .hero-flanks{max-width:96%;padding:0;margin:0;gap:4px}
-  .hero-flank{width:48%;max-width:220px;border-radius:0}
+  /* on very small phones bring the flanks a touch closer to center */
+  .hero-flanks{max-width:96%;padding:0;margin:0;gap:2px}
+  .hero-flank{width:52%;max-width:240px;border-radius:0}
   .hero-flank img{display:block}
 
   /* fixed CTA at bottom similar to screenshot */

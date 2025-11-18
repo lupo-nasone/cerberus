@@ -50,12 +50,12 @@ export default function Hero() {
         <div className="hero-flanks">
           <img
             className="hero-flank hero-flank-left"
-            src="/images/renato1-991x1024.png"
+            src="/images/bro1.png"
             alt="persona sinistra"
           />
           <img
             className="hero-flank hero-flank-right"
-            src="/images/claudio4.png"
+            src="/images/bro2.png"
             alt="persona destra"
           />
         </div>
