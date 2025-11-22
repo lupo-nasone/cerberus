@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" rx="12" fill="#F8FAFC"/>
+  <g transform="translate(40,40)">
+    <circle cx="120" cy="60" r="48" fill="#BFDBFE"/>
+    <rect x="220" width="480" height="120" rx="8" fill="#FEF3C7"/>
+    <text x="0" y="180" font-family="Inter, Arial, sans-serif" font-size="26" fill="#374151">Preparazione ispettiva</text>
+    <text x="0" y="210" font-family="Inter, Arial, sans-serif" font-size="14" fill="#6B7280">Placeholder immagine 2</text>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" rx="12" fill="#F3F4F6"/>
+  <g transform="translate(40,40)">
+    <rect width="680" height="80" rx="8" fill="#FDE68A"/>
+    <text x="0" y="120" font-family="Inter, Arial, sans-serif" font-size="26" fill="#374151">Controlli e spese</text>
+    <text x="0" y="150" font-family="Inter, Arial, sans-serif" font-size="14" fill="#6B7280">Placeholder immagine 3</text>
+  </g>
+</svg>

@@ -2,6 +2,7 @@
 import Header from "../components/Header";
 import ServiceCard from "../components/ServiceCard";
 import Footer from "../components/Footer";
+import Reveal from "../components/Reveal";
 import { useLocale } from "../../app/lib/LanguageProvider";
 
 // metadata is intentionally handled at the layout level for client-side translated pages
@@ -21,29 +22,32 @@ export default function ServiziPage() {
 
         <section className="services">
           <div className="services-grid">
-            <ServiceCard
-              title={t('services.items.scadenziario.title')}
-              desc={t('services.items.scadenziario.desc')}
-              image="https://source.unsplash.com/600x360/?calendar,planning"
-            />
-
-            <ServiceCard
-              title={t('services.items.assistenza.title')}
-              desc={t('services.items.assistenza.desc')}
-              image="https://source.unsplash.com/600x360/?inspection,inspection-team"
-            />
-
-            <ServiceCard
-              title={t('services.items.consulenza.title')}
-              desc={t('services.items.consulenza.desc')}
-              image="https://source.unsplash.com/600x360/?consulting,documents"
-            />
-
-            <ServiceCard
-              title={t('services.items.formazione.title')}
-              desc={t('services.items.formazione.desc')}
-              image="https://source.unsplash.com/600x360/?training,classroom"
-            />
+            {[
+              {
+                title: t('services.items.scadenziario.title'),
+                desc: t('services.items.scadenziario.desc'),
+                image: "https://source.unsplash.com/600x360/?calendar,planning"
+              },
+              {
+                title: t('services.items.assistenza.title'),
+                desc: t('services.items.assistenza.desc'),
+                image: "https://source.unsplash.com/600x360/?inspection,inspection-team"
+              },
+              {
+                title: t('services.items.consulenza.title'),
+                desc: t('services.items.consulenza.desc'),
+                image: "https://source.unsplash.com/600x360/?consulting,documents"
+              },
+              {
+                title: t('services.items.formazione.title'),
+                desc: t('services.items.formazione.desc'),
+                image: "https://source.unsplash.com/600x360/?training,classroom"
+              }
+            ].map((card, index) => (
+              <Reveal key={card.title} variant="fade-up" delay={index * 120}>
+                <ServiceCard {...card} />
+              </Reveal>
+            ))}
           </div>
         </section>
       </main>

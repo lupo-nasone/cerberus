@@ -20,16 +20,13 @@ export default function Header() {
             <Link href="/" className="top-logo-link" aria-label="Home">
               <img src="/images/logo.png" className="top-logo" alt="Cerberus" />
             </Link>
-
-            {/* Primary links - on small screens these will be hidden in favor of the hamburger */}
-            <div className="primary-links">
-              <Link href="/servizi" className="top-link">{t('header.servizi')}</Link>
-              <Link href="/blog" className="top-link">{t('header.blog')}</Link>
-              <Link href="/about" className="top-link">{t('header.about')}</Link>
+            {/* Company text (replaces primary links) */}
+            <div className="company-text-inline ml-4 text-sm text-gray-900 hidden md:block">
+              Cerberus S.r.l. – Verifiche ispettive e gestione obblighi di legge
             </div>
           </nav>
 
-          <div className="top-right" style={{display:'flex',alignItems:'center',gap:12}}>
+          <div className="top-right flex items-center gap-3">
             {/* Hamburger visible on small screens; language toggle stays always visible outside the mobile menu */}
             <button
               className="hamburger-toggle"
@@ -45,7 +42,11 @@ export default function Header() {
               {lang === 'it' ? 'EN' : 'IT'}
             </button>
 
-            <Link href="/contatti" className="top-cta">{t('header.contatti')}</Link>
+            {/* Phone and email added */}
+            <a href="tel:+[numero]" className="contact-link text-sm text-gray-700 hover:text-gray-900" aria-label="Telefono">☎ [numero]</a>
+            <a href="mailto:[email]" className="contact-link text-sm text-gray-700 hover:text-gray-900" aria-label="Email">📧 [email]</a>
+
+            <Link href="/contatti" className="top-cta ml-2">Richiedi il Check-up</Link>
           </div>
         </div>
 

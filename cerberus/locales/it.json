@@ -8,10 +8,10 @@
   },
   "hero":{
     "eyebrow":"Sei un imprenditore?",
-    "title":"NON PRENDERTI LA COLPA DEGLI ALTRI",
-    "sub":"Come specialisti della conformità CE per macchine e impianti, ti aiutiamo con documentazione, installazione e adeguamenti.",
-    "ctaPrimary":"COSA POSSIAMO FARE?",
-    "ctaSecondary":"I nostri servizi"
+  "title":"Verifica Zero Rischi®",
+  "sub":"Il sistema per tenere sotto controllo impianti, attrezzature e ispezioni… senza vivere nell’ansia delle sanzioni. Mappiamo tutte le verifiche obbligatorie (e quelle intelligenti da fare), mettiamo ordine in scadenze e responsabilità e ti affianchiamo nel tempo, così sai sempre a che punto sei.",
+  "ctaPrimary":"Richiedi il Check-up Verifica Zero Rischi",
+  "ctaSecondary":"Scarica la guida gratuita — Le 7 verifiche da non trascurare"
   },
   "ctaBanner":{
     "title":"Vuoi mettere al sicuro la tua attività?",
@@ -101,6 +101,28 @@
     "items":[
       {"name":"Azienda Alfa","quote":"Supporto rapido e competente, procedure chiare."},
       {"name":"Beta Srl","quote":"Abbiamo ridotto i rischi e migliorato la conformità."}
+    ]
+  },
+
+  "homeQuestions":{
+    "title":"Ti rivedi in almeno una di queste situazioni?",
+    "cta":"Voglio il mio Check-up Verifica Zero Rischi",
+    "cards":[
+      {
+        "title":"È da troppo che non riguardi le verifiche dei tuoi impianti?",
+        "body":"Messa a terra, attrezzature in pressione, sollevamento… i verbali sono sparsi tra mail, cassetti e fornitori diversi.",
+        "imageAlt":"Schema impianto"
+      },
+      {
+        "title":"Hai paura di non essere pronto se arriva un’ispezione?",
+        "body":"Sai che dovresti essere in regola, ma se domani entrano INAIL, ASL o un ente terzo… non sei completamente tranquillo.",
+        "imageAlt":"Preparazione a un’ispezione"
+      },
+      {
+        "title":"Ti sembra di spendere senza avere una visione d’insieme?",
+        "body":"Paghi verifiche e consulenze, ma nessuno ti dà un quadro chiaro di cosa serve davvero e cosa è solo \"carta\".",
+        "imageAlt":"Controlli e costi aziendali"
+      }
     ]
   }
 }

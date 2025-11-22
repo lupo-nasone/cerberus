@@ -102,5 +102,27 @@
       {"name":"Company Alpha","quote":"Fast and competent support, clear procedures."},
       {"name":"Beta Ltd","quote":"We reduced risks and improved compliance."}
     ]
+  },
+
+  "homeQuestions":{
+    "title":"Do you recognise yourself in any of these situations?",
+    "cta":"I want my Zero Risk Check-up",
+    "cards":[
+      {
+        "title":"When was the last time you reviewed your plant inspections?",
+        "body":"Earthing systems, pressure equipment, lifting gear… the reports are scattered across emails, drawers and different suppliers.",
+        "imageAlt":"Plant inspection diagram"
+      },
+      {
+        "title":"Worried about being unprepared if an inspection shows up?",
+        "body":"You know you should be compliant, yet if INAIL, ASL or a third-party body walked in tomorrow… you wouldn’t feel completely at ease.",
+        "imageAlt":"Preparing for an inspection"
+      },
+      {
+        "title":"Do you feel you’re spending without a clear overview?",
+        "body":"You pay for inspections and consulting, but nobody gives you a clear picture of what is really needed and what is just paperwork.",
+        "imageAlt":"Compliance costs and controls"
+      }
+    ]
   }
 }
