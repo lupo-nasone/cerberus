@@ -31,9 +31,8 @@
     "yes":"Yes, send",
     "no":"No, edit",
     "editPrompt":"Okay — tell me what you'd like to change."
-  }
-
-  ,"home":{
+  },
+  "home":{
     "introTitle":"Dedicated services for your compliance",
     "introText":"We offer a complete package for managing compliance: scheduling, assistance during inspections, technical consulting and training.",
     "metric1":"120 companies supported",
@@ -42,9 +41,9 @@
     "clientsTitle":"Who trusts us",
     "clientsList":["Company A","Company B","Company C","Company D"]
   },
-
   "services":{
     "title":"Our services",
+    "learnMore":"Discover the service",
     "items":{
       "scadenziario":{
         "title":"Scheduling & checks",
@@ -64,7 +63,6 @@
       }
     }
   },
-
   "chiSiamo":{
     "title":"About us",
     "lead":"Not just a story, but a journey together with you.",
@@ -78,7 +76,6 @@
     "foundersTitle":"The Founders",
     "foundersLead":"Cerberus, your guardian!"
   },
-
   "contact":{
     "title":"Contact",
     "intro":"For information about our services or to request a quote contact us via the form below or using the details provided.",
@@ -95,7 +92,6 @@
     "follow":"Follow us",
     "where":"Where we are"
   },
-
   "testimonials":{
     "title":"What clients say",
     "items":[
@@ -103,8 +99,29 @@
       {"name":"Beta Ltd","quote":"We reduced risks and improved compliance."}
     ]
   },
-
+  "sections":{
+    "overview":{
+      "eyebrow":"Why choose Cerberus"
+    },
+    "stats":{
+      "eyebrow":"Real numbers",
+      "title":"Impact you can measure",
+      "subtitle":"Ongoing support, hands-on coordination and reporting you can act on."
+    },
+    "services":{
+      "eyebrow":"Tailored solutions",
+      "subtitle":"From scheduling inspections to training your people, we cover the entire compliance cycle."
+    },
+    "clients":{
+      "eyebrow":"Trusted by",
+      "subtitle":"Manufacturing, logistics and service companies rely on Cerberus to stay compliant with confidence."
+    },
+    "cta":{
+      "eyebrow":"Ready to get started?"
+    }
+  },
   "homeQuestions":{
+    "eyebrow":"Hard questions",
     "title":"Do you recognise yourself in any of these situations?",
     "cta":"I want my Zero Risk Check-up",
     "cards":[
@@ -122,6 +139,38 @@
         "title":"Do you feel you’re spending without a clear overview?",
         "body":"You pay for inspections and consulting, but nobody gives you a clear picture of what is really needed and what is just paperwork.",
         "imageAlt":"Compliance costs and controls"
+      }
+    ]
+  },
+  "howItWorksSection":{
+    "eyebrow":"Three stages, zero surprises",
+    "title":"How Zero Risk Check-up works",
+    "subtitle":"From the initial assessment to day-to-day coordination: a method designed to keep you ahead of deadlines and confident during audits.",
+    "cta":"I want my Zero Risk Check-up",
+    "steps":[
+      {
+        "title":"Initial Check-up",
+        "tag":"Analysis & mapping",
+        "points":[
+          "Assessment of machinery, equipment and existing documentation.",
+          "Mapping of applicable regulations and identification of priorities."
+        ]
+      },
+      {
+        "title":"Zero Risk Plan",
+        "tag":"Strategy & priorities",
+        "points":[
+          "Comprehensive plan with scheduled inspections, deadlines, roles and responsibilities.",
+          "Risk exposure evaluation and sustainable remediation options."
+        ]
+      },
+      {
+        "title":"Management & support",
+        "tag":"Ongoing assistance",
+        "points":[
+          "Execution or coordination of inspections, reminders and continuous updates.",
+          "Guidance during audits and handling of authority requests."
+        ]
       }
     ]
   }

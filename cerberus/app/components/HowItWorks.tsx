@@ -1,103 +1,117 @@
 "use client";
 import Link from "next/link";
+import { useLocale } from "../lib/LanguageProvider";
 import Reveal from "./Reveal";
 
+type Step = {
+  title: string;
+  tag: string;
+  points: string[];
+};
+
+const FALLBACK_STEPS: Step[] = [
+  {
+    title: "Check-up iniziale",
+    tag: "Analisi & mappatura",
+    points: [
+      "Analisi di impianti, attrezzature e documentazione esistente.",
+      "Mappatura delle normative rilevanti e identificazione delle priorità."
+    ]
+  },
+  {
+    title: "Piano Zero Rischi",
+    tag: "Strategia & priorità",
+    points: [
+      "Piano completo con verifiche da eseguire, scadenze, ruoli e responsabilità.",
+      "Valutazione dell’esposizione al rischio e soluzioni sostenibili."
+    ]
+  },
+  {
+    title: "Gestione e accompagnamento",
+    tag: "Supporto continuo",
+    points: [
+      "Esecuzione delle verifiche, reminder e aggiornamenti costanti.",
+      "Affiancamento in caso di controllo e gestione delle richieste degli enti."
+    ]
+  }
+];
+
 export default function HowItWorks() {
+  const { t } = useLocale();
+
+  const eyebrowRaw = t("howItWorksSection.eyebrow");
+  const titleRaw = t("howItWorksSection.title");
+  const subtitleRaw = t("howItWorksSection.subtitle");
+  const ctaRaw = t("howItWorksSection.cta");
+  const stepsRaw = t("howItWorksSection.steps");
+
+  const eyebrow = typeof eyebrowRaw === "string" ? eyebrowRaw : "Tre fasi, zero sorprese";
+  const title = typeof titleRaw === "string" ? titleRaw : "Come funziona Verifica Zero Rischi®";
+  const subtitle =
+    typeof subtitleRaw === "string"
+      ? subtitleRaw
+      : "Dalla fotografia iniziale al coordinamento quotidiano: un metodo pensato per liberarti dalle corse all’ultimo minuto e farti dormire tranquillo.";
+  const cta =
+    typeof ctaRaw === "string" ? ctaRaw : "Voglio il mio Check-up Verifica Zero Rischi";
+
+  const translatedSteps =
+    Array.isArray(stepsRaw) && stepsRaw.length ? (stepsRaw as Step[]) : FALLBACK_STEPS;
+
+  const steps = translatedSteps.map((rawStep, index) => {
+    const fallback = FALLBACK_STEPS[index] ?? FALLBACK_STEPS[FALLBACK_STEPS.length - 1];
+    const pointsRaw = Array.isArray(rawStep?.points)
+      ? rawStep.points.filter((point): point is string => typeof point === "string")
+      : [];
+
+    return {
+      title: typeof rawStep?.title === "string" ? rawStep.title : fallback.title,
+      tag: typeof rawStep?.tag === "string" ? rawStep.tag : fallback.tag,
+      points: pointsRaw.length ? pointsRaw : fallback.points
+    };
+  });
+
   return (
-    <section className="relative py-20 bg-gradient-to-b from-white via-gray-50 to-white overflow-hidden">
-      <div className="absolute inset-y-0 -left-24 right-0 pointer-events-none">
-        <div className="h-full w-full bg-[radial-gradient(circle_at_top,_rgba(17,96,166,0.16),_transparent_62%)] blur-3xl opacity-80" />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <Reveal
-          as="p"
-          className="text-center text-xs md:text-sm font-semibold uppercase tracking-[0.35em] text-brand-700/70"
-          variant="fade-up"
-        >
-          Tre fasi, zero sorprese
+    <section className="process-section">
+      <div className="process-glow" aria-hidden />
+      <div className="container">
+        <Reveal className="section-eyebrow process-eyebrow" variant="fade-up">
+          {eyebrow}
         </Reveal>
-        <Reveal variant="fade-up" delay={80}>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mt-5 text-gray-900">
-            <span className="relative inline-flex items-center justify-center px-4 py-1">
-              <span className="absolute inset-0 rounded-full bg-brand-500/15 blur-lg" aria-hidden />
-              <span>Come funziona Verifica Zero Rischi®</span>
-            </span>
-          </h2>
+        <Reveal as="h2" className="section-title process-title" variant="fade-up" delay={80}>
+          {title}
         </Reveal>
-        <Reveal
-          as="p"
-          className="mt-6 max-w-3xl mx-auto text-center text-base md:text-lg text-gray-600"
-          variant="fade-up"
-          delay={160}
-        >
-          Dalla fotografia iniziale al coordinamento quotidiano: un metodo pensato per liberarti dalle corse all’ultimo minuto e farti dormire tranquillo.
+        <Reveal as="p" className="section-subtitle process-subtitle" variant="fade-up" delay={140}>
+          {subtitle}
         </Reveal>
 
-        <div className="relative mt-14">
-          <div className="hidden md:block absolute top-1/2 left-16 right-16 h-px bg-brand-500/10" aria-hidden />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Step 1 */}
+        <div className="process-grid">
+          {steps.map((step, index) => (
             <Reveal
-              className="group relative bg-white/95 border border-white/60 rounded-2xl px-9 pt-16 pb-10 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl backdrop-blur"
+              key={`${step.title}-${index}`}
+              className="process-card"
               variant="fade-up"
+              delay={index * 120}
             >
-              <span className="absolute -top-6 left-9 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-brand-700 to-brand-500 text-white text-lg font-semibold shadow-lg">01</span>
-              <div className="absolute inset-x-9 top-12 h-px bg-gradient-to-r from-transparent via-brand-500/15 to-transparent" aria-hidden />
-              <div className="mb-6 h-12 w-12 rounded-xl bg-gradient-to-br from-brand-500/20 via-brand-500/10 to-brand-700/20 shadow-inner border border-brand-500/10" aria-hidden />
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Check-up iniziale</h3>
-              <p className="text-sm uppercase tracking-[0.28em] text-brand-700/70 mb-4">Analisi & mappatura</p>
-              <ul className="space-y-2 text-gray-600 list-disc pl-5 marker:text-brand-500">
-                <li>Analisi di impianti, attrezzature e documentazione esistente.</li>
-                <li>Mappatura delle normative rilevanti (DPR 462/01, DM 11/04/2011, D.P.R. 162/1999, ecc.) e identificazione delle priorità.</li>
-              </ul>
-              <div className="hidden md:block absolute top-1/2 -right-6 h-3 w-3 rotate-45 bg-white border border-brand-500/15 shadow-sm" aria-hidden />
-            </Reveal>
-
-            {/* Step 2 */}
-            <Reveal
-              className="group relative bg-white/95 border border-white/60 rounded-2xl px-9 pt-16 pb-10 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl backdrop-blur"
-              variant="fade-up"
-              delay={120}
-            >
-              <span className="absolute -top-6 left-9 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-brand-700 to-brand-500 text-white text-lg font-semibold shadow-lg">02</span>
-              <div className="absolute inset-x-9 top-12 h-px bg-gradient-to-r from-transparent via-brand-500/15 to-transparent" aria-hidden />
-              <div className="mb-6 h-12 w-12 rounded-xl bg-gradient-to-br from-brand-500/20 via-brand-500/10 to-brand-700/20 shadow-inner border border-brand-500/10" aria-hidden />
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Piano Zero Rischi</h3>
-              <p className="text-sm uppercase tracking-[0.28em] text-brand-700/70 mb-4">Strategia & priorità</p>
-              <ul className="space-y-2 text-gray-600 list-disc pl-5 marker:text-brand-500">
-                <li>Piano completo con verifiche da eseguire, scadenze, ruoli e responsabilità.</li>
-                <li>Valutazione dell’esposizione al rischio e soluzioni economicamente sostenibili.</li>
-              </ul>
-              <div className="hidden md:block absolute top-1/2 -right-6 h-3 w-3 rotate-45 bg-white border border-brand-500/15 shadow-sm" aria-hidden />
-            </Reveal>
-
-            {/* Step 3 */}
-            <Reveal
-              className="group relative bg-white/95 border border-white/60 rounded-2xl px-9 pt-16 pb-10 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl backdrop-blur"
-              variant="fade-up"
-              delay={240}
-            >
-              <span className="absolute -top-6 left-9 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-brand-700 to-brand-500 text-white text-lg font-semibold shadow-lg">03</span>
-              <div className="absolute inset-x-9 top-12 h-px bg-gradient-to-r from-transparent via-brand-500/15 to-transparent" aria-hidden />
-              <div className="mb-6 h-12 w-12 rounded-xl bg-gradient-to-br from-brand-500/20 via-brand-500/10 to-brand-700/20 shadow-inner border border-brand-500/10" aria-hidden />
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Gestione e accompagnamento</h3>
-              <p className="text-sm uppercase tracking-[0.28em] text-brand-700/70 mb-4">Supporto continuo</p>
-              <ul className="space-y-2 text-gray-600 list-disc pl-5 marker:text-brand-500">
-                <li>Esecuzione delle verifiche (diretta o coordinata), remind scadenze e aggiornamenti costanti.</li>
-                <li>Affiancamento in caso di controllo e gestione delle richieste degli enti.</li>
+              <div className="process-card-head">
+                <span className="process-card-index">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="process-card-tag">{step.tag}</span>
+              </div>
+              <h3>{step.title}</h3>
+              <ul className="process-card-list">
+                {step.points.map((point, pointIndex) => (
+                  <li key={`${step.title}-${pointIndex}`}>{point}</li>
+                ))}
               </ul>
             </Reveal>
-          </div>
+          ))}
         </div>
 
-        <Reveal className="mt-16 text-center" variant="fade-up" delay={320}>
-          <Link
-            href="/contatti"
-            className="btn btn-primary inline-flex items-center gap-3 justify-center px-8 py-4 text-lg font-bold shadow-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl"
-          >
-            Voglio il mio Check-up Verifica Zero Rischi
-            <span className="text-2xl leading-none">→</span>
+        <Reveal className="process-cta" variant="fade-up" delay={steps.length * 120}>
+          <Link href="/contatti" className="btn btn-primary process-cta-btn">
+            {cta}
+            <span aria-hidden>→</span>
           </Link>
         </Reveal>
       </div>

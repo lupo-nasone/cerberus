@@ -11,6 +11,7 @@ export default function Hero() {
     imageAlt: string;
   };
 
+  const questionEyebrowRaw = t("homeQuestions.eyebrow");
   const questionTitleRaw = t("homeQuestions.title");
   const questionCtaRaw = t("homeQuestions.cta");
   const questionCardsRaw = t("homeQuestions.cards");
@@ -33,6 +34,7 @@ export default function Hero() {
     }
   ];
 
+  const questionEyebrow = typeof questionEyebrowRaw === "string" ? questionEyebrowRaw : "Domande scomode";
   const questionTitle = typeof questionTitleRaw === "string" ? questionTitleRaw : "Ti rivedi in almeno una di queste situazioni?";
   const questionCta = typeof questionCtaRaw === "string" ? questionCtaRaw : "Voglio il mio Check-up Verifica Zero Rischi";
   const questionCards: QuestionCard[] = Array.isArray(questionCardsRaw)
@@ -112,40 +114,44 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* Sezione domande "scomode" (tre colonne con immagini) */}
-      <section className="questions-section bg-white py-16">
+      {/* Sezione domande "scomode" rivisitata */}
+      <section className="questions-section">
         <div className="container">
-          <Reveal as="h2" className="text-3xl font-semibold text-center mb-8" variant="fade-up">
+          <Reveal className="section-eyebrow" variant="fade-up">
+            {questionEyebrow}
+          </Reveal>
+          <Reveal as="h2" className="section-title questions-title" variant="fade-up" delay={80}>
             {questionTitle}
           </Reveal>
 
-          <div className="questions-grid gap-6">
+          <div className="questions-grid">
             {questionCards.map((card, index) => (
               <Reveal
                 key={`${card.title}-${index}`}
-                className="p-6 bg-white rounded-lg shadow-sm flex flex-col items-start"
+                className="question-card"
                 variant="fade-up"
                 delay={index * 120}
               >
-                <div className="question-image-wrapper">
-                  <img
-                    src={questionImages[index] ?? questionImages[0]}
-                    alt={card.imageAlt}
-                    className="question-image"
-                  />
+                <div className="question-card-figure">
+                  <span className="question-card-index">0{index + 1}</span>
+                  <div className="question-image-wrapper">
+                    <img
+                      src={questionImages[index] ?? questionImages[0]}
+                      alt={card.imageAlt}
+                      className="question-image"
+                    />
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">
-                  {card.title}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {card.body}
-                </p>
+                <div className="question-card-body">
+                  <h3>{card.title}</h3>
+                  <p>{card.body}</p>
+                </div>
               </Reveal>
             ))}
           </div>
 
-          <Reveal className="mt-8 text-center" variant="fade-up" delay={questionCards.length * 120}>
-            <Link href="/contatti" className="btn btn-primary">
+          <Reveal className="questions-cta" variant="fade-up" delay={questionCards.length * 120}>
+            <Link href="/contatti" className="btn btn-primary questions-cta-btn">
               {questionCta}
             </Link>
           </Reveal>

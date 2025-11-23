@@ -45,6 +45,7 @@
 
   "services":{
     "title":"I nostri servizi",
+    "learnMore":"Scopri il servizio",
     "items":{
       "scadenziario":{
         "title":"Scadenziario e verifiche",
@@ -104,7 +105,30 @@
     ]
   },
 
+  "sections":{
+    "overview":{
+      "eyebrow":"Perché scegliere Cerberus"
+    },
+    "stats":{
+      "eyebrow":"Numeri reali",
+      "title":"Un impatto misurabile",
+      "subtitle":"Supporto continuativo, coordinamento pratico e reportistica che parlano chiaro."
+    },
+    "services":{
+      "eyebrow":"Soluzioni su misura",
+      "subtitle":"Dalla pianificazione delle verifiche alla formazione, seguiamo ogni fase della conformità."
+    },
+    "clients":{
+      "eyebrow":"La fiducia dei clienti",
+      "subtitle":"Imprese manifatturiere, logistiche e di servizi scelgono Cerberus per dormire sonni tranquilli."
+    },
+    "cta":{
+      "eyebrow":"Pronti a partire?"
+    }
+  },
+
   "homeQuestions":{
+    "eyebrow":"Domande scomode",
     "title":"Ti rivedi in almeno una di queste situazioni?",
     "cta":"Voglio il mio Check-up Verifica Zero Rischi",
     "cards":[
@@ -122,6 +146,39 @@
         "title":"Ti sembra di spendere senza avere una visione d’insieme?",
         "body":"Paghi verifiche e consulenze, ma nessuno ti dà un quadro chiaro di cosa serve davvero e cosa è solo \"carta\".",
         "imageAlt":"Controlli e costi aziendali"
+      }
+    ]
+  },
+
+  "howItWorksSection":{
+    "eyebrow":"Tre fasi, zero sorprese",
+    "title":"Come funziona Verifica Zero Rischi®",
+    "subtitle":"Dalla fotografia iniziale al coordinamento quotidiano: un metodo pensato per liberarti dalle corse all’ultimo minuto e farti dormire tranquillo.",
+    "cta":"Voglio il mio Check-up Verifica Zero Rischi",
+    "steps":[
+      {
+        "title":"Check-up iniziale",
+        "tag":"Analisi & mappatura",
+        "points":[
+          "Analisi di impianti, attrezzature e documentazione esistente.",
+          "Mappatura delle normative rilevanti e identificazione delle priorità."
+        ]
+      },
+      {
+        "title":"Piano Zero Rischi",
+        "tag":"Strategia & priorità",
+        "points":[
+          "Piano completo con verifiche da eseguire, scadenze, ruoli e responsabilità.",
+          "Valutazione dell’esposizione al rischio e soluzioni sostenibili."
+        ]
+      },
+      {
+        "title":"Gestione e accompagnamento",
+        "tag":"Supporto continuo",
+        "points":[
+          "Esecuzione delle verifiche, reminder e aggiornamenti costanti.",
+          "Affiancamento in caso di controllo e gestione delle richieste degli enti."
+        ]
       }
     ]
   }

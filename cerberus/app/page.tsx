@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import HowItWorks from "./components/HowItWorks";
@@ -10,24 +11,72 @@ import { useLocale } from "./lib/LanguageProvider";
 
 export default function Home() {
   const { t } = useLocale();
-  const clients = (t('home.clientsList') as unknown) as string[];
+  const clients = (t("home.clientsList") as unknown) as string[];
+
   const services = [
     {
-      title: t('services.items.scadenziario.title'),
-      desc: t('services.items.scadenziario.desc'),
-      image: "https://source.unsplash.com/600x360/?calendar,planning"
+      title: t("services.items.scadenziario.title"),
+      desc: t("services.items.scadenziario.desc"),
+      image: "https://images.unsplash.com/photo-1523365280197-f1783db9fe62?auto=format&fit=crop&w=600&q=80"
     },
     {
-      title: t('services.items.assistenza.title'),
-      desc: t('services.items.assistenza.desc'),
-      image: "https://source.unsplash.com/600x360/?inspection,inspection-team"
+      title: t("services.items.assistenza.title"),
+      desc: t("services.items.assistenza.desc"),
+      image: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=600&q=80"
     },
     {
-      title: t('services.items.consulenza.title'),
-      desc: t('services.items.consulenza.desc'),
-      image: "https://source.unsplash.com/600x360/?consulting,documents"
+      title: t("services.items.consulenza.title"),
+      desc: t("services.items.consulenza.desc"),
+      image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      title: t("services.items.formazione.title"),
+      desc: t("services.items.formazione.desc"),
+      image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=600&q=80"
     }
   ];
+
+  const highlightBullets = [
+    {
+      title: t("services.items.scadenziario.title"),
+      desc: t("services.items.scadenziario.desc")
+    },
+    {
+      title: t("services.items.assistenza.title"),
+      desc: t("services.items.assistenza.desc")
+    },
+    {
+      title: t("services.items.consulenza.title"),
+      desc: t("services.items.consulenza.desc")
+    }
+  ];
+
+  const metrics = [
+    t("home.metric1") as string,
+    t("home.metric2") as string,
+    t("home.metric3") as string
+  ];
+
+  const serviceCta = t("services.learnMore");
+  const fallbackClients = ["Azienda A", "Azienda B", "Azienda C", "Azienda D"];
+  const clientsList = clients && clients.length ? clients : fallbackClients;
+  const marqueeClients = [...clientsList, ...clientsList];
+
+  const renderMetric = (metric: string) => {
+    const match = metric.match(/(\d+[\w%]*)/);
+    if (!match) {
+      return metric;
+    }
+    const value = match[0];
+    const index = metric.indexOf(value);
+    return (
+      <>
+        {metric.slice(0, index)}
+        <span className="metric-value">{value}</span>
+        {metric.slice(index + value.length)}
+      </>
+    );
+  };
 
   return (
     <div className="min-h-screen">
@@ -36,115 +85,133 @@ export default function Home() {
       <main>
         <Hero />
         <HowItWorks />
-
-        {/* Overlap CTA removed per request */}
-
-        {/* Quick intro/features section (inspired layout) */}
-        <section className="container intro-section" style={{ padding: '40px 0' }}>
-          <div className="intro-grid">
-            <Reveal variant="fade-up">
-              <div>
-                <h2 style={{ fontSize: 26, fontWeight: 700, margin: 0 }}>{t('home.introTitle')}</h2>
-                <p style={{ color: 'var(--muted)', marginTop: 10, maxWidth: 680 }}>{t('home.introText')}</p>
-
-                <div style={{ display: 'flex', gap: 12, marginTop: 18, flexWrap: 'wrap' }}>
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                    <div style={{ width: 10, height: 10, background: 'var(--brand-700)', borderRadius: 4, marginTop: 6 }} />
-                    <div>
-                      <strong>{t('services.items.scadenziario.title')}</strong>
-                      <div style={{ color: 'var(--muted)' }}>{t('services.items.scadenziario.desc')}</div>
-                    </div>
-                  </div>
-
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                    <div style={{ width: 10, height: 10, background: 'var(--brand-500)', borderRadius: 4, marginTop: 6 }} />
-                    <div>
-                      <strong>{t('services.items.assistenza.title')}</strong>
-                      <div style={{ color: 'var(--muted)' }}>{t('services.items.assistenza.desc')}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal as="aside" variant="fade-up" delay={120}>
-              <div className="card">
-                <h3 style={{ marginTop: 0 }}>{t('ctaBanner.title')}</h3>
-                <p style={{ color: 'var(--muted)' }}>{t('ctaBanner.desc')}</p>
-                <div style={{ marginTop: 12 }}>
-                  <a href="/contatti" className="btn btn-primary">{t('ctaBanner.button')}</a>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* Clients / certifications strip */}
-        <section style={{ padding: '24px 0', background: 'transparent' }}>
+        <section className="home-highlights">
           <div className="container">
-            <Reveal as="h3" variant="fade-up" style={{ fontSize: 18, fontWeight: 700, marginBottom: 12 }}>
-              {t('home.clientsTitle')}
-            </Reveal>
-            <Reveal
-              variant="fade-up"
-              delay={100}
-              style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 16, alignItems: 'center' }}
-            >
-              {clients && clients.length ? (
-                clients.map((c, idx) => (
-                  <Reveal
-                    key={c}
-                    className="card"
-                    variant="fade-up"
-                    delay={idx * 60}
-                    style={{ textAlign: 'center', padding: 12 }}
-                  >
-                    {c}
-                  </Reveal>
-                ))
-              ) : (
-                ["Azienda A", "Azienda B", "Azienda C", "Azienda D"].map((placeholder, idx) => (
-                  <Reveal
-                    key={placeholder}
-                    className="card"
-                    variant="fade-up"
-                    delay={idx * 60}
-                    style={{ textAlign: 'center', padding: 12 }}
-                  >
-                    {placeholder}
-                  </Reveal>
-                ))
-              )}
-            </Reveal>
-          </div>
-        </section>
+            <div className="highlights-grid">
+              <div>
+                <Reveal variant="fade-up">
+                  <p className="section-eyebrow">{t("home.sections.overview.eyebrow")}</p>
+                  <h2 className="section-title">{t("home.introTitle")}</h2>
+                  <p className="section-subtitle">{t("home.introText")}</p>
+                </Reveal>
+                <div className="highlight-bullets">
+                  {highlightBullets.map((bullet, index) => (
+                    <Reveal
+                      key={bullet.title}
+                      className="highlight-bullet"
+                      variant="fade-up"
+                      delay={index * 80}
+                    >
+                      <span className="highlight-bullet-index">0{index + 1}</span>
+                      <div>
+                        <h3>{bullet.title}</h3>
+                        <p>{bullet.desc}</p>
+                      </div>
+                    </Reveal>
+                  ))}
+                </div>
+              </div>
 
-        {/* Services */}
-        <section className="services container">
-          <Reveal as="h2" variant="fade-up" style={{fontSize:22,fontWeight:600,marginBottom:12}}>
-            {t('services.title')}
-          </Reveal>
-          <div className="services-grid">
-            {services.map((card, index) => (
-              <Reveal key={card.title} variant="fade-up" delay={index * 120}>
-                <ServiceCard {...card} />
+              <Reveal className="highlight-card" variant="fade-up" delay={160}>
+                <div className="highlight-card-body">
+                  <p className="highlight-card-eyebrow">{t("home.sections.cta.eyebrow")}</p>
+                  <h3>{t("ctaBanner.title")}</h3>
+                  <p>{t("ctaBanner.desc")}</p>
+                  <Link href="/contatti" className="btn btn-primary highlight-card-action">
+                    {t("ctaBanner.button")}
+                  </Link>
+                </div>
               </Reveal>
-            ))}
+            </div>
           </div>
         </section>
 
-        {/* CTA banner */}
-        <section style={{ padding: '28px 0' }}>
+        <section className="home-stats">
           <div className="container">
-            <Reveal className="cta-banner" variant="fade-up">
-              <div>
-                <h3 style={{ margin: 0 }}>{t('ctaBanner.title')}</h3>
-                <p style={{ margin: '6px 0 0', opacity: .95 }}>{t('ctaBanner.desc')}</p>
-              </div>
+            <Reveal as="p" className="section-eyebrow" variant="fade-up">
+              {t("home.sections.stats.eyebrow")}
+            </Reveal>
+            <Reveal as="h2" className="section-title" variant="fade-up" delay={80}>
+              {t("home.sections.stats.title")}
+            </Reveal>
+            <Reveal as="p" className="section-subtitle" variant="fade-up" delay={120}>
+              {t("home.sections.stats.subtitle")}
+            </Reveal>
 
-              <div>
-                <a href="/contatti" className="btn btn-primary">{t('ctaBanner.button')}</a>
+            <div className="stats-grid">
+              {metrics.map((metric, index) => (
+                <Reveal key={`${metric}-${index}`} className="stat-card" variant="fade-up" delay={index * 100}>
+                  <div className="stat-card-inner">
+                    <span className="stat-icon" aria-hidden />
+                    <p>{renderMetric(metric)}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="home-services">
+          <div className="container">
+            <Reveal as="p" className="section-eyebrow" variant="fade-up">
+              {t("home.sections.services.eyebrow")}
+            </Reveal>
+            <Reveal as="h2" className="section-title" variant="fade-up" delay={80}>
+              {t("services.title")}
+            </Reveal>
+            <Reveal as="p" className="section-subtitle" variant="fade-up" delay={120}>
+              {t("home.sections.services.subtitle")}
+            </Reveal>
+
+            <div className="services-grid">
+              {services.map((card, index) => (
+                <Reveal key={card.title} variant="fade-up" delay={index * 100}>
+                  <ServiceCard {...card} ctaLabel={serviceCta} />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="home-clients">
+          <div className="container">
+            <Reveal as="p" className="section-eyebrow" variant="fade-up">
+              {t("home.sections.clients.eyebrow")}
+            </Reveal>
+            <Reveal as="h2" className="section-title" variant="fade-up" delay={80}>
+              {t("home.clientsTitle")}
+            </Reveal>
+            <Reveal as="p" className="section-subtitle" variant="fade-up" delay={120}>
+              {t("home.sections.clients.subtitle")}
+            </Reveal>
+
+            <div className="clients-marquee">
+              <div className="clients-marquee-track">
+                {marqueeClients.map((clientName, index) => (
+                  <span
+                    key={`${clientName}-${index}`}
+                    className="clients-pill"
+                    aria-hidden={index >= clientsList.length}
+                  >
+                    {clientName}
+                  </span>
+                ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="home-cta-band">
+          <div className="container">
+            <Reveal className="cta-band" variant="fade-up">
+              <div className="cta-band-text">
+                <p className="section-eyebrow">{t("home.sections.cta.eyebrow")}</p>
+                <h3>{t("ctaBanner.title")}</h3>
+                <p>{t("ctaBanner.desc")}</p>
+              </div>
+              <Link href="/contatti" className="btn btn-primary cta-band-action">
+                {t("ctaBanner.button")}
+              </Link>
             </Reveal>
           </div>
         </section>

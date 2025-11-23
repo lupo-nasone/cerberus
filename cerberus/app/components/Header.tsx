@@ -38,15 +38,18 @@ export default function Header() {
               <span className="hamburger-icon" aria-hidden>{open ? '✕' : '☰'}</span>
             </button>
 
-            <button aria-label="Toggle language" className="lang-toggle" onClick={toggleLang}>
-              {lang === 'it' ? 'EN' : 'IT'}
-            </button>
+            <div className="top-right-actions">
+              <button aria-label="Toggle language" className="lang-toggle" onClick={toggleLang}>
+                {lang === 'it' ? 'EN' : 'IT'}
+              </button>
 
-            {/* Phone and email added */}
-            <a href="tel:+[numero]" className="contact-link text-sm text-gray-700 hover:text-gray-900" aria-label="Telefono">☎ [numero]</a>
-            <a href="mailto:[email]" className="contact-link text-sm text-gray-700 hover:text-gray-900" aria-label="Email">📧 [email]</a>
+              <div className="top-contact-links">
+                <a href="tel:+[numero]" className="contact-link text-sm text-gray-100 hover:text-white" aria-label="Telefono">☎ [numero]</a>
+                <a href="mailto:[email]" className="contact-link text-sm text-gray-100 hover:text-white" aria-label="Email">📧 [email]</a>
+              </div>
 
-            <Link href="/contatti" className="top-cta ml-2">Richiedi il Check-up</Link>
+              <Link href="/contatti" className="top-cta">Richiedi il Check-up</Link>
+            </div>
           </div>
         </div>
 
@@ -59,6 +62,12 @@ export default function Header() {
               <Link href="/about" className="mobile-link" onClick={() => setOpen(false)}>{t('header.about')}</Link>
               <Link href="/contatti" className="mobile-link mobile-cta" onClick={() => setOpen(false)}>{t('header.contatti')}</Link>
             </nav>
+            <div className="mobile-meta">
+              <div className="mobile-contact-links">
+                <a href="tel:+[numero]" className="mobile-contact-link" onClick={() => setOpen(false)} aria-label="Telefono">☎ [numero]</a>
+                <a href="mailto:[email]" className="mobile-contact-link" onClick={() => setOpen(false)} aria-label="Email">📧 [email]</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
