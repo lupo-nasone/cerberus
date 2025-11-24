@@ -75,11 +75,11 @@ body{
 /* Header */
 .site-header{position:sticky;top:0;z-index:80;background:rgba(12,17,24,0.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(71,85,105,0.32);box-shadow:0 18px 32px rgba(6,10,18,0.4)}
 .header-shell{display:flex;align-items:center;justify-content:space-between;gap:28px;min-height:78px;padding:12px 0}
-.header-brand{display:flex;align-items:center;gap:16px;text-decoration:none;color:var(--fg)}
+.header-brand{display:flex;align-items:center;gap:16px;text-decoration:none;color:var(--fg);min-width:0}
 .header-logo{position:relative;display:flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:14px;background:linear-gradient(155deg,rgba(247,249,253,0.94),rgba(198,212,233,0.7));border:1px solid rgba(136,156,188,0.55);box-shadow:0 18px 34px rgba(8,12,18,0.42);padding:10px;overflow:hidden}
 .header-logo::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(76,119,186,0.32),rgba(76,119,186,0));opacity:0.9;pointer-events:none}
 .header-logo img{position:relative;width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 6px 14px rgba(12,17,24,0.28))}
-.header-brand-text{display:flex;flex-direction:column;gap:4px}
+.header-brand-text{display:flex;flex-direction:column;gap:4px;min-width:0}
 .header-brand-name{font-family:'Poppins','Inter',sans-serif;font-size:19px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#f1f5fa}
 .header-brand-tagline{font-size:12px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(231,237,245,0.65)}
 
@@ -103,7 +103,8 @@ body{
 .header-hamburger{display:none;background:rgba(21,31,45,0.82);border:1px solid rgba(94,109,133,0.32);color:#f1f5fa;border-radius:10px;padding:10px 12px;font-size:18px;line-height:1;cursor:pointer;transition:background .18s ease,border-color .18s ease}
 .header-hamburger:hover{background:rgba(47,74,108,0.7);border-color:rgba(129,148,178,0.45)}
 
-.header-drawer{display:none}
+.header-drawer{max-height:0;overflow:hidden;opacity:0;pointer-events:none;transition:max-height .36s cubic-bezier(.22,.82,.28,1),opacity .24s ease}
+.header-drawer-inner{opacity:0;transform:translateY(-12px);transition:transform .32s cubic-bezier(.22,.82,.28,1),opacity .24s ease}
 
 @media (max-width:1100px){
   .header-shell{gap:22px}
@@ -117,8 +118,10 @@ body{
   .header-cta{display:none}
   .header-actions{gap:12px}
   .header-hamburger{display:inline-flex}
-  .header-drawer.open{display:block;background:rgba(10,16,24,0.96);border-bottom:1px solid rgba(71,85,105,0.32);box-shadow:0 20px 38px rgba(6,10,18,0.45)}
+  .header-drawer{background:rgba(10,16,24,0.96);border-bottom:1px solid rgba(71,85,105,0.32);box-shadow:0 20px 38px rgba(6,10,18,0.45)}
+  .header-drawer.open{max-height:480px;opacity:1;pointer-events:auto}
   .header-drawer-inner{padding:18px 0 24px;display:flex;flex-direction:column;gap:22px}
+  .header-drawer.open .header-drawer-inner{opacity:1;transform:translateY(0)}
   .drawer-nav{display:flex;flex-direction:column;gap:12px}
   .drawer-nav-link{color:#f1f5fa;font-weight:700;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;padding:12px 0;border-bottom:1px solid rgba(148,163,184,0.18)}
   .drawer-nav-link:last-child{border-bottom:0}
@@ -131,12 +134,15 @@ body{
 }
 
 @media (max-width:640px){
-  .header-shell{gap:14px}
-  .header-brand{gap:12px}
-  .header-logo{width:52px;height:52px;border-radius:12px;padding:8px}
-  .header-brand-name{font-size:17px;letter-spacing:0.1em}
-  .header-brand-tagline{font-size:11px;letter-spacing:0.16em}
-  .lang-toggle{padding:8px 12px;min-width:48px;font-size:11px}
+  .site-header .container{padding-left:calc(16px + env(safe-area-inset-left));padding-right:calc(16px + env(safe-area-inset-right))}
+  .header-shell{gap:10px;padding:10px 0}
+  .header-brand{flex:1 1 auto;gap:10px}
+  .header-logo{width:48px;height:48px;border-radius:12px;padding:7px}
+  .header-brand-name{font-size:15px;letter-spacing:0.08em}
+  .header-brand-tagline{display:none}
+  .header-actions{gap:10px}
+  .lang-toggle{padding:7px 10px;min-width:44px;font-size:10px;letter-spacing:0.1em}
+  .header-hamburger{padding:8px 10px;font-size:20px}
 }
 
 /* Hero */
