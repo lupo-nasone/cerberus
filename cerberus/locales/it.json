@@ -181,5 +181,96 @@
         ]
       }
     ]
+  },
+  "subscription":{
+    "eyebrow":"Un unico canone",
+    "title":"Abbonamento Verifica Zero Rischi",
+    "desc":"Gestiamo verifiche, scadenze e fornitori con un'unica regia – così sai sempre a che punto sei.",
+    "bullets":[
+      "Piano completo di verifiche con scadenze chiare",
+      "Reminder automatici e coordinamento con gli enti",
+      "Report periodici sullo stato di conformità",
+      "Supporto in caso di controlli ispettivi",
+      "Servizi specialistici attivabili quando servono"
+    ],
+    "cta":"Richiedi una proposta di abbonamento"
+  },
+  "promise":{
+    "eyebrow":"Impegno Cerberus",
+    "title":"La nostra promessa",
+    "bulletTitle":"Cosa significa in pratica",
+    "paragraphs":[
+      "Non possiamo prometterti che non avrai mai un controllo. Possiamo però dirti con trasparenza dove sei scoperto, quali sono le priorità e cosa conviene fare subito.",
+      "Ti accompagniamo nella preparazione dei documenti, nelle risposte agli enti e nelle azioni correttive: quando arriva un'ispezione non resti solo."],
+    "bullets":[
+      "Consigli pratici, non burocrazia",
+      "Controllo costante dello stato di conformità",
+      "Affiancamento diretto durante gli audit"
+    ]
+  },
+  "resourcesSection":{
+    "eyebrow":"Risorse e approfondimenti",
+    "title":"Vuoi capire meglio cosa ti serve davvero?",
+    "lead":"Scarica la checklist e scopri gli ultimi articoli per mettere ordine tra obblighi, scadenze e verifiche.",
+    "leadMagnet":{
+      "title":"Checklist Verifica Zero Rischi",
+      "subtitle":"Le verifiche minime che ogni datore di lavoro dovrebbe conoscere.",
+      "formTitle":"Scarica subito la checklist",
+      "fields":[
+        {"name":"firstName","label":"Nome"},
+        {"name":"lastName","label":"Cognome"},
+        {"name":"email","label":"Email","type":"email"},
+        {"name":"company","label":"Azienda"},
+        {"name":"role","label":"Ruolo","fullWidth":true}
+      ],
+      "privacy":"Confermo di aver letto l'informativa privacy e di voler ricevere la checklist via email.",
+      "cta":"Invia e ricevi la checklist",
+      "success":"Grazie! Ti invieremo la checklist via email entro poche ore."
+    },
+    "blog":{
+      "title":"Dal nostro blog",
+      "subtitle":"Approfondimenti concreti per restare allineato con norme e ispezioni.",
+      "postLinkLabel":"Leggi l'articolo",
+      "cta":"Vai al blog",
+      "ctaHref":"/blog",
+      "posts":[
+        {
+          "title":"Come prepararsi a una verifica INAIL senza stress",
+          "href":"/blog/prepararsi-verifica-inail",
+          "category":"Normativa",
+          "excerpt":"Documenti da avere pronti, tempistiche e check preliminari per affrontare il controllo."
+        },
+        {
+          "title":"DPR 462/01: checklist operativa per gli impianti di messa a terra",
+          "href":"/blog/dpr-462-checklist",
+          "category":"Impianti",
+          "excerpt":"I passaggi fondamentali per evitare contestazioni e mettersi al riparo da sanzioni."
+        },
+        {
+          "title":"Verifiche sulle attrezzature in pressione: cosa cambia nel 2025",
+          "href":"/blog/verifiche-pressione-2025",
+          "category":"Aggiornamenti",
+          "excerpt":"Novità normative e come organizzarsi per non perdere alcuna scadenza."
+        }
+      ]
+    }
+  },
+  "finalCta":{
+    "eyebrow":"Pronto a fare il punto?",
+    "title":"Compila il form e ti ricontattiamo per un Check-up Verifica Zero Rischi",
+    "subtitle":"Ti guidiamo tra verifiche, scadenze e responsabilità così sai sempre qual è lo stato dei tuoi impianti.",
+    "bullets":[
+      "Analisi gratuita delle verifiche obbligatorie in essere",
+      "Mappa delle priorità e dei rischi da mettere sotto controllo",
+      "Supporto diretto durante ispezioni o richieste dagli enti"
+    ],
+    "cta":"Richiedi il Check-up",
+    "ctaHref":"/contatti"
+  },
+  "testimonialsSection":{
+    "eyebrow":"Cosa dicono di noi",
+    "title":"Le storie dei clienti",
+    "subtitle":"Aziende che avevano bisogno di ordine, strumenti e qualcuno che si prendesse la responsabilità insieme a loro.",
+    "cta":"Leggi tutte le recensioni"
   }
 }

@@ -173,5 +173,96 @@
         ]
       }
     ]
+  },
+  "subscription":{
+    "eyebrow":"One plan, zero panic",
+    "title":"Zero Risk Subscription",
+    "desc":"We orchestrate inspections, deadlines and suppliers so you always know where you stand.",
+    "bullets":[
+      "Complete inspection schedule with clear due dates",
+      "Automatic reminders and coordination with authorities",
+      "Periodic compliance status reports",
+      "Support every time an audit shows up",
+      "Specialist services you can add when needed"
+    ],
+    "cta":"Request a subscription proposal"
+  },
+  "promise":{
+    "eyebrow":"Cerberus commitment",
+    "title":"Our promise",
+    "bulletTitle":"What this means in practice",
+    "paragraphs":[
+      "We can’t promise you’ll never face an inspection. We can give you a clear picture of the gaps, the priorities and the smartest next steps.",
+      "We stay beside you preparing documentation, answering authorities and rolling out corrective actions: when auditors arrive, you’re not on your own."],
+    "bullets":[
+      "Practical guidance, not paperwork",
+      "Constant monitoring of compliance status",
+      "Hands-on support during audits"
+    ]
+  },
+  "resourcesSection":{
+    "eyebrow":"Resources & insights",
+    "title":"Want to understand what you really need?",
+    "lead":"Download the checklist and explore the latest articles to stay in control of inspections and compliance.",
+    "leadMagnet":{
+      "title":"Zero Risk Check-up Checklist",
+      "subtitle":"The essential inspections every employer should know.",
+      "formTitle":"Get your copy now",
+      "fields":[
+        {"name":"firstName","label":"First name"},
+        {"name":"lastName","label":"Last name"},
+        {"name":"email","label":"Email","type":"email"},
+        {"name":"company","label":"Company"},
+        {"name":"role","label":"Role","fullWidth":true}
+      ],
+      "privacy":"I confirm I have read the privacy notice and wish to receive the checklist by email.",
+      "cta":"Send and receive the checklist",
+      "success":"Thanks! We’ll email the checklist to you within the next few hours."
+    },
+    "blog":{
+      "title":"From our blog",
+      "subtitle":"Practical insights to keep your organisation aligned with regulations and inspections.",
+      "postLinkLabel":"Read the article",
+      "cta":"Go to the blog",
+      "ctaHref":"/en/blog",
+      "posts":[
+        {
+          "title":"How to get ready for an INAIL inspection without stress",
+          "href":"/en/blog/prepare-inail-inspection",
+          "category":"Regulation",
+          "excerpt":"Documents, timelines and pre-checks to walk confidently through the audit."
+        },
+        {
+          "title":"DPR 462/01: operational checklist for earthing systems",
+          "href":"/en/blog/dpr-462-checklist",
+          "category":"Plants",
+          "excerpt":"Key steps to avoid disputes and keep sanctions at bay."
+        },
+        {
+          "title":"Pressure equipment checks: what changes in 2025",
+          "href":"/en/blog/pressure-checks-2025",
+          "category":"Updates",
+          "excerpt":"Regulatory news and how to organise deadlines efficiently."
+        }
+      ]
+    }
+  },
+  "finalCta":{
+    "eyebrow":"Ready to take stock?",
+    "title":"Fill in the form and we’ll arrange your Zero Risk Check-up",
+    "subtitle":"We guide you through inspections, deadlines and responsibilities so you always know the status of your assets.",
+    "bullets":[
+      "Free assessment of your current mandatory inspections",
+      "Priority map and risks to bring under control",
+      "Hands-on support when authorities request documents or inspections"
+    ],
+    "cta":"Request the Check-up",
+    "ctaHref":"/en/contact"
+  },
+  "testimonialsSection":{
+    "eyebrow":"Client voices",
+    "title":"What our partners say",
+    "subtitle":"Companies that needed structure, clarity and someone ready to share responsibility for compliance.",
+    "cta":"See all testimonials"
   }
 }
