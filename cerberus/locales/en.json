@@ -87,7 +87,12 @@
       "name":"Name",
       "email":"Email",
       "message":"Message",
-      "submit":"Send request"
+      "submit":"Send request",
+      "sending":"Sending...",
+  "success":"Message sent! We will get back to you shortly.",
+  "error":"We couldn't send your message. Please try again in a moment.",
+      "missing":"Please fill out all fields.",
+      "invalidEmail":"Enter a valid email address."
     },
     "contactsTitle":"Contacts",
     "emailLabel":"Email:",

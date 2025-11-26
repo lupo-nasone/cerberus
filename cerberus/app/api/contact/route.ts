@@ -12,10 +12,11 @@ const REQUIRED_ENV = [
 
 type RequiredEnv = (typeof REQUIRED_ENV)[number];
 
-type ChatPayload = {
+type ContactPayload = {
   name: string;
   email: string;
   message: string;
+  source?: string;
 };
 
 function validateEnv(): Record<RequiredEnv, string> {
@@ -50,15 +51,16 @@ function isValidEmail(email: string) {
 export async function POST(request: NextRequest) {
   try {
     const env = validateEnv();
-    const body = (await request.json()) as Partial<ChatPayload> | null;
+  const body = (await request.json()) as Partial<ContactPayload> | null;
 
     if (!body || typeof body !== "object") {
       return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
     }
 
-    const name = typeof body.name === "string" ? body.name.trim() : "";
-    const email = typeof body.email === "string" ? body.email.trim() : "";
-    const message = typeof body.message === "string" ? body.message.trim() : "";
+  const name = typeof body.name === "string" ? body.name.trim() : "";
+  const email = typeof body.email === "string" ? body.email.trim() : "";
+  const message = typeof body.message === "string" ? body.message.trim() : "";
+  const source = typeof body.source === "string" ? body.source.trim().toLowerCase() : "chat";
 
     if (!name || !email || !message) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
@@ -78,9 +80,13 @@ export async function POST(request: NextRequest) {
       }
     });
 
+  const originLabel = source === "contact-form" ? "Modulo contatti" : "Chat assistente";
+  const subject = source === "contact-form" ? `Nuova richiesta dal sito – ${name}` : `Nuova richiesta chat – ${name}`;
+
     const html = `
       <div style="font-family:Inter,Arial,sans-serif;line-height:1.6;">
-        <h2 style="margin:0 0 12px;">Nuovo messaggio dal bot Cerberus</h2>
+        <h2 style="margin:0 0 12px;">Nuovo messaggio – ${escapeHtml(originLabel)}</h2>
+        <p><strong>Origine:</strong> ${escapeHtml(originLabel)}</p>
         <p><strong>Nome:</strong> ${escapeHtml(name)}</p>
         <p><strong>Email:</strong> ${escapeHtml(email)}</p>
         <p><strong>Messaggio:</strong></p>
@@ -91,8 +97,8 @@ export async function POST(request: NextRequest) {
     await transporter.sendMail({
       from: env.CHAT_FROM_EMAIL,
       to: env.CHAT_RECIPIENT_EMAIL,
-      subject: `Nuova richiesta chat – ${name}`,
-      text: `Nome: ${name}\nEmail: ${email}\nMessaggio:\n${message}`,
+      subject,
+      text: `Origine: ${originLabel}\nNome: ${name}\nEmail: ${email}\nMessaggio:\n${message}`,
       html
     });
 

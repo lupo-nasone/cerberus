@@ -1,4 +1,5 @@
 "use client";
+import { ChangeEvent, FormEvent, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import MapClient from "../components/MapClient";
@@ -6,8 +7,106 @@ import { useLocale } from "../../app/lib/LanguageProvider";
 
 // metadata is intentionally handled at the layout level for client-side translated pages
 
+type FormStatus = "idle" | "sending" | "success" | "error" | "missing" | "invalidEmail";
+
+type StatusStyle = { background: string; border: string; color: string };
+
+const SUCCESS_STATUS_STYLE: StatusStyle = {
+  background: "rgba(34,197,94,0.12)",
+  border: "1px solid rgba(34,197,94,0.4)",
+  color: "#4ade80"
+};
+
+const ERROR_STATUS_STYLE: StatusStyle = {
+  background: "rgba(248,113,113,0.14)",
+  border: "1px solid rgba(248,113,113,0.4)",
+  color: "#fda4af"
+};
+
 export default function ContattiPage() {
   const { t } = useLocale();
+  const [formValues, setFormValues] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<FormStatus>("idle");
+
+  const statusMessageKey = (() => {
+    switch (status) {
+      case "success":
+        return "contact.form.success";
+      case "error":
+        return "contact.form.error";
+      case "missing":
+        return "contact.form.missing";
+      case "invalidEmail":
+        return "contact.form.invalidEmail";
+      default:
+        return null;
+    }
+  })();
+
+  function handleChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const field = event.target.name as keyof typeof formValues;
+    setFormValues(prev => ({ ...prev, [field]: event.target.value }));
+    if (status !== "idle" && status !== "sending") {
+      setStatus("idle");
+    }
+  }
+
+  function isValidEmail(email: string) {
+    const at = email.indexOf("@");
+    if (at <= 0) return false;
+    const dot = email.indexOf(".", at + 2);
+    if (dot <= at + 1) return false;
+    if (dot === email.length - 1) return false;
+    return true;
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (status === "sending") return;
+
+    const name = formValues.name.trim();
+    const email = formValues.email.trim();
+    const message = formValues.message.trim();
+
+    if (!name || !email || !message) {
+      setStatus("missing");
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      setStatus("invalidEmail");
+      return;
+    }
+
+    setStatus("sending");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message, source: "contact-form" })
+      });
+
+      if (!response.ok) {
+        let nextStatus: FormStatus = "error";
+        try {
+          const data = await response.json();
+          if (data?.error === "Missing fields") nextStatus = "missing";
+          if (data?.error === "Invalid email") nextStatus = "invalidEmail";
+        } catch {
+          // ignore JSON parse issues and fall back to generic error
+        }
+        setStatus(nextStatus);
+        return;
+      }
+
+      setFormValues({ name: "", email: "", message: "" });
+      setStatus("success");
+    } catch (error) {
+      console.error("Contact form submission error", error);
+      setStatus("error");
+    }
+  }
 
   return (
     <div className="min-h-screen">
@@ -21,24 +120,71 @@ export default function ContattiPage() {
 
         <section className="contact-grid">
           <div className="contact-form">
-            <form action="#" method="post" className="contact-form">
+            <form onSubmit={handleSubmit} className="contact-form" noValidate>
+              {statusMessageKey && (
+                <div
+                  role="status"
+                  aria-live="polite"
+                  style={{
+                    marginBottom: 16,
+                    padding: "12px 14px",
+                    borderRadius: 10,
+                    fontSize: 14,
+                    lineHeight: 1.5,
+                    ...(status === "success" ? SUCCESS_STATUS_STYLE : ERROR_STATUS_STYLE)
+                  }}
+                >
+                  {t(statusMessageKey)}
+                </div>
+              )}
+
               <div className="form-field">
                 <label htmlFor="name">{t('contact.form.name')}</label>
-                <input id="name" name="name" type="text" className="form-control" />
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  className="form-control"
+                  value={formValues.name}
+                  onChange={handleChange}
+                  autoComplete="name"
+                />
               </div>
 
               <div className="form-field">
                 <label htmlFor="email">{t('contact.form.email')}</label>
-                <input id="email" name="email" type="email" className="form-control" />
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  className="form-control"
+                  value={formValues.email}
+                  onChange={handleChange}
+                  autoComplete="email"
+                />
               </div>
 
               <div className="form-field">
                 <label htmlFor="message">{t('contact.form.message')}</label>
-                <textarea id="message" name="message" rows={6} className="form-control" />
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={6}
+                  className="form-control"
+                  value={formValues.message}
+                  onChange={handleChange}
+                />
               </div>
 
               <div>
-                <button type="submit" className="btn btn-primary">{t('contact.form.submit')}</button>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={status === "sending"}
+                  style={{ opacity: status === "sending" ? 0.7 : 1 }}
+                >
+                  {status === "sending" ? t('contact.form.sending') : t('contact.form.submit')}
+                </button>
               </div>
             </form>
           </div>

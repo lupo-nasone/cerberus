@@ -91,7 +91,12 @@
       "name":"Nome",
       "email":"Email",
       "message":"Messaggio",
-      "submit":"Invia richiesta"
+      "submit":"Invia richiesta",
+      "sending":"Invio...",
+      "success":"Messaggio inviato! Ti ricontatteremo a breve.",
+      "error":"Non siamo riusciti a inviare il messaggio. Riprova tra qualche minuto.",
+      "missing":"Compila tutti i campi per continuare.",
+      "invalidEmail":"Inserisci un indirizzo email valido."
     },
     "contactsTitle":"Recapiti",
     "emailLabel":"Email:",
