@@ -30,7 +30,11 @@
     "invalidEmail":"That doesn't look like a valid email — can you double check and re-enter it?",
     "yes":"Yes, send",
     "no":"No, edit",
-    "editPrompt":"Okay — tell me what you'd like to change."
+    "editPrompt":"Okay — tell me what you'd like to change.",
+    "sending":"Give me a second, I'm sending your request...",
+    "errorSending":"Whoops, I couldn't send that. Would you like to try again?",
+    "errorMissing":"Looks like some details are missing. Can you start over?",
+    "sendingButton":"Sending..."
   },
   "home":{
     "introTitle":"Dedicated services for your compliance",

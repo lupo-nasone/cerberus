@@ -30,7 +30,11 @@
     "invalidEmail":"Non sembra una email valida — puoi ricontrollarla e reinserirla, per favore?",
     "yes":"Sì, invia",
     "no":"No, modifica",
-    "editPrompt":"Va bene — dimmi pure cosa vuoi modificare."
+    "editPrompt":"Va bene — dimmi pure cosa vuoi modificare.",
+    "sending":"Un attimo, invio la tua richiesta...",
+    "errorSending":"Ops, qualcosa è andato storto. Vuoi riprovare?",
+    "errorMissing":"Mi mancano alcuni dati per inviare la richiesta. Puoi ricominciare?",
+    "sendingButton":"Invio..."
   }
 
   ,"home":{
