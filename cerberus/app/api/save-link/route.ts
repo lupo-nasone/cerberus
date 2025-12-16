@@ -15,10 +15,13 @@ export async function POST(req: Request) {
     if (!html || typeof html !== "string") {
       return NextResponse.json({ error: "Invalid html" }, { status: 400 });
     }
-    // basic validation: must contain an iframe and LinkedIn embed url
+    // basic validation: must contain LinkedIn embed content
+    // Accept either iframe embeds or blockquote+script embeds
     const lowered = html.toLowerCase();
-    if (!lowered.includes("<iframe") || !lowered.includes("linkedin.com/embed")) {
-      return NextResponse.json({ error: "HTML non valido: serve un iframe di LinkedIn" }, { status: 400 });
+    const hasIframe = lowered.includes("<iframe") && (lowered.includes("linkedin.com") || lowered.includes("platform.linkedin.com"));
+    const hasScriptEmbed = lowered.includes("<blockquote") && lowered.includes("class=\"linkedin-post\"") || lowered.includes("platform.linkedin.com");
+    if (!hasIframe && !hasScriptEmbed) {
+      return NextResponse.json({ error: "HTML non valido: incolla un embed LinkedIn (iframe o script)" }, { status: 400 });
     }
 
     let arr: string[] = [];

@@ -1,28 +1,19 @@
-import { list } from "@vercel/blob";
+// Read posts via internal API to keep logic in one place
 // Ensure this page is always dynamically rendered and not cached
 export const revalidate = 0;
 export const dynamic = "force-dynamic";
 
-type BlobItem = { pathname: string; url: string };
 import LinkedInEmbeds from "../components/LinkedInEmbeds";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 async function getSaved() {
-  // Prefer Blob in production
-  try {
-    const { blobs } = await list({ prefix: "cerberus/", token: process.env.BLOB_READ_WRITE_TOKEN });
-  const found = (blobs as BlobItem[]).find((b) => b.pathname === "cerberus/linkedin-posts.json");
-    if (found?.url) {
-      const r = await fetch(found.url, { cache: "no-store" });
-      if (r.ok) {
-        const arr = await r.json();
-        if (Array.isArray(arr)) return arr as string[];
-      }
-    }
-  } catch {}
-
-  // Blob not found or error: return empty
+  // Read via our API to avoid cache/permission mismatches
+  const r = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ""}/api/links`, { cache: "no-store" });
+  if (r.ok) {
+    const arr = await r.json();
+    if (Array.isArray(arr)) return arr as string[];
+  }
   return [];
 }
 
@@ -39,7 +30,7 @@ export default async function BlogPage() {
             <p>Nessun post incorporato.</p>
           ) : (
             // mostra gli embed in colonne
-            <div className="grid cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-6">
               {urls.map((h, i) => (
                 <div key={i} className="card p-4">
                   <div className="embed-wrapper" dangerouslySetInnerHTML={{ __html: h }} />
