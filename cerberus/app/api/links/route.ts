@@ -1,11 +1,7 @@
 import { NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
 import { put, list } from "@vercel/blob";
 
 type BlobItem = { pathname: string; url: string };
-
-const filePath = path.join(process.cwd(), "content", "linkedin-posts.json");
 
 async function readArr(): Promise<string[]> {
   // Prefer Vercel Blob in production
@@ -21,32 +17,22 @@ async function readArr(): Promise<string[]> {
     }
   } catch {}
 
-  // Fallback to filesystem (useful locally)
-  try {
-    const c = await fs.readFile(filePath, "utf8");
-    const arr = JSON.parse(c);
-    return Array.isArray(arr) ? arr : [];
-  } catch {
-    return [];
-  }
+  // Blob not found or error: return empty
+  return [];
 }
 
 async function writeArr(arr: string[]) {
-  // Try Blob first (on Vercel)
+  // Blob-only write
   try {
     await put("cerberus/linkedin-posts.json", JSON.stringify(arr, null, 2), {
       contentType: "application/json",
       access: "public",
       token: process.env.BLOB_READ_WRITE_TOKEN,
     });
-    return;
   } catch (err) {
     console.error("Blob put failed:", err);
+    throw err;
   }
-
-  // Fallback to filesystem (non-persistent on Vercel)
-  await fs.mkdir(path.dirname(filePath), { recursive: true });
-  await fs.writeFile(filePath, JSON.stringify(arr, null, 2), "utf8");
 }
 
 export async function GET() {
@@ -81,6 +67,8 @@ export async function DELETE(req: Request) {
 
     return NextResponse.json({ ok: true });
   } catch (err) {
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    console.error("DELETE /api/links failed:", err);
+    const msg = err instanceof Error ? err.message : "Server error";
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

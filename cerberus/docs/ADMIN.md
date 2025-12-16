@@ -15,15 +15,19 @@ Esempio `.env.local`:
 ADDMIN_PASSWORD=la-tua-password
 ```
 
-Persistenza dei post LinkedIn (Vercel Blob)
-------------------------------------------
+Persistenza dei post LinkedIn (Blob-only)
+----------------------------------------
 
-Su Vercel la scrittura su filesystem non è persistente. Il progetto usa **Vercel Blob** per salvare e leggere l'elenco dei post. Non richiede configurazioni aggiuntive su Vercel.
+Il progetto usa **Vercel Blob** in modo esclusivo per salvare e leggere l'elenco dei post.
 
 - I post sono salvati nel blob `cerberus/linkedin-posts.json`.
-- In sviluppo locale, se Blob non è disponibile, il progetto va in fallback al file `content/linkedin-posts.json`.
+- Se il blob non esiste, la lista risulta vuota fino al primo salvataggio.
 
-Nota: Se vuoi usare Blob anche in locale, puoi configurare un token di scrittura (`BLOB_READ_WRITE_TOKEN`) seguendo la documentazione Vercel. Non è obbligatorio; il fallback su file locale è già previsto.
+Token opzionale:
+
+- Puoi impostare `BLOB_READ_WRITE_TOKEN` nelle Environment Variables su Vercel, utile in alcuni setup. In molti casi, su Vercel non è necessario.
+
+Non è previsto alcun fallback su filesystem in produzione.
 
 Avvio locale
 ------------
@@ -31,4 +35,6 @@ Avvio locale
 1. Crea `.env.local` con la password.
 2. Avvia con `npm run dev`.
 3. Vai su `/admin`, inserisci la password e aggiungi/rimuovi post LinkedIn.
-4. In locale i post sono in `content/linkedin-posts.json`.
+4. Anche in locale si usa Vercel Blob per leggere/salvare i post.
+	- Se in locale il client Blob richiede un token, imposta `BLOB_READ_WRITE_TOKEN` in `.env.local`.
+	- Il blob usato dall’app è `cerberus/linkedin-posts.json` e viene creato al primo salvataggio.

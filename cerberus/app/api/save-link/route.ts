@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
 import { put, list } from "@vercel/blob";
 
 type BlobItem = { pathname: string; url: string };
@@ -23,12 +21,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "HTML non valido: serve un iframe di LinkedIn" }, { status: 400 });
     }
 
-    const filePath = path.join(process.cwd(), "content", "linkedin-posts.json");
     let arr: string[] = [];
-    // Prefer Blob if available
+    // Blob-only read
     try {
-  const { blobs } = await list({ prefix: "cerberus/", token: process.env.BLOB_READ_WRITE_TOKEN });
-  const found = (blobs as BlobItem[]).find((b) => b.pathname === "cerberus/linkedin-posts.json");
+      const { blobs } = await list({ prefix: "cerberus/", token: process.env.BLOB_READ_WRITE_TOKEN });
+      const found = (blobs as BlobItem[]).find((b) => b.pathname === "cerberus/linkedin-posts.json");
       if (found?.url) {
         const r = await fetch(found.url);
         if (r.ok) {
@@ -37,22 +34,12 @@ export async function POST(req: Request) {
         }
       }
     } catch {}
-    // fallback to fs
-    if (!Array.isArray(arr) || arr.length === 0) {
-      try {
-        const content = await fs.readFile(filePath, "utf8");
-        arr = JSON.parse(content);
-        if (!Array.isArray(arr)) arr = [];
-      } catch {
-        arr = [];
-      }
-    }
 
     // avoid exact-duplicate HTML entries
     const trimmed = html.trim();
     if (!arr.includes(trimmed)) arr.push(trimmed);
 
-    // Write to Blob if possible, else fallback to fs
+    // Blob-only write
     try {
       await put("cerberus/linkedin-posts.json", JSON.stringify(arr, null, 2), {
         contentType: "application/json",
@@ -61,7 +48,7 @@ export async function POST(req: Request) {
       });
     } catch (err) {
       console.error("Blob put failed:", err);
-      await fs.writeFile(filePath, JSON.stringify(arr, null, 2), "utf8");
+      return NextResponse.json({ error: "Blob write failed" }, { status: 500 });
     }
 
     return NextResponse.json({ ok: true });

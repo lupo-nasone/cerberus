@@ -21,16 +21,8 @@ async function getSaved() {
     }
   } catch {}
 
-  // Fallback to local file for dev
-  const filePath = path.join(process.cwd(), "content", "linkedin-posts.json");
-  try {
-    const c = await fs.promises.readFile(filePath, "utf8");
-    const arr = JSON.parse(c);
-    if (Array.isArray(arr)) return arr as string[];
-    return [];
-  } catch (err) {
-    return [];
-  }
+  // Blob not found or error: return empty
+  return [];
 }
 
 export default async function BlogPage() {
