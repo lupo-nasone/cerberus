@@ -27,6 +27,7 @@ async function writeArr(arr: string[]) {
     await put("cerberus/linkedin-posts.json", JSON.stringify(arr, null, 2), {
       contentType: "application/json",
       access: "public",
+      addRandomSuffix: false,
       token: process.env.BLOB_READ_WRITE_TOKEN,
     });
   } catch (err) {
