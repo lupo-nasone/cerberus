@@ -6,7 +6,7 @@ Questa pagina raccoglie la struttura e i contenuti suggeriti per la Home del sit
 
 ## 1. Barra in alto (topbar)
 - Testo azienda: "Cerberus S.r.l. – Verifiche ispettive e gestione obblighi di legge"
-- Contatti rapidi: ☎ [numero], 📧 [email]
+- Contatti rapidi: ☎ 0574 1596267, 📧 segreteria@cerberussrl.it
 - Pulsante/CTA: **Richiedi un check-up**
 
 ---

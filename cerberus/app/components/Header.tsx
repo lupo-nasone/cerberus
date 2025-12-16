@@ -42,11 +42,11 @@ export default function Header() {
 
         <div className="header-actions">
           <div className="header-contact">
-            <a href="tel:+[numero]" className="header-contact-link" aria-label="Telefono">
-              ☎ [numero]
+            <a href="tel:+3905741596267" className="header-contact-link" aria-label="Telefono">
+              ☎ 0574 1596267
             </a>
-            <a href="mailto:[email]" className="header-contact-link" aria-label="Email">
-              📧 [email]
+            <a href="mailto:segreteria@cerberussrl.it" className="header-contact-link" aria-label="Email">
+              📧 segreteria@cerberussrl.it
             </a>
           </div>
           <button aria-label="Cambia lingua" className="lang-toggle" onClick={toggleLang}>
@@ -87,22 +87,22 @@ export default function Header() {
           </nav>
           <div className="drawer-footer">
             <div className="drawer-contact">
-              <a
-                href="tel:+[numero]"
-                className="drawer-contact-link"
-                onClick={closeMenu}
-                aria-label="Telefono"
-              >
-                ☎ [numero]
-              </a>
-              <a
-                href="mailto:[email]"
-                className="drawer-contact-link"
-                onClick={closeMenu}
-                aria-label="Email"
-              >
-                📧 [email]
-              </a>
+                <a
+                  href="tel:+3905741596267"
+                  className="drawer-contact-link"
+                  onClick={closeMenu}
+                  aria-label="Telefono"
+                >
+                  ☎ 0574 1596267
+                </a>
+                <a
+                  href="mailto:segreteria@cerberussrl.it"
+                  className="drawer-contact-link"
+                  onClick={closeMenu}
+                  aria-label="Email"
+                >
+                  📧 segreteria@cerberussrl.it
+                </a>
             </div>
             <Link href="/contatti" className="btn btn-primary drawer-cta" onClick={closeMenu}>
               {t("ctaBanner.button")}
