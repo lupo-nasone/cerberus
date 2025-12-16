@@ -8,6 +8,7 @@ export default function AdminPage() {
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [embed, setEmbed] = useState("");
+  const [title, setTitle] = useState("");
   const [posts, setPosts] = useState<string[]>([]);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -45,12 +46,13 @@ export default function AdminPage() {
       const res = await fetch("/api/save-link", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ html: embed }),
+        body: JSON.stringify({ html: embed, title }),
         credentials: "same-origin",
       });
       if (res.ok) {
         setMessage("Embed salvato.");
         setEmbed("");
+        setTitle("");
         fetchPosts();
       } else if (res.status === 401) {
         setMessage("Non autorizzato. Effettua il login.");
@@ -136,6 +138,16 @@ export default function AdminPage() {
                 onChange={(e) => setEmbed(e.target.value)}
                 placeholder={`<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:..." height="762" width="504" frameborder="0" allowfullscreen title="Post incorporato"></iframe>`}
                 className="border rounded px-2 py-1 w-full h-40"
+              />
+            </label>
+            <label className="block">
+              <div>Titolo (facoltativo)</div>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Titolo del post"
+                className="border rounded px-2 py-1 w-full"
               />
             </label>
             <div>

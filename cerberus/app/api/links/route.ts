@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { put, list } from "@vercel/blob";
 
 type BlobItem = { pathname: string; url: string };
+type PostItem = { id: string; title?: string; html: string; createdAt?: string };
 
-async function readArr(): Promise<string[]> {
+async function readArr(): Promise<PostItem[]> {
   // Prefer Vercel Blob in production
   try {
     const { blobs } = await list({ prefix: "cerberus/", token: process.env.BLOB_READ_WRITE_TOKEN });
@@ -12,7 +13,13 @@ async function readArr(): Promise<string[]> {
       const res = await fetch(found.url);
       if (res.ok) {
         const arr = await res.json();
-        return Array.isArray(arr) ? arr : [];
+        if (Array.isArray(arr)) {
+          if (arr.length > 0 && typeof arr[0] === "string") {
+            return (arr as string[]).map((html, i) => ({ id: `${Date.now()}-${i}`, html }));
+          }
+          return arr as PostItem[];
+        }
+        return [];
       }
     }
   } catch {}
@@ -21,7 +28,7 @@ async function readArr(): Promise<string[]> {
   return [];
 }
 
-async function writeArr(arr: string[]) {
+async function writeArr(arr: PostItem[]) {
   // Blob-only write
   try {
     await put("cerberus/linkedin-posts.json", JSON.stringify(arr, null, 2), {
@@ -54,17 +61,21 @@ export async function DELETE(req: Request) {
 
     const body = await req.json();
     const idx = body?.index;
-    if (typeof idx !== "number") {
-      return NextResponse.json({ error: "Invalid index" }, { status: 400 });
-    }
-
+    const id = body?.id;
     const arr = await readArr();
-    if (idx < 0 || idx >= arr.length) {
-      return NextResponse.json({ error: "Index out of range" }, { status: 400 });
+    let next: PostItem[] = arr;
+    if (typeof idx === "number") {
+      if (idx < 0 || idx >= arr.length) {
+        return NextResponse.json({ error: "Index out of range" }, { status: 400 });
+      }
+      next = [...arr.slice(0, idx), ...arr.slice(idx + 1)];
+    } else if (typeof id === "string") {
+      next = arr.filter((p) => p.id !== id);
+    } else {
+      return NextResponse.json({ error: "Invalid index or id" }, { status: 400 });
     }
 
-    arr.splice(idx, 1);
-    await writeArr(arr);
+    await writeArr(next);
 
     return NextResponse.json({ ok: true });
   } catch (err) {

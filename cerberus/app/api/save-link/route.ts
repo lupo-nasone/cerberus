@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { put, list } from "@vercel/blob";
 
 type BlobItem = { pathname: string; url: string };
+type PostItem = { id: string; title?: string; html: string; createdAt?: string };
 
 export async function POST(req: Request) {
   try {
@@ -10,8 +11,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await req.json();
-    const html = body?.html;
+  const body = await req.json();
+  const html = body?.html;
+  const title = body?.title;
     if (!html || typeof html !== "string") {
       return NextResponse.json({ error: "Invalid html" }, { status: 400 });
     }
@@ -21,7 +23,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "HTML non valido: serve un iframe di LinkedIn" }, { status: 400 });
     }
 
-    let arr: string[] = [];
+  let arr: PostItem[] = [];
     // Blob-only read
     try {
       const { blobs } = await list({ prefix: "cerberus/", token: process.env.BLOB_READ_WRITE_TOKEN });
@@ -30,14 +32,25 @@ export async function POST(req: Request) {
         const r = await fetch(found.url);
         if (r.ok) {
           const parsed = await r.json();
-          arr = Array.isArray(parsed) ? parsed : [];
+          if (Array.isArray(parsed)) {
+            if (parsed.length > 0 && typeof parsed[0] === "string") {
+              arr = (parsed as string[]).map((h, i) => ({ id: `${Date.now()}-${i}`, html: h }));
+            } else {
+              arr = parsed as PostItem[];
+            }
+          } else {
+            arr = [];
+          }
         }
       }
     } catch {}
 
     // avoid exact-duplicate HTML entries
     const trimmed = html.trim();
-    if (!arr.includes(trimmed)) arr.push(trimmed);
+    const exists = arr.some((p) => p.html === trimmed);
+    if (!exists) {
+      arr.push({ id: `${Date.now()}`, title: typeof title === "string" ? title : undefined, html: trimmed, createdAt: new Date().toISOString() });
+    }
 
     // Blob-only write
     try {
