@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 // Read posts via internal API to keep logic in one place
 // Ensure this page is always dynamically rendered and not cached
 export const revalidate = 0;
@@ -8,8 +9,12 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 async function getSaved() {
-  // Read via our API to avoid cache/permission mismatches
-  const r = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ""}/api/links`, { cache: "no-store" });
+  // Build absolute origin to avoid relative fetch issues in Server Components
+  const hdrs = await headers();
+  const host = hdrs.get("host") ?? "";
+  const proto = hdrs.get("x-forwarded-proto") ?? "https";
+  const origin = process.env.NEXT_PUBLIC_BASE_URL ?? (host ? `${proto}://${host}` : "");
+  const r = await fetch(`${origin}/api/links`, { cache: "no-store" });
   if (r.ok) {
     const arr = await r.json();
     if (Array.isArray(arr)) return arr as string[];
