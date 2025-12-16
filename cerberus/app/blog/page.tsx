@@ -9,6 +9,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 type BlobItem = { pathname: string; url: string };
+type PostItem = { id: string; title?: string; html: string; createdAt?: string };
 
 async function getSaved() {
   // Prefer Blob in production
@@ -19,17 +20,22 @@ async function getSaved() {
       const r = await fetch(found.url, { cache: "no-store" });
       if (r.ok) {
         const arr = await r.json();
-        if (Array.isArray(arr)) return arr as string[];
+        if (Array.isArray(arr)) {
+          if (arr.length > 0 && typeof arr[0] === "string") {
+            return (arr as string[]).map((html, i) => ({ id: `${Date.now()}-${i}`, html })) as PostItem[];
+          }
+          return arr as PostItem[];
+        }
       }
     }
   } catch {}
 
   // Blob not found or error: return empty
-  return [];
+  return [] as PostItem[];
 }
 
 export default async function BlogPage() {
-  const urls = await getSaved();
+  const posts = await getSaved();
 
   return (
     <div className="min-h-screen">
@@ -37,14 +43,15 @@ export default async function BlogPage() {
       <main>
         <section className="container p-6">
           <h1 className="text-2xl font-bold mb-4">Blog - LinkedIn Posts</h1>
-          {urls.length === 0 ? (
+          {posts.length === 0 ? (
             <p>Nessun post incorporato.</p>
           ) : (
             // mostra gli embed in colonne
             <div className="grid cols-2 gap-6">
-              {urls.map((h, i) => (
+              {posts.map((p, i) => (
                 <div key={i} className="card p-4">
-                  <div className="embed-wrapper" dangerouslySetInnerHTML={{ __html: h }} />
+                  {p.title && <div className="font-semibold mb-2">{p.title}</div>}
+                  <div className="embed-wrapper" dangerouslySetInnerHTML={{ __html: p.html }} />
                 </div>
               ))}
             </div>

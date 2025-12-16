@@ -10,6 +10,9 @@ export default function AdminPage() {
   const [embed, setEmbed] = useState("");
   const [title, setTitle] = useState("");
   const [posts, setPosts] = useState<string[]>([]);
+  // posts can be string[] (legacy) or objects with id/title/html
+  type PostItem = { id: string; title?: string; html: string; createdAt?: string };
+  const [postItems, setPostItems] = useState<PostItem[]>([]);
   const [message, setMessage] = useState<string | null>(null);
 
   async function handleLogin(e: React.FormEvent) {
@@ -71,7 +74,18 @@ export default function AdminPage() {
       const res = await fetch("/api/links", { headers: { "Content-Type": "application/json" }, credentials: "same-origin" });
       if (res.ok) {
         const arr = await res.json();
-        setPosts(Array.isArray(arr) ? arr : []);
+        if (Array.isArray(arr)) {
+          if (arr.length > 0 && typeof arr[0] === "string") {
+            setPosts(arr as string[]);
+            setPostItems((arr as string[]).map((html, i) => ({ id: `${Date.now()}-${i}`, html })));
+          } else {
+            setPosts((arr as PostItem[]).map((p) => p.html));
+            setPostItems(arr as PostItem[]);
+          }
+        } else {
+          setPosts([]);
+          setPostItems([]);
+        }
       }
     } catch (err) {
       // ignore
@@ -86,10 +100,13 @@ export default function AdminPage() {
   async function handleDelete(index: number) {
     setMessage(null);
     try {
+      const payload: any = { index };
+      const p = postItems[index];
+      if (p?.id) payload.id = p.id;
       const res = await fetch("/api/links", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ index }),
+        body: JSON.stringify(payload),
         credentials: "same-origin",
       });
       if (res.ok) {
@@ -161,9 +178,10 @@ export default function AdminPage() {
               <p>Nessun post salvato.</p>
             ) : (
               <div className="grid cols-2 gap-4">
-                {posts.map((p, i) => (
+                {postItems.map((p, i) => (
                   <div key={i} className="card p-4">
-                    <div className="mb-3 embed-wrapper" dangerouslySetInnerHTML={{ __html: p }} />
+                    {p.title && <div className="font-semibold mb-2">{p.title}</div>}
+                    <div className="mb-3 embed-wrapper" dangerouslySetInnerHTML={{ __html: p.html }} />
                     <div className="flex items-center justify-end">
                       <button
                         className="btn btn-ghost"
