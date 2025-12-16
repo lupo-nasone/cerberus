@@ -10,7 +10,7 @@ const filePath = path.join(process.cwd(), "content", "linkedin-posts.json");
 async function readArr(): Promise<string[]> {
   // Prefer Vercel Blob in production
   try {
-  const { blobs } = await list({ prefix: "cerberus/" });
+    const { blobs } = await list({ prefix: "cerberus/", token: process.env.BLOB_READ_WRITE_TOKEN });
   const found = (blobs as BlobItem[]).find((b) => b.pathname === "cerberus/linkedin-posts.json");
     if (found?.url) {
       const res = await fetch(found.url);
@@ -37,9 +37,12 @@ async function writeArr(arr: string[]) {
     await put("cerberus/linkedin-posts.json", JSON.stringify(arr, null, 2), {
       contentType: "application/json",
       access: "public",
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     });
     return;
-  } catch {}
+  } catch (err) {
+    console.error("Blob put failed:", err);
+  }
 
   // Fallback to filesystem (non-persistent on Vercel)
   await fs.mkdir(path.dirname(filePath), { recursive: true });

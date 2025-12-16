@@ -10,7 +10,7 @@ import Footer from "../components/Footer";
 async function getSaved() {
   // Prefer Blob in production
   try {
-  const { blobs } = await list({ prefix: "cerberus/" });
+    const { blobs } = await list({ prefix: "cerberus/", token: process.env.BLOB_READ_WRITE_TOKEN });
   const found = (blobs as BlobItem[]).find((b) => b.pathname === "cerberus/linkedin-posts.json");
     if (found?.url) {
       const r = await fetch(found.url);

@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     let arr: string[] = [];
     // Prefer Blob if available
     try {
-  const { blobs } = await list({ prefix: "cerberus/" });
+  const { blobs } = await list({ prefix: "cerberus/", token: process.env.BLOB_READ_WRITE_TOKEN });
   const found = (blobs as BlobItem[]).find((b) => b.pathname === "cerberus/linkedin-posts.json");
       if (found?.url) {
         const r = await fetch(found.url);
@@ -57,8 +57,10 @@ export async function POST(req: Request) {
       await put("cerberus/linkedin-posts.json", JSON.stringify(arr, null, 2), {
         contentType: "application/json",
         access: "public",
+        token: process.env.BLOB_READ_WRITE_TOKEN,
       });
-    } catch {
+    } catch (err) {
+      console.error("Blob put failed:", err);
       await fs.writeFile(filePath, JSON.stringify(arr, null, 2), "utf8");
     }
 
