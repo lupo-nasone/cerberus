@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
+import { put, list } from "@vercel/blob";
+
+type BlobItem = { pathname: string; url: string };
 
 export async function POST(req: Request) {
   try {
@@ -22,20 +25,42 @@ export async function POST(req: Request) {
 
     const filePath = path.join(process.cwd(), "content", "linkedin-posts.json");
     let arr: string[] = [];
+    // Prefer Blob if available
     try {
-      const content = await fs.readFile(filePath, "utf8");
-      arr = JSON.parse(content);
-      if (!Array.isArray(arr)) arr = [];
-    } catch (err) {
-      // file may not exist, we'll create it
-      arr = [];
+  const { blobs } = await list({ prefix: "cerberus/" });
+  const found = (blobs as BlobItem[]).find((b) => b.pathname === "cerberus/linkedin-posts.json");
+      if (found?.url) {
+        const r = await fetch(found.url);
+        if (r.ok) {
+          const parsed = await r.json();
+          arr = Array.isArray(parsed) ? parsed : [];
+        }
+      }
+    } catch {}
+    // fallback to fs
+    if (!Array.isArray(arr) || arr.length === 0) {
+      try {
+        const content = await fs.readFile(filePath, "utf8");
+        arr = JSON.parse(content);
+        if (!Array.isArray(arr)) arr = [];
+      } catch {
+        arr = [];
+      }
     }
 
     // avoid exact-duplicate HTML entries
     const trimmed = html.trim();
     if (!arr.includes(trimmed)) arr.push(trimmed);
 
-    await fs.writeFile(filePath, JSON.stringify(arr, null, 2), "utf8");
+    // Write to Blob if possible, else fallback to fs
+    try {
+      await put("cerberus/linkedin-posts.json", JSON.stringify(arr, null, 2), {
+        contentType: "application/json",
+        access: "public",
+      });
+    } catch {
+      await fs.writeFile(filePath, JSON.stringify(arr, null, 2), "utf8");
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {

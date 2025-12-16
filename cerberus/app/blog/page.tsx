@@ -1,10 +1,27 @@
 import fs from "fs";
 import path from "path";
+import { list } from "@vercel/blob";
+
+type BlobItem = { pathname: string; url: string };
 import LinkedInEmbeds from "../components/LinkedInEmbeds";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 async function getSaved() {
+  // Prefer Blob in production
+  try {
+  const { blobs } = await list({ prefix: "cerberus/" });
+  const found = (blobs as BlobItem[]).find((b) => b.pathname === "cerberus/linkedin-posts.json");
+    if (found?.url) {
+      const r = await fetch(found.url);
+      if (r.ok) {
+        const arr = await r.json();
+        if (Array.isArray(arr)) return arr as string[];
+      }
+    }
+  } catch {}
+
+  // Fallback to local file for dev
   const filePath = path.join(process.cwd(), "content", "linkedin-posts.json");
   try {
     const c = await fs.promises.readFile(filePath, "utf8");
