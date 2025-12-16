@@ -15,13 +15,10 @@ export async function POST(req: Request) {
     if (!html || typeof html !== "string") {
       return NextResponse.json({ error: "Invalid html" }, { status: 400 });
     }
-    // basic validation: must contain LinkedIn embed content
-    // Accept either iframe embeds or blockquote+script embeds
+    // basic validation: must contain an iframe and LinkedIn embed url
     const lowered = html.toLowerCase();
-    const hasIframe = lowered.includes("<iframe") && (lowered.includes("linkedin.com") || lowered.includes("platform.linkedin.com"));
-    const hasScriptEmbed = lowered.includes("<blockquote") && lowered.includes("class=\"linkedin-post\"") || lowered.includes("platform.linkedin.com");
-    if (!hasIframe && !hasScriptEmbed) {
-      return NextResponse.json({ error: "HTML non valido: incolla un embed LinkedIn (iframe o script)" }, { status: 400 });
+    if (!lowered.includes("<iframe") || !lowered.includes("linkedin.com/embed")) {
+      return NextResponse.json({ error: "HTML non valido: serve un iframe di LinkedIn" }, { status: 400 });
     }
 
     let arr: string[] = [];
@@ -47,7 +44,6 @@ export async function POST(req: Request) {
       await put("cerberus/linkedin-posts.json", JSON.stringify(arr, null, 2), {
         contentType: "application/json",
         access: "public",
-        addRandomSuffix: false,
         token: process.env.BLOB_READ_WRITE_TOKEN,
       });
     } catch (err) {
