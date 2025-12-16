@@ -1,6 +1,7 @@
-import fs from "fs";
-import path from "path";
 import { list } from "@vercel/blob";
+// Ensure this page is always dynamically rendered and not cached
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 type BlobItem = { pathname: string; url: string };
 import LinkedInEmbeds from "../components/LinkedInEmbeds";
@@ -13,7 +14,7 @@ async function getSaved() {
     const { blobs } = await list({ prefix: "cerberus/", token: process.env.BLOB_READ_WRITE_TOKEN });
   const found = (blobs as BlobItem[]).find((b) => b.pathname === "cerberus/linkedin-posts.json");
     if (found?.url) {
-      const r = await fetch(found.url);
+      const r = await fetch(found.url, { cache: "no-store" });
       if (r.ok) {
         const arr = await r.json();
         if (Array.isArray(arr)) return arr as string[];
