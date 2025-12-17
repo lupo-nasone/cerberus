@@ -76,9 +76,15 @@ export default function AdminPage() {
         const arr = await res.json();
         if (Array.isArray(arr)) {
           if (arr.length > 0 && typeof arr[0] === "string") {
-            setPosts(arr as string[]);
-            setPostItems((arr as string[]).map((html, i) => ({ id: `${Date.now()}-${i}`, html })));
+            // Legacy format: array of strings
+            const converted = (arr as string[]).map((html, i) => ({ 
+              id: `legacy-${i}-${Math.random()}`, 
+              html 
+            }));
+            setPosts(converted.map((p) => p.html));
+            setPostItems(converted);
           } else {
+            // New format: array of PostItem objects
             setPosts((arr as PostItem[]).map((p) => p.html));
             setPostItems(arr as PostItem[]);
           }
@@ -100,13 +106,15 @@ export default function AdminPage() {
   async function handleDelete(index: number) {
     setMessage(null);
     try {
-      const payload: any = { index };
       const p = postItems[index];
-      if (p?.id) payload.id = p.id;
+      if (!p?.id) {
+        setMessage("Errore: Post senza ID.");
+        return;
+      }
       const res = await fetch("/api/links", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ id: p.id }),
         credentials: "same-origin",
       });
       if (res.ok) {

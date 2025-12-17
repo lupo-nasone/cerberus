@@ -8,14 +8,15 @@ async function readArr(): Promise<PostItem[]> {
   // Prefer Vercel Blob in production
   try {
     const { blobs } = await list({ prefix: "cerberus/", token: process.env.BLOB_READ_WRITE_TOKEN });
-  const found = (blobs as BlobItem[]).find((b) => b.pathname === "cerberus/linkedin-posts.json");
+    const found = (blobs as BlobItem[]).find((b) => b.pathname === "cerberus/linkedin-posts.json");
     if (found?.url) {
       const res = await fetch(found.url);
       if (res.ok) {
         const arr = await res.json();
         if (Array.isArray(arr)) {
           if (arr.length > 0 && typeof arr[0] === "string") {
-            return (arr as string[]).map((html, i) => ({ id: `${Date.now()}-${i}`, html }));
+            // Legacy format: convert to new format with stable IDs
+            return (arr as string[]).map((html, i) => ({ id: `legacy-${i}-${Date.now()}`, html }));
           }
           return arr as PostItem[];
         }
