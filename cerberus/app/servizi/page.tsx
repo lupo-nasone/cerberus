@@ -360,7 +360,7 @@ export default function ServiziPage() {
                             padding: 0,
                             margin: 0
                           }}>
-                            {service.objectives.map((obj, i) => (
+                            {service.objectives?.map((obj, i) => (
                               <li key={i} style={{
                                 padding: "8px 0 8px 28px",
                                 position: "relative",
@@ -393,7 +393,7 @@ export default function ServiziPage() {
                             padding: 0,
                             margin: 0
                           }}>
-                            {service.deliverables.map((deliverable, i) => (
+                            {service.deliverables?.map((deliverable, i) => (
                               <li key={i} style={{
                                 padding: "8px 0 8px 28px",
                                 position: "relative",
@@ -432,7 +432,7 @@ export default function ServiziPage() {
                             padding: 0,
                             margin: 0
                           }}>
-                            {service.ideal.map((item, i) => (
+                            {service.ideal?.map((item, i) => (
                               <li key={i} style={{
                                 padding: "6px 0",
                                 fontSize: "14px",
@@ -464,7 +464,7 @@ export default function ServiziPage() {
                             padding: 0,
                             margin: 0
                           }}>
-                            {service.coverage.map((item, i) => (
+                            {service.coverage?.map((item, i) => (
                               <li key={i} style={{
                                 padding: "8px 0 8px 28px",
                                 position: "relative",
@@ -497,7 +497,7 @@ export default function ServiziPage() {
                           margin: 0,
                           marginBottom: "28px"
                         }}>
-                          {service.benefits.map((benefit, i) => (
+                          {service.benefits?.map((benefit, i) => (
                             <li key={i} style={{
                               padding: "8px 0 8px 28px",
                               position: "relative",
@@ -546,7 +546,7 @@ export default function ServiziPage() {
                           margin: 0,
                           marginBottom: "28px"
                         }}>
-                          {service.results.map((result, i) => (
+                          {service.results?.map((result, i) => (
                             <li key={i} style={{
                               padding: "8px 0 8px 28px",
                               position: "relative",
@@ -583,7 +583,7 @@ export default function ServiziPage() {
                             padding: 0,
                             margin: 0
                           }}>
-                            {service.scheduling.map((item, i) => (
+                            {service.scheduling?.map((item, i) => (
                               <li key={i} style={{
                                 padding: "8px 0 8px 28px",
                                 position: "relative",
@@ -616,7 +616,7 @@ export default function ServiziPage() {
                           margin: 0,
                           marginBottom: "28px"
                         }}>
-                          {service.prepSteps.map((step, i) => (
+                          {service.prepSteps?.map((step, i) => (
                             <li key={i} style={{
                               padding: "8px 0 8px 28px",
                               position: "relative",
@@ -648,7 +648,7 @@ export default function ServiziPage() {
                           margin: 0,
                           marginBottom: "28px"
                         }}>
-                          {service.supportSteps.map((step, i) => (
+                          {service.supportSteps?.map((step, i) => (
                             <li key={i} style={{
                               padding: "8px 0 8px 28px",
                               position: "relative",
@@ -717,7 +717,7 @@ export default function ServiziPage() {
                           margin: 0,
                           marginBottom: "28px"
                         }}>
-                          {service.services.map((item, i) => (
+                          {service.services?.map((item, i) => (
                             <li key={i} style={{
                               padding: "8px 0 8px 28px",
                               position: "relative",
@@ -749,7 +749,7 @@ export default function ServiziPage() {
                           margin: 0,
                           marginBottom: "28px"
                         }}>
-                          {service.advantages.map((adv, i) => (
+                          {service.advantages?.map((adv, i) => (
                             <li key={i} style={{
                               padding: "8px 0 8px 28px",
                               position: "relative",
