@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { put, list } from "@vercel/blob";
 
 type BlobItem = { pathname: string; url: string };
-type PostItem = { id: string; title?: string; html: string; createdAt?: string };
+type PostItem = { id: string; title?: string; html: string; keywords?: string[]; createdAt?: string };
 
 async function readArr(): Promise<PostItem[]> {
   // Prefer Vercel Blob in production
@@ -53,8 +53,16 @@ export async function POST(req: Request) {
     const body = await req.json();
     const html = body?.html;
     const title = body?.title;
+    const keywords = body?.keywords;
     if (!html || typeof html !== "string") {
       return NextResponse.json({ error: "Invalid html" }, { status: 400 });
+    }
+    // Parse keywords: accept array or comma-separated string
+    let parsedKeywords: string[] = [];
+    if (Array.isArray(keywords)) {
+      parsedKeywords = keywords.map((k: string) => k.trim().toLowerCase()).filter(Boolean);
+    } else if (typeof keywords === "string" && keywords.trim()) {
+      parsedKeywords = keywords.split(",").map((k) => k.trim().toLowerCase()).filter(Boolean);
     }
     // basic validation: must contain an iframe and LinkedIn embed url
     const lowered = html.toLowerCase();
@@ -73,7 +81,13 @@ export async function POST(req: Request) {
 
     // Generate stable ID using crypto
     const id = `post-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
-    arr.push({ id, title: typeof title === "string" ? title : undefined, html: trimmed, createdAt: new Date().toISOString() });
+    arr.push({ 
+      id, 
+      title: typeof title === "string" ? title : undefined, 
+      html: trimmed, 
+      keywords: parsedKeywords.length > 0 ? parsedKeywords : undefined,
+      createdAt: new Date().toISOString() 
+    });
 
     // Blob-only write
     try {

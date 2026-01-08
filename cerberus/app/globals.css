@@ -502,17 +502,17 @@ body{
 .hero-full{position:relative;overflow:hidden}
 .hero-bg{position:relative;padding:8px 0 80px}
 .hero-bg-image{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(6px) saturate(.9) brightness(.9);opacity:.98}
-.hero-flank{position:absolute;bottom:0;width:580px;/* attach to bottom of decorative background */object-fit:contain;border-radius:0;box-shadow:none;filter:none;z-index:6}
+.hero-flank{position:absolute;bottom:0;width:580px;object-fit:contain;border-radius:0;box-shadow:none;filter:none;z-index:1}
 .hero-flank-left{left:8%;transform:translateX(4%);} 
 .hero-flank-right{right:8%;transform:translateX(-4%);} 
 
 /* default desktop: hero-flanks container positions the two images anchored to the bottom of the hero background */
-.hero-flanks{position:absolute;left:0;right:0;bottom:0;height:auto;pointer-events:none;z-index:6}
+.hero-flanks{position:absolute;left:0;right:0;bottom:0;height:auto;pointer-events:none;z-index:1}
 .hero-flanks .hero-flank{position:absolute;bottom:0;margin:0}
 .hero-flanks .hero-flank-left{left:4%;transform:translateX(8%);}
 .hero-flanks .hero-flank-right{right:4%;transform:translateX(-8%);}
-.hero-center{position:relative;display:flex;justify-content:center;align-items:flex-end}
-.hero-center-card{width:720px;max-width:92%;background:var(--surface);border-radius:10px;padding:48px 42px;text-align:center;border:1px solid rgba(94,109,133,0.28);box-shadow:0 22px 44px rgba(7,12,20,0.55);z-index:2;position:relative;margin-bottom:0}
+.hero-center{position:relative;display:flex;justify-content:center;align-items:flex-end;z-index:10}
+.hero-center-card{width:720px;max-width:92%;background:var(--surface);border-radius:10px;padding:48px 42px;text-align:center;border:1px solid rgba(94,109,133,0.28);box-shadow:0 22px 44px rgba(7,12,20,0.55);z-index:10;position:relative;margin-bottom:0}
 .hero-center-card .hero-sub{min-height:110px}
 .hero-title{font-family:'Poppins', sans-serif;font-size:72px;line-height:0.95;letter-spacing:-2px;margin:8px 0 8px;text-transform:uppercase}
 .hero-title-accent{display:inline-block;margin-right:8px;padding:0 6px 4px;border-bottom:3px solid var(--brand-700);color:var(--brand-700);font-weight:800}
@@ -546,10 +546,8 @@ body{
   .hero-center-card{order:1;padding:28px 20px;width:100%;max-width:720px;margin-bottom:28px;padding-left:24px;padding-right:24px}
 
   /* flanks container becomes a flex row to place images next to each other */
-  .hero-flanks{order:2;display:flex;gap:6px;justify-content:center;align-items:flex-start;width:100%;max-width:760px;padding:8px 6px}
-  /* slightly larger on small screens and closer together */
-  .hero-flanks{order:2;display:flex;gap:4px;justify-content:center;align-items:flex-start;width:100%;max-width:760px;padding:8px 6px}
-  .hero-flank{position:relative;display:block;bottom:auto;left:auto;right:auto;transform:none;z-index:2;width:50%;max-width:360px;margin:0}
+  .hero-flanks{order:2;position:relative;display:flex;gap:4px;justify-content:center;align-items:flex-start;width:100%;max-width:760px;padding:8px 6px;z-index:1}
+  .hero-flank{position:relative;display:block;bottom:auto;left:auto;right:auto;transform:none;z-index:1;width:50%;max-width:360px;margin:0}
   .hero-flank-left,.hero-flank-right{width:50%}
 
   .hero-title{font-size:28px}

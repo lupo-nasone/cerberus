@@ -9,9 +9,10 @@ export default function AdminPage() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [embed, setEmbed] = useState("");
   const [title, setTitle] = useState("");
+  const [keywords, setKeywords] = useState("");
   const [posts, setPosts] = useState<string[]>([]);
-  // posts can be string[] (legacy) or objects with id/title/html
-  type PostItem = { id: string; title?: string; html: string; createdAt?: string };
+  // posts can be string[] (legacy) or objects with id/title/html/keywords
+  type PostItem = { id: string; title?: string; html: string; keywords?: string[]; createdAt?: string };
   const [postItems, setPostItems] = useState<PostItem[]>([]);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -49,13 +50,14 @@ export default function AdminPage() {
       const res = await fetch("/api/save-link", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ html: embed, title }),
+        body: JSON.stringify({ html: embed, title, keywords }),
         credentials: "same-origin",
       });
       if (res.ok) {
         setMessage("Embed salvato.");
         setEmbed("");
         setTitle("");
+        setKeywords("");
         fetchPosts();
       } else if (res.status === 401) {
         setMessage("Non autorizzato. Effettua il login.");
@@ -175,6 +177,16 @@ export default function AdminPage() {
                 className="border rounded px-2 py-1 w-full"
               />
             </label>
+            <label className="block">
+              <div>Parole chiave (separate da virgola)</div>
+              <input
+                type="text"
+                value={keywords}
+                onChange={(e) => setKeywords(e.target.value)}
+                placeholder="sicurezza, normative, cantieri, formazione"
+                className="border rounded px-2 py-1 w-full"
+              />
+            </label>
             <div>
               <button className="bg-green-600 text-white px-3 py-1 rounded">Salva</button>
             </div>
@@ -189,6 +201,15 @@ export default function AdminPage() {
                 {postItems.map((p, i) => (
                   <div key={i} className="card p-4">
                     {p.title && <div className="font-semibold mb-2">{p.title}</div>}
+                    {p.keywords && p.keywords.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {p.keywords.map((kw, ki) => (
+                          <span key={ki} className="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
+                            {kw}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     <div className="mb-3 embed-wrapper" dangerouslySetInnerHTML={{ __html: p.html }} />
                     <div className="flex items-center justify-end">
                       <button
