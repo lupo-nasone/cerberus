@@ -327,7 +327,7 @@ export default function ServiziPage() {
                             padding: 0,
                             margin: 0
                           }}>
-                            {service.details.map((detail, i) => (
+                            {service.details?.map((detail, i) => (
                               <li key={i} style={{
                                 padding: "8px 0 8px 28px",
                                 position: "relative",
