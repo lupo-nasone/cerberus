@@ -41,9 +41,21 @@ export default async function BlogPage() {
     <div className="min-h-screen">
       <Header />
       <main>
-        <section className="container p-6">
-          <h1 className="text-2xl font-bold mb-6">Blog - LinkedIn Posts</h1>
-          <BlogSearch posts={posts} />
+        {/* Page Hero */}
+        <div className="page-hero">
+          <div className="container">
+            <h1>Blog</h1>
+            <p className="page-subtitle">
+              Scopri i nostri ultimi aggiornamenti, approfondimenti sulla sicurezza sul lavoro e novità dal mondo della formazione professionale.
+            </p>
+          </div>
+        </div>
+        
+        {/* Blog Content */}
+        <section className="blog-section">
+          <div className="container">
+            <BlogSearch posts={posts} />
+          </div>
         </section>
       </main>
       <Footer />

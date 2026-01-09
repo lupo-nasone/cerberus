@@ -43,44 +43,36 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
   return (
     <div>
       {/* Search Bar */}
-      <div className="mb-6">
-        <div className="relative">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Cerca per titolo o parola chiave..."
-            className="w-full px-4 py-3 pl-12 rounded-lg border border-slate-600 bg-slate-800/50 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-          />
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-            🔍
-          </span>
-          {search && (
-            <button
-              onClick={() => setSearch("")}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
-              aria-label="Cancella ricerca"
-            >
-              ✕
-            </button>
-          )}
-        </div>
+      <div className="blog-search-container">
+        <span className="blog-search-icon">🔍</span>
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Cerca per titolo o parola chiave..."
+          className="blog-search-input"
+        />
+        {search && (
+          <button
+            onClick={() => setSearch("")}
+            className="blog-search-clear"
+            aria-label="Cancella ricerca"
+          >
+            ✕
+          </button>
+        )}
       </div>
 
       {/* Keywords Cloud */}
       {allKeywords.length > 0 && (
-        <div className="mb-6">
-          <p className="text-sm text-slate-400 mb-2">Parole chiave popolari:</p>
-          <div className="flex flex-wrap gap-2">
+        <div className="keywords-cloud">
+          <p className="keywords-label">Parole chiave popolari</p>
+          <div className="keywords-list">
             {allKeywords.map((kw) => (
               <button
                 key={kw}
                 onClick={() => handleKeywordClick(kw)}
-                className={`text-sm px-3 py-1 rounded-full transition-colors ${
-                  search.toLowerCase() === kw
-                    ? "bg-blue-600 text-white"
-                    : "bg-slate-700 text-slate-300 hover:bg-slate-600"
-                }`}
+                className={`keyword-tag ${search.toLowerCase() === kw ? 'active' : ''}`}
               >
                 {kw}
               </button>
@@ -91,35 +83,44 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
 
       {/* Results info */}
       {search && (
-        <p className="text-sm text-slate-400 mb-4">
+        <p className="results-info">
           {filteredPosts.length === 0
             ? "Nessun risultato trovato"
-            : `${filteredPosts.length} risultat${filteredPosts.length === 1 ? "o" : "i"} per "${search}"`}
+            : <><span className="results-count">{filteredPosts.length}</span> risultat{filteredPosts.length === 1 ? "o" : "i"} per &quot;{search}&quot;</>}
         </p>
       )}
 
       {/* Posts Grid */}
       {filteredPosts.length === 0 ? (
-        !search && <p>Nessun post incorporato.</p>
+        !search && (
+          <div className="blog-empty">
+            <div className="blog-empty-icon">📝</div>
+            <p className="blog-empty-text">Nessun post pubblicato ancora.</p>
+          </div>
+        )
       ) : (
-        <div className="grid cols-2 gap-6">
+        <div className="blog-grid">
           {filteredPosts.map((p, i) => (
-            <div key={p.id || i} className="card p-4">
-              {p.title && <div className="font-semibold mb-2">{p.title}</div>}
-              {p.keywords && p.keywords.length > 0 && (
-                <div className="flex flex-wrap gap-1 mb-3">
-                  {p.keywords.map((kw, ki) => (
-                    <button
-                      key={ki}
-                      onClick={() => handleKeywordClick(kw)}
-                      className="text-xs bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded-full hover:bg-blue-800/50 transition-colors cursor-pointer"
-                    >
-                      {kw}
-                    </button>
-                  ))}
+            <div key={p.id || i} className="blog-card">
+              {(p.title || (p.keywords && p.keywords.length > 0)) && (
+                <div className="blog-card-header">
+                  {p.title && <h3 className="blog-card-title">{p.title}</h3>}
+                  {p.keywords && p.keywords.length > 0 && (
+                    <div className="blog-card-keywords">
+                      {p.keywords.map((kw, ki) => (
+                        <button
+                          key={ki}
+                          onClick={() => handleKeywordClick(kw)}
+                          className="blog-card-keyword"
+                        >
+                          {kw}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
-              <div className="embed-wrapper" dangerouslySetInnerHTML={{ __html: p.html }} />
+              <div className="blog-card-embed" dangerouslySetInnerHTML={{ __html: p.html }} />
             </div>
           ))}
         </div>
