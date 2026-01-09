@@ -14,16 +14,18 @@ export default function CreditsPage() {
 
   const developers = [
     {
-      name: "Matteo",
+      name: "Matteo Faginali",
       role: "Full Stack Developer",
       description: "Architettura, design system e sviluppo frontend",
-      color: "#4171b8"
+      color: "#4171b8",
+      portfolio: "https://portfolio-pc-g7ey.vercel.app/"
     },
     {
-      name: "Scarpu",
+      name: "Lorenzo Scarpulla",
       role: "Full Stack Developer", 
       description: "Backend, integrazioni e ottimizzazione",
-      color: "#1d8a6d"
+      color: "#1d8a6d",
+      portfolio: "https://lscarpul.github.io/portfolio/"
     }
   ];
 
@@ -149,10 +151,45 @@ export default function CreditsPage() {
                       fontSize: "15px",
                       lineHeight: "1.6",
                       color: "var(--muted)",
-                      margin: 0
+                      margin: "0 0 20px"
                     }}>
                       {dev.description}
                     </p>
+
+                    {/* Portfolio Button */}
+                    <a 
+                      href={dev.portfolio}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        padding: "10px 20px",
+                        background: `linear-gradient(135deg, ${dev.color}, ${dev.color}cc)`,
+                        color: "white",
+                        borderRadius: "8px",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        textDecoration: "none",
+                        transition: "transform 0.2s ease, box-shadow 0.2s ease"
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "translateY(-2px)";
+                        e.currentTarget.style.boxShadow = `0 6px 20px ${dev.color}44`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "translateY(0)";
+                        e.currentTarget.style.boxShadow = "none";
+                      }}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                        <polyline points="15 3 21 3 21 9"/>
+                        <line x1="10" y1="14" x2="21" y2="3"/>
+                      </svg>
+                      Portfolio
+                    </a>
                   </div>
                 </Reveal>
               ))}

@@ -294,8 +294,8 @@ export default function ChatWidget() {
       </div>
 
       <button className="chat-toggle" onClick={()=> setOpen(o=>!o)} aria-label="Apri chat">
-        {/* Simone avatar */}
-        <img src="/images/bro1.png" alt="Simone" />
+        {/* Cerbot avatar */}
+        <img src="/images/cerbot.png" alt="Cerbot" />
       </button>
     </div>
   );
