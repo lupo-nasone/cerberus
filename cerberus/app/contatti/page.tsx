@@ -195,7 +195,7 @@ export default function ContattiPage() {
               <p style={{ margin: 6, color: "var(--muted)" }}>
                 {t('contact.emailLabel')} <a href="mailto:segreteria@cerberussrl.it">segreteria@cerberussrl.it</a>
                 <br />
-                {t('contact.phoneLabel')} <a href="tel:+390123456789">+39 012 345 6789</a>
+                {t('contact.phoneLabel')} <a href="tel:+3905741596267">0574 1596267</a>
               </p>
 
               <h4 style={{ marginBottom: 6 }}>{t('contact.office')}</h4>

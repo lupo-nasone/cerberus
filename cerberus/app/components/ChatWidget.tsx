@@ -3,6 +3,85 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocale } from "../lib/LanguageProvider";
 
+// Profanity filter - list of bad words to detect
+const PROFANITY_LIST = [
+  // Italian - insulti e parolacce
+  'cazzo', 'cazzi', 'cazzata', 'cazzate', 'minchia', 'minchione', 'minchioni',
+  'merda', 'merde', 'merdoso', 'merdosa', 'merdaccia',
+  'stronzo', 'stronza', 'stronzi', 'stronzata', 'stronzate',
+  'coglione', 'cogliona', 'coglioni', 'coglionata',
+  'figa', 'fica', 'fighe', 'fiche',
+  'puttana', 'puttane', 'puttanata', 'puttaniere',
+  'troia', 'troie', 'troiata', 'troione',
+  'vaffanculo', 'fanculo', 'affanculo', 'vaffanbagno',
+  'porco', 'porca', 'porcodio', 'porcamadonna', 'porcomondo',
+  'madonna', 'madonnina', 'oddio', 'diocane', 'dioporco', 'cristodio',
+  'bastardo', 'bastarda', 'bastardi', 'bastarde',
+  'idiota', 'idioti', 'deficiente', 'deficienti',
+  'cretino', 'cretina', 'cretini', 'cretinata',
+  'scemo', 'scema', 'scemi', 'sceme', 'scemenza',
+  'stupido', 'stupida', 'stupidi', 'stupide',
+  'imbecille', 'imbecilli', 'mongolo', 'mongoloide',
+  'ritardato', 'ritardata', 'ritardati',
+  // Italian - parti del corpo volgari
+  'palle', 'palla', 'coglioni', 'testicoli', 'scroto',
+  'seno', 'tette', 'tetta', 'zizze', 'zizza', 'poppe', 'poppa',
+  'culo', 'culi', 'chiappe', 'chiappa', 'sedere', 'deretano',
+  'pisello', 'piselli', 'pisellino', 'cazzo', 'cazzone',
+  'vagina', 'vulva', 'clitoride', 'passera', 'patata', 'bernarda',
+  'capezzolo', 'capezzoli', 'pompino', 'pompini', 'pompinara',
+  'scopare', 'scopata', 'scopate', 'scopiamo', 'trombare', 'trombata',
+  'incazzato', 'incazzata', 'incazzare', 'incazzo',
+  'sborra', 'sborrata', 'sborrare', 'sperma',
+  'succhiare', 'succhiami', 'succhiamelo', 'leccare', 'leccami',
+  'negro', 'negra', 'negri', 'negre', 'frocio', 'froci', 'frocione',
+  'culattone', 'culattoni', 'ricchione', 'ricchioni', 'finocchio', 'finocchi',
+  'lesbica', 'lesbiche', 'lesbo', 'transessuale', 'trans',
+  'zoccola', 'zoccole', 'baldracca', 'bagascia', 'mignotta', 'mignotte',
+  'cornuto', 'cornuta', 'cornuti', 'becco',
+  'maiale', 'maiala', 'maiali', 'porco', 'porca', 'suino',
+  'figlio di puttana', 'figlio di troia', 'fottiti', 'fottuto', 'fottuta',
+  // English - insults and profanity
+  'fuck', 'fucking', 'fucked', 'fucker', 'fucks', 'motherfucker', 'motherfucking',
+  'shit', 'shits', 'shitty', 'bullshit', 'horseshit', 'dipshit', 'shithead',
+  'ass', 'asses', 'asshole', 'assholes', 'arsehole', 'arse',
+  'bitch', 'bitches', 'bitchy', 'bitchass', 'sonofabitch',
+  'damn', 'damned', 'goddamn', 'goddamned',
+  'dick', 'dicks', 'dickhead', 'dickheads',
+  'cock', 'cocks', 'cocksucker', 'cocksucking',
+  'pussy', 'pussies', 'cunt', 'cunts',
+  'bastard', 'bastards',
+  'whore', 'whores', 'slut', 'sluts', 'slutty', 'hoe', 'hoes',
+  'idiot', 'idiots', 'idiotic',
+  'stupid', 'stupids',
+  'dumb', 'dumbass', 'dumbasses',
+  'moron', 'morons', 'moronic',
+  'retard', 'retards', 'retarded',
+  // English - body parts vulgar
+  'balls', 'ballsack', 'nutsack', 'nuts', 'testicles', 'scrotum',
+  'tits', 'titties', 'boobs', 'boobies', 'breasts', 'nipples', 'nipple',
+  'butt', 'butthole', 'buttocks', 'booty',
+  'penis', 'penises', 'prick', 'pricks', 'dong', 'schlong', 'wiener',
+  'vagina', 'vaginas', 'vulva', 'clitoris', 'clit',
+  'cum', 'cumming', 'cumshot', 'jizz', 'semen', 'sperm',
+  'blowjob', 'blowjobs', 'handjob', 'handjobs',
+  'wanker', 'wankers', 'wank', 'jerkoff', 'jackoff',
+  'nigger', 'nigga', 'niggers', 'niggas',
+  'faggot', 'faggots', 'fag', 'fags', 'homo', 'homos',
+  'dyke', 'dykes', 'lesbo', 'lesbos',
+  'tranny', 'trannies',
+  'spic', 'spics', 'wetback', 'beaner', 'chink', 'gook', 'kike'
+];
+
+function containsProfanity(text: string): boolean {
+  const lowerText = text.toLowerCase();
+  // Check for exact word matches (with word boundaries)
+  return PROFANITY_LIST.some(word => {
+    const regex = new RegExp(`\\b${word}\\b`, 'i');
+    return regex.test(lowerText);
+  });
+}
+
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
   const { t, lang } = useLocale();
@@ -86,6 +165,14 @@ export default function ChatWidget() {
     e?.preventDefault();
     const value = input.trim();
     if(!value) return;
+    
+    // Check for profanity
+    if(containsProfanity(value)){
+      pushBotKey('chat.profanityWarning');
+      setInput('');
+      return;
+    }
+    
     pushUser(value);
     setInput('');
     if(step === 0){
@@ -149,8 +236,8 @@ export default function ChatWidget() {
   <div className={`chat-window ${open ? 'open' : ''}`} role="dialog" aria-label="Chat di supporto Cerberus">
         <div className="chat-header">
           <div>
-            <strong>Cerberus Chat</strong>
-            <div className="chat-sub">Ti aiutiamo con la conformità</div>
+            <strong>Cerbot</strong>
+            <div className="chat-sub">Assistente Cerberus</div>
           </div>
           <button className="chat-close" onClick={()=> setOpen(false)} aria-label="Chiudi chat">✕</button>
         </div>
@@ -207,8 +294,8 @@ export default function ChatWidget() {
       </div>
 
       <button className="chat-toggle" onClick={()=> setOpen(o=>!o)} aria-label="Apri chat">
-        {/* use small avatar image if available */}
-        <img src="/images/claudio4.png" alt="avatar" />
+        {/* Simone avatar */}
+        <img src="/images/bro1.png" alt="Simone" />
       </button>
     </div>
   );

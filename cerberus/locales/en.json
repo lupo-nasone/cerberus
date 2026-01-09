@@ -22,19 +22,20 @@
     "rights":"© Cerberus S.r.l. All rights reserved."
   },
   "chat":{
-    "greeting":"Hi! I'm Cerberus assistant — nice to meet you! What's your name?",
-    "askEmail":"Can I have your email so we can contact you back?",
-    "askProblem":"Can you briefly describe the issue or request?",
-    "confirmSend":"Do you want me to send the request now so we reply by email?",
-    "sent":"Perfect — I've sent the request. We'll reply by email as soon as possible.",
-    "invalidEmail":"That doesn't look like a valid email — can you double check and re-enter it?",
+    "greeting":"Hi! I'm Cerbot, the Cerberus assistant 👋 How can I help you today? Let's start with your name!",
+    "askEmail":"Great! Now I need your email so we can get back to you.",
+    "askProblem":"Perfect! Tell me briefly what you need or what your request is about.",
+    "confirmSend":"Got it! I'll send this to the team right away so we can reply via email. Shall I proceed?",
+    "sent":"Done! ✅ I've sent everything to the team. We'll get back to you soon. Talk later!",
+    "invalidEmail":"Hmm, this email doesn't look right. Can you check and re-enter it?",
     "yes":"Yes, send",
     "no":"No, edit",
-    "editPrompt":"Okay — tell me what you'd like to change.",
-    "sending":"Give me a second, I'm sending your request...",
-    "errorSending":"Whoops, I couldn't send that. Would you like to try again?",
-    "errorMissing":"Looks like some details are missing. Can you start over?",
-    "sendingButton":"Sending..."
+    "editPrompt":"No problem! Tell me what you'd like to change.",
+    "sending":"One moment, sending...",
+    "errorSending":"Oops! Something went wrong. Want to try again?",
+    "errorMissing":"I'm missing some information. Can you start over?",
+    "sendingButton":"Sending...",
+    "profanityWarning":"Please keep the language respectful. Thanks! 🙏"
   },
   "home":{
     "introTitle":"Dedicated services for your compliance",

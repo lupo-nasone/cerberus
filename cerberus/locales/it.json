@@ -22,19 +22,20 @@
     "rights":"© Cerberus S.r.l. Tutti i diritti riservati."
   },
   "chat":{
-    "greeting":"Ciao! Sono l'assistente di Cerberus — piacere di conoscerti! Come ti chiami?",
-    "askEmail":"Posso avere la tua email così possiamo ricontattarti?",
-    "askProblem":"Puoi descrivere brevemente il problema o la richiesta?",
-    "confirmSend":"Vuoi che invii la richiesta adesso in modo che ti rispondiamo via email?",
-    "sent":"Perfetto — ho inviato la richiesta. Ti risponderemo via email il prima possibile.",
-    "invalidEmail":"Non sembra una email valida — puoi ricontrollarla e reinserirla, per favore?",
+    "greeting":"Ciao! Sono Cerbot, l'assistente di Cerberus 👋 Come posso aiutarti oggi? Iniziamo con il tuo nome!",
+    "askEmail":"Perfetto! Ora mi servirebbe la tua email per poterti ricontattare.",
+    "askProblem":"Ottimo! Raccontami brevemente di cosa hai bisogno o qual è la tua richiesta.",
+    "confirmSend":"Ho capito! Invio subito la richiesta al team così ti ricontattiamo via email. Procedo?",
+    "sent":"Fatto! ✅ Ho inviato tutto al team. Ti risponderemo al più presto. A presto!",
+    "invalidEmail":"Mmh, questa email non sembra corretta. Puoi verificarla e reinserirla?",
     "yes":"Sì, invia",
     "no":"No, modifica",
-    "editPrompt":"Va bene — dimmi pure cosa vuoi modificare.",
-    "sending":"Un attimo, invio la tua richiesta...",
-    "errorSending":"Ops, qualcosa è andato storto. Vuoi riprovare?",
-    "errorMissing":"Mi mancano alcuni dati per inviare la richiesta. Puoi ricominciare?",
-    "sendingButton":"Invio..."
+    "editPrompt":"Nessun problema! Dimmi cosa vuoi modificare.",
+    "sending":"Un momento, sto inviando...",
+    "errorSending":"Ops! C'è stato un problema. Vuoi riprovare?",
+    "errorMissing":"Mi mancano alcune informazioni. Puoi ricominciare?",
+    "sendingButton":"Invio...",
+    "profanityWarning":"Per favore, mantieni un linguaggio rispettoso. Grazie! 🙏"
   }
 
   ,"home":{
