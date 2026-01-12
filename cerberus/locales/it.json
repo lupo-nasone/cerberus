@@ -19,7 +19,9 @@
     "button":"Contattaci"
   },
   "footer":{
-    "rights":"© Cerberus S.r.l. Tutti i diritti riservati."
+    "rights":"© Cerberus S.r.l. Tutti i diritti riservati.",
+    "creators":"Creatori",
+    "tagline":"Soluzioni per la conformità e la sicurezza aziendale."
   },
   "chat":{
     "greeting":"Ciao! Sono Cerbot, l'assistente di Cerberus 👋 Come posso aiutarti oggi? Iniziamo con il tuo nome!",

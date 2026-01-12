@@ -19,7 +19,9 @@
     "button":"Contact us"
   },
   "footer":{
-    "rights":"© Cerberus S.r.l. All rights reserved."
+    "rights":"© Cerberus S.r.l. All rights reserved.",
+    "creators":"Creators",
+    "tagline":"Compliance and business security solutions."
   },
   "chat":{
     "greeting":"Hi! I'm Cerbot, the Cerberus assistant 👋 How can I help you today? Let's start with your name!",
