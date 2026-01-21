@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 
 type PostItem = { id: string; title?: string; html: string; keywords?: string[]; createdAt?: string };
 
@@ -10,6 +10,19 @@ interface BlogSearchProps {
 
 export default function BlogSearch({ posts }: BlogSearchProps) {
   const [search, setSearch] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Extract all unique keywords from posts
   const allKeywords = useMemo(() => {
@@ -38,48 +51,71 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
 
   const handleKeywordClick = (kw: string) => {
     setSearch(kw);
+    setIsDropdownOpen(false);
   };
 
   return (
     <div>
-      {/* Search Bar */}
-      <div className="blog-search-container">
-        <span className="blog-search-icon">🔍</span>
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Cerca per titolo o parola chiave..."
-          className="blog-search-input"
-        />
-        {search && (
-          <button
-            onClick={() => setSearch("")}
-            className="blog-search-clear"
-            aria-label="Cancella ricerca"
-          >
-            ✕
-          </button>
-        )}
-      </div>
-
-      {/* Keywords Cloud */}
-      {allKeywords.length > 0 && (
-        <div className="keywords-cloud">
-          <p className="keywords-label">Parole chiave popolari</p>
-          <div className="keywords-list">
-            {allKeywords.map((kw) => (
-              <button
-                key={kw}
-                onClick={() => handleKeywordClick(kw)}
-                className={`keyword-tag ${search.toLowerCase() === kw ? 'active' : ''}`}
-              >
-                {kw}
-              </button>
-            ))}
-          </div>
+      {/* Search Bar and Tags Dropdown */}
+      <div className="blog-filters-row">
+        {/* Search Bar */}
+        <div className="blog-search-container">
+          <span className="blog-search-icon">🔍</span>
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Cerca per titolo o parola chiave..."
+            className="blog-search-input"
+          />
+          {search && (
+            <button
+              onClick={() => setSearch("")}
+              className="blog-search-clear"
+              aria-label="Cancella ricerca"
+            >
+              ✕
+            </button>
+          )}
         </div>
-      )}
+
+        {/* Tags Dropdown - sempre visibile */}
+        <div className="tags-dropdown-container" ref={dropdownRef}>
+          <button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className={`tags-dropdown-button ${search && allKeywords.includes(search) ? 'active' : ''}`}
+          >
+            <span className="tags-dropdown-icon">🏷️</span>
+            <span>{search && allKeywords.includes(search) ? search : 'Filtra per tag'}</span>
+            <span className={`tags-dropdown-arrow ${isDropdownOpen ? 'open' : ''}`}>▼</span>
+          </button>
+          {isDropdownOpen && (
+            <div className="tags-dropdown-menu">
+              <button
+                onClick={() => { setSearch(""); setIsDropdownOpen(false); }}
+                className={`tags-dropdown-item ${!search ? 'active' : ''}`}
+              >
+                Tutti i post
+              </button>
+              {allKeywords.length > 0 ? (
+                allKeywords.map((kw) => (
+                  <button
+                    key={kw}
+                    onClick={() => handleKeywordClick(kw)}
+                    className={`tags-dropdown-item ${search.toLowerCase() === kw ? 'active' : ''}`}
+                  >
+                    {kw}
+                  </button>
+                ))
+              ) : (
+                <div className="tags-dropdown-item tags-dropdown-empty">
+                  Nessun tag disponibile
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
 
       {/* Results info */}
       {search && (
