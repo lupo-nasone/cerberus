@@ -1802,6 +1802,82 @@ main {
   border-color: rgba(220, 38, 38, 0.5);
 }
 
+.btn-admin-edit {
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-admin-edit:hover {
+  background: rgba(59, 130, 246, 0.25);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.btn-admin-secondary {
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: rgba(94, 109, 133, 0.2);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(94, 109, 133, 0.3);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.btn-admin-secondary:hover {
+  background: rgba(94, 109, 133, 0.35);
+  border-color: rgba(94, 109, 133, 0.5);
+  color: var(--fg);
+}
+
+/* Admin Post Edit Form */
+.admin-post-edit-form {
+  padding: 20px;
+}
+
+.admin-post-edit-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 16px;
+}
+
+.admin-post-edit-form .form-group {
+  margin-bottom: 14px;
+}
+
+.admin-post-edit-form .form-label {
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.admin-post-edit-form .form-input {
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.admin-post-edit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.admin-post-actions {
+  display: flex;
+  gap: 10px;
+}
+
 /* Admin Dashboard */
 .admin-dashboard {
   display: grid;
