@@ -52,9 +52,6 @@ export default function Header() {
           <button aria-label="Cambia lingua" className="lang-toggle" onClick={toggleLang}>
             {lang === "it" ? "EN" : "IT"}
           </button>
-          <Link href="/contatti" className="btn btn-primary header-cta">
-            {t("header.contatti")}
-          </Link>
           <button
             className="header-hamburger"
             aria-label={open ? "Chiudi menu" : "Apri menu"}
