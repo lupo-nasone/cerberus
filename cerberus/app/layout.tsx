@@ -63,8 +63,38 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Structured data JSON-LD per Google
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Cerberus S.r.l.",
+    "url": "https://cerberussrl.it",
+    "logo": "https://cerberussrl.it/images/logo.png",
+    "description": "Esperti in sicurezza sul lavoro, verifiche ispettive, gestione obblighi normativi e formazione professionale.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Prato",
+      "addressRegion": "Toscana",
+      "addressCountry": "IT"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+39-0574-1596267",
+      "contactType": "customer service",
+      "email": "segreteria@cerberussrl.it",
+      "availableLanguage": ["Italian", "English"]
+    },
+    "sameAs": []
+  };
+
   return (
     <html lang="it">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
