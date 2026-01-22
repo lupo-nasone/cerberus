@@ -4,6 +4,7 @@ import "./globals.css";
 import ChatWidget from './components/ChatWidget';
 import CookieConsent from './components/CookieConsent';
 import { LanguageProvider } from './lib/LanguageProvider';
+import { Analytics } from '@vercel/analytics/react';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -119,6 +120,7 @@ export default function RootLayout({
           <ChatWidget />
           <CookieConsent />
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );
