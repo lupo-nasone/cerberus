@@ -45,7 +45,7 @@ export async function GET() {
   // Check if user is logged in via cookie
   const cookieStore = await cookies();
   const auth = cookieStore.get("admin_auth");
-  if (!auth || auth.value !== "ok") {
+  if (!auth || auth.value !== "1") {
     return NextResponse.json({ error: "Non autorizzato" }, { status: 401 });
   }
 
