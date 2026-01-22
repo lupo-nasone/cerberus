@@ -24,7 +24,7 @@
     "tagline":"Soluzioni per la conformità e la sicurezza aziendale."
   },
   "chat":{
-    "greeting":"Ciao! Sono Cerbot, l'assistente di Cerberus 👋 Come posso aiutarti oggi? Iniziamo con il tuo nome!",
+    "greeting":"Ciao! Sono CerBot, l'assistente di Cerberus 👋 Come posso aiutarti oggi? Iniziamo con il tuo nome!",
     "askEmail":"Perfetto! Ora mi servirebbe la tua email per poterti ricontattare.",
     "askProblem":"Ottimo! Raccontami brevemente di cosa hai bisogno o qual è la tua richiesta.",
     "confirmSend":"Ho capito! Invio subito la richiesta al team così ti ricontattiamo via email. Procedo?",
