@@ -15,6 +15,11 @@ export default function AdminPage() {
   type PostItem = { id: string; title?: string; html: string; keywords?: string[]; createdAt?: string };
   const [postItems, setPostItems] = useState<PostItem[]>([]);
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' | 'info' } | null>(null);
+  
+  // Edit mode state
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editKeywords, setEditKeywords] = useState("");
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -134,6 +139,56 @@ export default function AdminPage() {
     }
   }
 
+  function startEdit(post: PostItem) {
+    setEditingId(post.id);
+    setEditTitle(post.title || "");
+    setEditKeywords(post.keywords?.join(", ") || "");
+  }
+
+  function cancelEdit() {
+    setEditingId(null);
+    setEditTitle("");
+    setEditKeywords("");
+  }
+
+  async function handleEdit(e: React.FormEvent) {
+    e.preventDefault();
+    setMessage(null);
+    if (!editingId) return;
+
+    try {
+      const keywordsArray = editKeywords
+        .split(",")
+        .map((k) => k.trim().toLowerCase())
+        .filter((k) => k.length > 0);
+
+      const res = await fetch("/api/links", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: editingId,
+          title: editTitle,
+          keywords: keywordsArray,
+        }),
+        credentials: "same-origin",
+      });
+
+      if (res.ok) {
+        setMessage({ text: "Post aggiornato con successo!", type: "success" });
+        cancelEdit();
+        fetchPosts();
+      } else if (res.status === 401) {
+        setMessage({ text: "Sessione scaduta.", type: "error" });
+        setLoggedIn(false);
+      } else {
+        const d = await res.json();
+        setMessage({ text: d?.error || "Errore durante l'aggiornamento.", type: "error" });
+      }
+    } catch {
+      setMessage({ text: "Errore di rete.", type: "error" });
+    }
+  }
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -237,30 +292,76 @@ export default function AdminPage() {
                     <div className="admin-posts-grid">
                       {postItems.map((p, i) => (
                         <div key={i} className="admin-post-card">
-                          <div className="admin-post-header">
-                            {p.title && <h3 className="admin-post-title">{p.title}</h3>}
-                            {p.keywords && p.keywords.length > 0 && (
-                              <div className="admin-post-keywords">
-                                {p.keywords.map((kw, ki) => (
-                                  <span key={ki} className="admin-post-keyword">
-                                    {kw}
-                                  </span>
-                                ))}
+                          {editingId === p.id ? (
+                            /* Edit Mode */
+                            <div className="admin-post-edit-form">
+                              <h3 className="admin-post-edit-title">✏️ Modifica Post</h3>
+                              <form onSubmit={handleEdit}>
+                                <div className="form-group">
+                                  <label className="form-label">Titolo</label>
+                                  <input
+                                    type="text"
+                                    value={editTitle}
+                                    onChange={(e) => setEditTitle(e.target.value)}
+                                    placeholder="Es: Nuovo corso sulla sicurezza"
+                                    className="form-input"
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <label className="form-label">Tag (separati da virgola)</label>
+                                  <input
+                                    type="text"
+                                    value={editKeywords}
+                                    onChange={(e) => setEditKeywords(e.target.value)}
+                                    placeholder="sicurezza, normative, cantieri"
+                                    className="form-input"
+                                  />
+                                </div>
+                                <div className="admin-post-edit-actions">
+                                  <button type="submit" className="btn-admin-primary btn-admin-success">
+                                    💾 Salva
+                                  </button>
+                                  <button type="button" className="btn-admin-secondary" onClick={cancelEdit}>
+                                    ✕ Annulla
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+                          ) : (
+                            /* View Mode */
+                            <>
+                              <div className="admin-post-header">
+                                {p.title && <h3 className="admin-post-title">{p.title}</h3>}
+                                {p.keywords && p.keywords.length > 0 && (
+                                  <div className="admin-post-keywords">
+                                    {p.keywords.map((kw, ki) => (
+                                      <span key={ki} className="admin-post-keyword">
+                                        {kw}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                                {!p.title && (!p.keywords || p.keywords.length === 0) && (
+                                  <span className="admin-post-title" style={{ opacity: 0.5 }}>Post #{i + 1}</span>
+                                )}
                               </div>
-                            )}
-                            {!p.title && (!p.keywords || p.keywords.length === 0) && (
-                              <span className="admin-post-title" style={{ opacity: 0.5 }}>Post #{i + 1}</span>
-                            )}
-                          </div>
-                          <div className="admin-post-embed" dangerouslySetInnerHTML={{ __html: p.html }} />
-                          <div className="admin-post-actions">
-                            <button
-                              className="btn-admin-danger"
-                              onClick={() => handleDelete(i)}
-                            >
-                              🗑️ Elimina
-                            </button>
-                          </div>
+                              <div className="admin-post-embed" dangerouslySetInnerHTML={{ __html: p.html }} />
+                              <div className="admin-post-actions">
+                                <button
+                                  className="btn-admin-edit"
+                                  onClick={() => startEdit(p)}
+                                >
+                                  ✏️ Modifica
+                                </button>
+                                <button
+                                  className="btn-admin-danger"
+                                  onClick={() => handleDelete(i)}
+                                >
+                                  🗑️ Elimina
+                                </button>
+                              </div>
+                            </>
+                          )}
                         </div>
                       ))}
                     </div>

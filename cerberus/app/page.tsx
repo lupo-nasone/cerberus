@@ -364,7 +364,7 @@ export default function Home() {
             <div className="highlights-grid">
               <div>
                 <Reveal variant="fade-up">
-                  <p className="section-eyebrow">{t("home.sections.overview.eyebrow")}</p>
+                  <p className="section-eyebrow">{t("sections.overview.eyebrow")}</p>
                   <h2 className="section-title">{t("home.introTitle")}</h2>
                   <p className="section-subtitle">{t("home.introText")}</p>
                 </Reveal>
@@ -388,7 +388,7 @@ export default function Home() {
 
               <Reveal className="highlight-card" variant="fade-up" delay={160}>
                 <div className="highlight-card-body">
-                  <p className="highlight-card-eyebrow">{t("home.sections.cta.eyebrow")}</p>
+                  <p className="highlight-card-eyebrow">{t("sections.cta.eyebrow")}</p>
                   <h3>{t("ctaBanner.title")}</h3>
                   <p>{t("ctaBanner.desc")}</p>
                   <Link href="/contatti" className="btn btn-primary highlight-card-action">
@@ -403,13 +403,13 @@ export default function Home() {
         <section className="home-stats fade-section">
           <div className="container">
             <Reveal as="p" className="section-eyebrow" variant="fade-up">
-              {t("home.sections.stats.eyebrow")}
+              {t("sections.stats.eyebrow")}
             </Reveal>
             <Reveal as="h2" className="section-title" variant="fade-up" delay={80}>
-              {t("home.sections.stats.title")}
+              {t("sections.stats.title")}
             </Reveal>
             <Reveal as="p" className="section-subtitle" variant="fade-up" delay={120}>
-              {t("home.sections.stats.subtitle")}
+              {t("sections.stats.subtitle")}
             </Reveal>
 
             <div className="stats-grid">
@@ -428,13 +428,13 @@ export default function Home() {
         <section className="home-services fade-section">
           <div className="container">
             <Reveal as="p" className="section-eyebrow" variant="fade-up">
-              {t("home.sections.services.eyebrow")}
+              {t("sections.services.eyebrow")}
             </Reveal>
             <Reveal as="h2" className="section-title" variant="fade-up" delay={80}>
               {t("services.title")}
             </Reveal>
             <Reveal as="p" className="section-subtitle" variant="fade-up" delay={120}>
-              {t("home.sections.services.subtitle")}
+              {t("sections.services.subtitle")}
             </Reveal>
 
             <div className="services-grid">
@@ -496,13 +496,13 @@ export default function Home() {
         <section className="home-clients fade-section">
           <div className="container">
             <Reveal as="p" className="section-eyebrow" variant="fade-up">
-              {t("home.sections.clients.eyebrow")}
+              {t("sections.clients.eyebrow")}
             </Reveal>
             <Reveal as="h2" className="section-title" variant="fade-up" delay={80}>
               {t("home.clientsTitle")}
             </Reveal>
             <Reveal as="p" className="section-subtitle" variant="fade-up" delay={120}>
-              {t("home.sections.clients.subtitle")}
+              {t("sections.clients.subtitle")}
             </Reveal>
 
             <div className="clients-marquee">

@@ -265,12 +265,12 @@ export default function CreditsPage() {
                   >
                     ← Torna alla Home
                   </Link>
-                  <Link
-                    href="/contatti"
+                  <a
+                    href="mailto:matteo.faginali@gmail.com"
                     className="btn btn-primary"
                   >
                     Contattaci
-                  </Link>
+                  </a>
                 </div>
               </div>
             </Reveal>
