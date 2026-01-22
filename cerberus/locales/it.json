@@ -9,7 +9,7 @@
   "hero":{
     "eyebrow":"Sei un imprenditore?",
   "title":"Verifica Zero Rischi®",
-  "sub":"Il sistema per tenere sotto controllo impianti, attrezzature e ispezioni… senza vivere nell’ansia delle sanzioni. Mappiamo tutte le verifiche obbligatorie (e quelle intelligenti da fare), mettiamo ordine in scadenze e responsabilità e ti affianchiamo nel tempo, così sai sempre a che punto sei.",
+  "sub":"Il sistema per tenere sotto controllo impianti, attrezzature e ispezioni… senza vivere nell’ansia delle sanzioni. Mappiamo tutte le verifiche obbligatorie (e quelle più importanti da fare), mettiamo ordine in scadenze e responsabilità e ti affianchiamo nel tempo, così sai sempre a che punto sei.",
   "ctaPrimary":"Richiedi il Check-up Verifica Zero Rischi",
   "ctaSecondary":"Scarica la guida gratuita — Le 7 verifiche da non trascurare"
   },
@@ -24,10 +24,10 @@
     "tagline":"Soluzioni per la conformità e la sicurezza aziendale."
   },
   "chat":{
-    "greeting":"Ciao! Sono CerBot, l'assistente di Cerberus 👋 Come posso aiutarti oggi? Iniziamo con il tuo nome!",
-    "askEmail":"Perfetto! Ora mi servirebbe la tua email per poterti ricontattare.",
-    "askProblem":"Ottimo! Raccontami brevemente di cosa hai bisogno o qual è la tua richiesta.",
-    "confirmSend":"Ho capito! Invio subito la richiesta al team così ti ricontattiamo via email. Procedo?",
+    "greeting":"Ciao! Sono CerBot, l'assistente di Cerberus 👋 Posso aiutarti a orientarti tra verifiche, scadenze e documenti. Per iniziare: come ti chiami (Nome e Cognome)?",
+    "askEmail":"Perfetto, grazie! Mi lasci anche la tua email? Serve per inviarti la risposta o fissare un contatto con il team.",
+    "askProblem":"Ottimo. Scrivimi in breve cosa ti serve e, se vuoi, indica anche la città/sede.Se hai urgenza, scrivi anche “URGENTE” nel messaggio",
+    "confirmSend":"Grazie! Ho raccolto tutto. Vuoi che inoltri la richiesta al team Cerberus e ti ricontattiamo via email?",
     "sent":"Fatto! ✅ Ho inviato tutto al team. Ti risponderemo al più presto. A presto!",
     "invalidEmail":"Mmh, questa email non sembra corretta. Puoi verificarla e reinserirla?",
     "yes":"Sì, invia",
@@ -42,12 +42,12 @@
 
   ,"home":{
     "introTitle":"Servizi dedicati per la tua conformità",
-    "introText":"Offriamo un pacchetto completo per la gestione della conformità: scadenziario, assistenza durante le visite ispettive, consulenza tecnica e formazione.",
-    "metric1":"120 aziende seguite",
+    "introText":"Offriamo un pacchetto completo per la gestione della conformità: scadenziario, assistenza durante le visite ispettive, assistenza tecnica e formazione.",
+    "metric1":"+600 aziende seguite",
     "metric2":"Tempo medio di risposta 24h",
-    "metric3":"500 documenti gestiti",
+    "metric3":"+30 Anni esperienza nel settore",
     "clientsTitle":"Chi si affida a noi",
-    "clientsList":["Azienda A","Azienda B","Azienda C","Azienda D"]
+    "clientsList":["Cartiere Carrara S.p.A","AFV Acciaierie Beltrame S.p.A","Pastificio Mennucci S.p.A","SOF S.p.A","Beste S.p.A","Toscogas S.p.A","Pisamover S.p.A"]
   },
 
   "services":{
