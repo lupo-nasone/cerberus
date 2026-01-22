@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Link from "next/link";
 
 export default function AdminPage() {
   const [password, setPassword] = useState("");
@@ -205,6 +206,16 @@ export default function AdminPage() {
 
         <section className="admin-section">
           <div className="container">
+            {/* Navigation tabs */}
+            <div className="admin-tabs" style={{ marginBottom: "2rem" }}>
+              <Link href="/admin" className="admin-tab admin-tab-active">
+                📝 Gestione Post
+              </Link>
+              <Link href="/admin/stats" className="admin-tab">
+                📊 Statistiche
+              </Link>
+            </div>
+
             {!loggedIn ? (
               <div className="admin-login-card" style={{ position: 'relative' }}>
                 <h2>🔐 Accesso Riservato</h2>
