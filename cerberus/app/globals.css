@@ -2469,3 +2469,130 @@ main {
     width: 100%;
   }
 }
+
+/* ── Download Modal ── */
+.download-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6, 10, 18, 0.72);
+  backdrop-filter: blur(6px);
+  animation: dm-fadeIn 0.2s ease;
+}
+
+@keyframes dm-fadeIn {
+  from { opacity: 0 }
+  to   { opacity: 1 }
+}
+
+.download-modal {
+  position: relative;
+  width: 94%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #151f2c;
+  border: 1px solid rgba(94, 109, 133, 0.35);
+  border-radius: 18px;
+  padding: 36px 32px 32px;
+  box-shadow: 0 24px 64px rgba(6, 10, 18, 0.6);
+  animation: dm-slideUp 0.25s ease;
+}
+
+@keyframes dm-slideUp {
+  from { opacity: 0; transform: translateY(24px) }
+  to   { opacity: 1; transform: translateY(0) }
+}
+
+.download-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.download-modal-close:hover {
+  color: #f8fafc;
+  background: rgba(148, 163, 184, 0.15);
+}
+
+.download-modal-title {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #f1f5fa;
+  margin: 0 0 6px;
+}
+
+.download-modal-subtitle {
+  font-size: 0.92rem;
+  color: #94a3b8;
+  margin: 0 0 22px;
+  line-height: 1.5;
+}
+
+.download-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.download-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.download-modal-field span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #c5cedd;
+}
+
+.download-modal-field input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: #0e1621;
+  color: #f1f5fa;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.download-modal-field input:focus {
+  border-color: #345c9d;
+}
+
+.download-modal-error {
+  color: #f87171;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.download-modal-submit {
+  margin-top: 6px;
+  width: 100%;
+}
+
+.download-modal-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .download-modal {
+    padding: 28px 20px 24px;
+  }
+}

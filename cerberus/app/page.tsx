@@ -19,22 +19,26 @@ export default function Home() {
     {
       title: t("services.items.scadenziario.title"),
       desc: t("services.items.scadenziario.desc"),
-      image: "https://images.unsplash.com/photo-1523365280197-f1783db9fe62?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1523365280197-f1783db9fe62?auto=format&fit=crop&w=600&q=80",
+      ctaHref: "/servizi#check-up"
     },
     {
       title: t("services.items.assistenza.title"),
       desc: t("services.items.assistenza.desc"),
-      image: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=600&q=80",
+      ctaHref: "/servizi#attivita-ispettive"
     },
     {
       title: t("services.items.consulenza.title"),
       desc: t("services.items.consulenza.desc"),
-      image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80",
+      ctaHref: "/servizi#scadenzario"
     },
     {
       title: t("services.items.formazione.title"),
       desc: t("services.items.formazione.desc"),
-      image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=600&q=80",
+      ctaHref: "/servizi#adeguamenti"
     }
   ];
 

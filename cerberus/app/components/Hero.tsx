@@ -1,10 +1,13 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import { useLocale } from "../lib/LanguageProvider";
 import Reveal from "./Reveal";
+import DownloadModal from "./DownloadModal";
 
 export default function Hero() {
   const { t } = useLocale();
+  const [downloadOpen, setDownloadOpen] = useState(false);
   type QuestionCard = {
     title: string;
     body: string;
@@ -95,16 +98,19 @@ export default function Hero() {
                 <Link href="/contatti" className="btn btn-primary">
                   » {t("hero.ctaPrimary")}
                 </Link>
-                <a
-                  href="/downloads/guida-verifica-zero-rischi.pdf"
+                <button
+                  type="button"
+                  onClick={() => setDownloadOpen(true)}
                   className="btn btn-secondary"
                   style={{ display: "inline-flex", alignItems: "center" }}
                 >
                   {t("hero.ctaSecondary")}
-                </a>
+                </button>
               </div>
             </Reveal>
           </div>
+
+          <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} />
 
           {/* Flank images grouped so on small screens they can sit side-by-side below the center card */}
           <div className="hero-flanks">

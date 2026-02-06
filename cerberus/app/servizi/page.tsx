@@ -232,7 +232,7 @@ export default function ServiziPage() {
 
         {/* Detailed Service Sections */}
         {services.map((service, index) => (
-          <section key={service.id} className="fade-section" style={{
+          <section key={service.id} id={service.id} className="fade-section" style={{
             paddingTop: "60px",
             paddingBottom: "60px",
             background: index % 2 === 0 ? "transparent" : "rgba(21, 28, 38, 0.5)"
