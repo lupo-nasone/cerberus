@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+export const runtime = "nodejs";
+
 const REQUIRED_ENV = [
   "SMTP_HOST",
   "SMTP_PORT",
