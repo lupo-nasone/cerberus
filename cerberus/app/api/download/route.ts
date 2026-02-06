@@ -117,8 +117,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("Download mail error", error);
+    const detail = error instanceof Error ? error.message : String(error);
     return NextResponse.json(
-      { error: "Impossibile inviare il messaggio" },
+      { error: "Impossibile inviare il messaggio", detail },
       { status: 500 }
     );
   }

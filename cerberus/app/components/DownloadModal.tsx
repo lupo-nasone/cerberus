@@ -39,7 +39,7 @@ export default function DownloadModal({ open, onClose }: DownloadModalProps) {
         let errMsg = `HTTP ${res.status}`;
         try {
           const json = await res.json();
-          errMsg = json.error || errMsg;
+          errMsg = json.detail || json.error || errMsg;
         } catch {
           try { errMsg += " – " + await res.text(); } catch { /* noop */ }
         }

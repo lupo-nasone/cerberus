@@ -94,7 +94,7 @@ export default function ContattiPage() {
         let errMsg = `HTTP ${response.status}`;
         try {
           const data = await response.json();
-          errMsg = data?.error || errMsg;
+          errMsg = data?.detail || data?.error || errMsg;
           if (data?.error === "Missing fields") nextStatus = "missing";
           if (data?.error === "Invalid email") nextStatus = "invalidEmail";
         } catch {

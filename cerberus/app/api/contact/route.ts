@@ -107,8 +107,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("Chat mail error", error);
+    const detail = error instanceof Error ? error.message : String(error);
     return NextResponse.json(
-      { error: "Unable to send message" },
+      { error: "Unable to send message", detail },
       { status: 500 }
     );
   }
