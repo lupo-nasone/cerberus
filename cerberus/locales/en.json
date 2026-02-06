@@ -52,21 +52,21 @@
     "title":"Our services",
     "learnMore":"Discover the service",
     "items":{
-      "scadenziario":{
-        "title":"Scheduling & checks",
-        "desc":"Complete planning of periodic checks, reminders and deadline management for company contacts."
+      "checkup":{
+        "title":"Complete check-up",
+        "desc":"First we understand where you stand, then we decide where to go. We analyse plants, documentation and actual usage to identify issues and priorities."
       },
-      "assistenza":{
-        "title":"Inspection assistance",
-        "desc":"Operational support during inspections, document preparation and communications with authorities."
+      "ispettive":{
+        "title":"Inspection activities",
+        "desc":"Plant inspections with an inspector on your side. Each inspection becomes an opportunity to spot anomalies and translate results into clear information."
       },
-      "consulenza":{
-        "title":"Regulatory consultancy",
-        "desc":"Technical analysis and recommendations for compliance, with reports and action plans."
+      "scadenzario":{
+        "title":"Scheduling & assistance",
+        "desc":"No forgotten deadlines, no inspections faced alone. We manage deadlines, document preparation and support you during inspections."
       },
-      "formazione":{
-        "title":"Training and updates",
-        "desc":"Customized courses for staff and periodic updates on relevant regulatory changes."
+      "adeguamenti":{
+        "title":"Upgrade support",
+        "desc":"From the list of issues to the work done, properly and documented. We act as an independent coordinator between you and the professionals involved."
       }
     }
   },

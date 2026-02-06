@@ -17,43 +17,43 @@ export default function Home() {
 
   const services = [
     {
-      title: t("services.items.scadenziario.title"),
-      desc: t("services.items.scadenziario.desc"),
-      image: "https://images.unsplash.com/photo-1523365280197-f1783db9fe62?auto=format&fit=crop&w=600&q=80",
+      title: t("services.items.checkup.title"),
+      desc: t("services.items.checkup.desc"),
+      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80",
       ctaHref: "/servizi#check-up"
     },
     {
-      title: t("services.items.assistenza.title"),
-      desc: t("services.items.assistenza.desc"),
-      image: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=600&q=80",
+      title: t("services.items.ispettive.title"),
+      desc: t("services.items.ispettive.desc"),
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
       ctaHref: "/servizi#attivita-ispettive"
     },
     {
-      title: t("services.items.consulenza.title"),
-      desc: t("services.items.consulenza.desc"),
-      image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80",
+      title: t("services.items.scadenzario.title"),
+      desc: t("services.items.scadenzario.desc"),
+      image: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=600&q=80",
       ctaHref: "/servizi#scadenzario"
     },
     {
-      title: t("services.items.formazione.title"),
-      desc: t("services.items.formazione.desc"),
-      image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=600&q=80",
+      title: t("services.items.adeguamenti.title"),
+      desc: t("services.items.adeguamenti.desc"),
+      image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=600&q=80",
       ctaHref: "/servizi#adeguamenti"
     }
   ];
 
   const highlightBullets = [
     {
-      title: t("services.items.scadenziario.title"),
-      desc: t("services.items.scadenziario.desc")
+      title: t("services.items.checkup.title"),
+      desc: t("services.items.checkup.desc")
     },
     {
-      title: t("services.items.assistenza.title"),
-      desc: t("services.items.assistenza.desc")
+      title: t("services.items.ispettive.title"),
+      desc: t("services.items.ispettive.desc")
     },
     {
-      title: t("services.items.consulenza.title"),
-      desc: t("services.items.consulenza.desc")
+      title: t("services.items.scadenzario.title"),
+      desc: t("services.items.scadenzario.desc")
     }
   ];
 

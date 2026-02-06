@@ -54,21 +54,21 @@
     "title":"I nostri servizi",
     "learnMore":"Scopri il servizio",
     "items":{
-      "scadenziario":{
-        "title":"Scadenziario e verifiche",
-        "desc":"Pianificazione completa delle verifiche periodiche, promemoria e gestione scadenze per referenti aziendali."
+      "checkup":{
+        "title":"Check-up completo",
+        "desc":"Prima capiamo dove sei, poi decidiamo dove andare. Analizziamo impianti, documentazione e modalità d'uso reali per individuare criticità e priorità."
       },
-      "assistenza":{
-        "title":"Assistenza ispettiva",
-        "desc":"Supporto operativo durante le ispezioni, preparazione documentale e gestione comunicazioni con gli enti."
+      "ispettive":{
+        "title":"Attività ispettive",
+        "desc":"Le verifiche sugli impianti con un ispettore dalla tua parte. Ogni ispezione diventa un'occasione per individuare anomalie e tradurre i risultati in informazioni chiare."
       },
-      "consulenza":{
-        "title":"Consulenza normativa",
-        "desc":"Analisi tecnica e suggerimenti per adeguamento alla normativa vigente, con report e piani di intervento."
+      "scadenzario":{
+        "title":"Scadenzario e assistenza",
+        "desc":"Nessuna scadenza dimenticata, nessuna visita affrontata da solo. Gestiamo scadenze, preparazione documentale e affiancamento durante le visite ispettive."
       },
-      "formazione":{
-        "title":"Formazione e aggiornamenti",
-        "desc":"Corsi personalizzati per il personale e aggiornamenti periodici su cambi normativi rilevanti."
+      "adeguamenti":{
+        "title":"Supporto agli adeguamenti",
+        "desc":"Dalla lista dei problemi al lavoro fatto, bene e documentato. Facciamo da regia indipendente tra te e i professionisti coinvolti."
       }
     }
   },
