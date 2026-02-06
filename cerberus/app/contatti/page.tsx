@@ -27,6 +27,7 @@ export default function ContattiPage() {
   const { t } = useLocale();
   const [formValues, setFormValues] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<FormStatus>("idle");
+  const [serverError, setServerError] = useState("");
 
   const statusMessageKey = (() => {
     switch (status) {
@@ -79,6 +80,7 @@ export default function ContattiPage() {
     }
 
     setStatus("sending");
+    setServerError("");
 
     try {
       const response = await fetch("/api/contact", {
@@ -89,13 +91,17 @@ export default function ContattiPage() {
 
       if (!response.ok) {
         let nextStatus: FormStatus = "error";
+        let errMsg = `HTTP ${response.status}`;
         try {
           const data = await response.json();
+          errMsg = data?.error || errMsg;
           if (data?.error === "Missing fields") nextStatus = "missing";
           if (data?.error === "Invalid email") nextStatus = "invalidEmail";
         } catch {
           // ignore JSON parse issues and fall back to generic error
+          try { errMsg = await response.text(); } catch { /* noop */ }
         }
+        setServerError(errMsg);
         setStatus(nextStatus);
         return;
       }
@@ -104,6 +110,7 @@ export default function ContattiPage() {
       setStatus("success");
     } catch (error) {
       console.error("Contact form submission error", error);
+      setServerError(error instanceof Error ? error.message : String(error));
       setStatus("error");
     }
   }
@@ -135,6 +142,11 @@ export default function ContattiPage() {
                   }}
                 >
                   {t(statusMessageKey)}
+                  {serverError && (
+                    <div style={{ marginTop: 6, fontSize: 12, opacity: 0.85 }}>
+                      Dettaglio: {serverError}
+                    </div>
+                  )}
                 </div>
               )}
 

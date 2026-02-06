@@ -36,8 +36,14 @@ export default function DownloadModal({ open, onClose }: DownloadModalProps) {
       });
 
       if (!res.ok) {
-        const json = await res.json().catch(() => ({}));
-        throw new Error(json.error || "Errore durante l'invio");
+        let errMsg = `HTTP ${res.status}`;
+        try {
+          const json = await res.json();
+          errMsg = json.error || errMsg;
+        } catch {
+          try { errMsg += " – " + await res.text(); } catch { /* noop */ }
+        }
+        throw new Error(errMsg);
       }
 
       // Avvia il download
